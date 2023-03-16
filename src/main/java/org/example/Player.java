@@ -1,6 +1,5 @@
 package org.example;
 
-
 import processing.core.*;
 
 public class Player extends Sprite {
@@ -8,22 +7,92 @@ public class Player extends Sprite {
   private int cooldown; // frames left until the next shot can be fired
   private int score; // current score
   
-  public Player(PApplet p, PVector position, PImage image, int size, int lives) {
-    super(p, position, new PVector(0, 0), image, size);
+  private boolean moving = false; // Is player moving?
+  
+  public void setMoving(boolean moving) {
+    this.moving = moving;
+  }
+  
+  public Player(PApplet p, PVector position, PVector velocity, int size, int lives) {
+    super(p, position, velocity, size);
     this.lives = lives;
     this.cooldown = 0;
     this.score = 0;
+    //this.playerImage = playerImage;
   }
   
-  public void move(float dx, float dy) {
-    // move the player by a given amount
-    position.add(dx, dy);
-    checkEdges();
-  }
-  
+  @Override
   public void draw() {
-    display();
+    // Set the fill color to green
+    p.fill(0, 255, 0);
+    
+    // Save the current transform matrix
+    p.pushMatrix();
+    
+    // Translate to the player's position
+    p.translate(position.x, position.y);
+    
+    // Draw the inverted triangle
+    p.triangle(0, -size/2, size/2, size/2, -size/2, size/2);
+    
+    // Restore the previous transform matrix
+    p.popMatrix();
   }
+  
+  public void display() {
+    p.imageMode(PConstants.CENTER);
+  }
+  
+  public void update() {
+    if (moving) {
+      // move the player if it is currently moving
+      position.add(velocity);
+      checkEdges();
+    }
+    if (cooldown > 0) {
+      cooldown--;
+    }
+  }
+  
+  public void move(char direction, boolean move) {
+    float speed = 5.0f; // adjust as needed
+    
+    if (move) {
+      switch (direction) {
+        case 'w':
+          velocity.y = -speed;
+          break;
+        case 'a':
+          velocity.x = -speed;
+          break;
+        case 's':
+          velocity.y = speed;
+          break;
+        case 'd':
+          velocity.x = speed;
+          break;
+        default:
+          // do nothing for other characters
+          break;
+      }
+    } else {
+      // stop the player's movement in the corresponding direction
+      switch (direction) {
+        case 'w':
+        case 's':
+          velocity.y = 0;
+          break;
+        case 'a':
+        case 'd':
+          velocity.x = 0;
+          break;
+        default:
+          // do nothing for other characters
+          break;
+      }
+    }
+  }
+  
   
   public void powerup() {
     // do nothing for now
