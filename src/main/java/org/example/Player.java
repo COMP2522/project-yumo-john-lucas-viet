@@ -2,7 +2,11 @@ package org.example;
 
 import processing.core.*;
 
-public class Player extends Sprite {
+/**
+ * My github branch
+ * Player-BasicFunctions-JT
+ */
+public class Player extends Sprite implements Drawable, CollisionDetection {
   private int lives; // number of lives left
   private int cooldown; // frames left until the next shot can be fired
   private int score; // current score
@@ -111,8 +115,28 @@ public class Player extends Sprite {
    }
    }
    */
+
+  @Override
+  public void checkEdges(int screenWidth, int screenHeight) {
+    // calculate the half-width and half-height of the triangle
+    float halfWidth = size / 2.0f;
+    float halfHeight = (float) (size * Math.sqrt(3) / 2.0) / 2.0f;
   
-  public void collisions() {
-    // do nothing for now
+    // restrict movement if the sprite goes off the edge
+    if (position.x - halfWidth < 0) {
+      position.x = halfWidth;
+    } else if (position.x + halfWidth > screenWidth) {
+      position.x = screenWidth - halfWidth;
+    }
+    if (position.y - halfHeight < 0) {
+      position.y = halfHeight;
+    } else if (position.y + halfHeight > screenHeight) {
+      position.y = screenHeight - halfHeight;
+    }
+  }
+  
+  @Override
+  public boolean collidesWith(Sprite other){
+    return false;
   }
 }
