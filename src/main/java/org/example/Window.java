@@ -7,7 +7,6 @@ public class Window extends PApplet {
   
   private Player player;
   
-  
   public void settings() {
     size(800, 600); // set the size of the window
   }

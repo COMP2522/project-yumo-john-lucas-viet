@@ -20,22 +20,30 @@ public abstract class Sprite implements Drawable {
   
   public void update() {
     position.add(velocity);
-    checkEdges();
+    /**
+     * Change checkEdges args if screen size is changed
+     */
+    checkEdges(800, 600);
   }
   
-  public void checkEdges() {
-    // wrap around the screen if the sprite goes off the edge
-    if (position.x > p.width + size/2) {
-      position.x = -size/2;
-    } else if (position.x < -size/2) {
-      position.x = p.width + size/2;
+  public void checkEdges(int screenWidth, int screenHeight) {
+    // calculate the half-width and half-height of the triangle
+    float halfWidth = size / 2.0f;
+    float halfHeight = (float) (size * Math.sqrt(3) / 2.0) / 2.0f;
+    
+    // restrict movement if the sprite goes off the edge
+    if (position.x - halfWidth < 0) {
+      position.x = halfWidth;
+    } else if (position.x + halfWidth > screenWidth) {
+      position.x = screenWidth - halfWidth;
     }
-    if (position.y > p.height + size/2) {
-      position.y = -size/2;
-    } else if (position.y < -size/2) {
-      position.y = p.height + size/2;
+    if (position.y - halfHeight < 0) {
+      position.y = halfHeight;
+    } else if (position.y + halfHeight > screenHeight) {
+      position.y = screenHeight - halfHeight;
     }
   }
+  
   
   public boolean collidesWith(Sprite other) {
     float d = PVector.dist(position, other.position);

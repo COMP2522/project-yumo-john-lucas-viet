@@ -6,7 +6,6 @@ public class Player extends Sprite {
   private int lives; // number of lives left
   private int cooldown; // frames left until the next shot can be fired
   private int score; // current score
-  
   private boolean moving = false; // Is player moving?
   
   public void setMoving(boolean moving) {
@@ -47,7 +46,7 @@ public class Player extends Sprite {
     if (moving) {
       // move the player if it is currently moving
       position.add(velocity);
-      checkEdges();
+      checkEdges(800, 600);
     }
     if (cooldown > 0) {
       cooldown--;
