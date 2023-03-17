@@ -23,7 +23,7 @@ public class Window extends PApplet {
     background(0); // set the background color of the window
     
     // update and draw game objects here
-    player.display();
+    
     player.update(); // update player position
     player.draw(); // draw player object
   }
@@ -56,6 +56,10 @@ public class Window extends PApplet {
         // do nothing for other keys
         break;
     }
+  }
+  
+  public void save(){
+    player.savePlayerInfo();
   }
   
   public static void main(String[] args) {
