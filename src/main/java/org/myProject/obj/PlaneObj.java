@@ -2,9 +2,14 @@ package org.myProject.obj;
 
 import org.myProject.GameWin;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Player-BasicFunctions-JT
@@ -19,17 +24,47 @@ public class PlaneObj extends GameObj {
   
   private int maxLives = 3;
   
-  //Getters for health and lives
-  public int getHealth(){
+  private static int invincibleTimer = 0;
+  
+  private boolean invincible = false;
+  
+  public static final int STARTX = 290;
+  
+  public static final int STARTY = 550;
+  
+  //Getters and Setters
+  
+  
+  public int getHealth() {
     return health;
   }
   
-  public int getLive(){
+  public void setHealth(int health) {
+    this.health = health;
+  }
+  
+  public int getLives() {
     return lives;
   }
   
-  public int getMaxLives(){
+  public void setLives(int lives) {
+    this.lives = lives;
+  }
+  
+  public int getMaxLives() {
     return maxLives;
+  }
+  
+  public void setMaxLives(int maxLives) {
+    this.maxLives = maxLives;
+  }
+  
+  public static int getInvincibleTimer() {
+    return invincibleTimer;
+  }
+  
+  public static void setInvincibleTimer(int invincibleTimer) {
+    PlaneObj.invincibleTimer = invincibleTimer;
   }
   
   @Override
@@ -114,12 +149,65 @@ public class PlaneObj extends GameObj {
   }
   
   public void takeDamage(int dmg){
+    if (invincible) {
+      return; // if invincible, do not take damage
+    }
     health -= dmg;
     if (health <= 0){
-      lives--;
+      explode();
+      respawn();
     }
     if (lives <= 0){
-      gameWin.state = 2;
+      gameWin.state = 3;
+    }
+  }
+  
+  public void explode(){
+    try {
+      // Load all explosion gifs
+      Image[] explosionGifs = new Image[16];
+      for (int i = 1; i <= 16; i++) {
+        explosionGifs[i - 1] = ImageIO.read(new File("explode/e" + i + ".gif"));
+      }
+      // Draw current explosion gif at PlaneObj's location
+      int currentExplosionIndex = 0; // Update this variable to change which explosion frame is shown
+      Graphics gImage = this.frame.getGraphics(); // Get the graphics object of the frame
+      gImage.drawImage(explosionGifs[currentExplosionIndex], this.x, this.y, null); // Draw the explosion gif
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  public void respawn() {
+    health = 1;
+    lives--;
+    if (lives >= 0) {
+      this.x = STARTX;
+      this.y = STARTY;
+      this.health = 1;
+      this.invincible = true; // set invincibility to true
+      invincibleTimer = 0;
+  
+      /**
+       * Sets a Timer for 3 seconds to turn off the invicibility flag
+       */
+      Timer timer = new Timer();
+      TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+          invincible = false;
+        }
+      }
+      timer.schedule(task, 3000);
+    }
+      
+      // Reset mouse cursor to player position
+      try {
+        Robot robot = new Robot();
+        robot.mouseMove(this.STARTX, this.STARTY);
+      } catch (AWTException e) {
+        e.printStackTrace();
+      }
     }
   }
 }

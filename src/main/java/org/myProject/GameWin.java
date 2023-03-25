@@ -124,7 +124,7 @@ public class GameWin extends JFrame {
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
         //game over
-        if(state==3) {
+        if(state ==3) {
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
             GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
 
