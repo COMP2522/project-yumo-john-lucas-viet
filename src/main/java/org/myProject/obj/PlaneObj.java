@@ -197,7 +197,7 @@ public class PlaneObj extends GameObj {
         public void run() {
           invincible = false;
         }
-      }
+      };
       timer.schedule(task, 3000);
     }
       
