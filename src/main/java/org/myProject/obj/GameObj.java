@@ -5,7 +5,7 @@ import org.myProject.GameWin;
 import java.awt.*;
 //Writing the parent class of the game class
 
-public abstract class GameObj{
+public class GameObj {
     Image img;
     int x;
     int y;
@@ -74,6 +74,7 @@ public abstract class GameObj{
     public void setFrame(GameWin frame) {
         this.frame = frame;
     }
+
     //Parameterized and no-argument constructors
     public GameObj() {
     }
@@ -94,21 +95,17 @@ public abstract class GameObj{
         this.speed = speed;
         this.frame = frame;
     }
+
     //draw itself
-    public void paintself(Graphics gImage){
-        gImage.drawImage(img,x,y,null);
+    public void paintself(Graphics gImage) {
+        gImage.drawImage(img, x, y, null);
     }
+
     //The method of drawing a rectangle is used for collision detection
-    public Rectangle getrect(){
-        return new Rectangle(x,y,width,height);
+    public Rectangle getrect() {
+        return new Rectangle(x, y, width, height);
     }
-
-    //ly
-    public abstract void move();
-
-    //ly
-    public abstract Rectangle getRectangle();
-
-    //ly
-    public abstract void collide(GameObj obj);
 }
+
+
+

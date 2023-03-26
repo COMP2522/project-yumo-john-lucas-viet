@@ -25,17 +25,17 @@ public class PowerUpsObj extends GameObj {
     g.drawImage(powerUpImg, getX(), getY(), null);
   }
 
-  @Override
+
   public void move() {
     setY((int) (getY() + getSpeed()));
   }
 
-  @Override
+
   public Rectangle getRectangle() {
     return new Rectangle(getX(), getY(), powerUpWidth, powerUpHeight);
   }
 
-  @Override
+
   public void collide(GameObj obj) {
     if (obj instanceof PlaneObj) {
       // add power-up effect here
@@ -45,7 +45,7 @@ public class PowerUpsObj extends GameObj {
 
 
   public static void spawnPowerUp(GameWin gameWin) {
-    if (Math.random() < 0.02) { // 2% chance to spawn a power-up
+    if (Math.random() < 0.5) { // 50% chance to spawn a power-up
       int x = (int) (Math.random() * (gameWin.getWidth() - GameUtils.powerups.getWidth(null)));
       PowerUpsObj powerUpObj = new PowerUpsObj(GameUtils.powerups, x, -GameUtils.powerups.getHeight(null),
               GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),

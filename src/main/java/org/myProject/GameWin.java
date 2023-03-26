@@ -6,11 +6,10 @@ import org.myProject.utils.GameUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
+
+import static org.myProject.utils.GameUtils.bulletimg;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -24,12 +23,22 @@ public class GameWin extends JFrame {
     int count=1;
     //The number of enemy aircraft present
     int enemyCount=0;
+
+    //ly
+    private final int BULLET_SPEED = 10;
+    private final int BULLET_DELAY = 100; // Time between bullet shots, in milliseconds
+
+    private Timer bulletTimer;
+
+
     
     //PlaneObj (Player)
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
 
 
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
+
+
 
 
     public void addGameObject(GameObj gameObject) {

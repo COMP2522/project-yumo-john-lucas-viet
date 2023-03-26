@@ -34,6 +34,8 @@ public class PlaneObj extends GameObj {
   public static final int STARTX = 290;
   
   public static final int STARTY = 550;
+
+
   
   //Getters and Setters
   
@@ -156,20 +158,7 @@ public class PlaneObj extends GameObj {
     return super.getrect();
   }
 
-  @Override
-  public void move() {
 
-  }
-
-  @Override
-  public Rectangle getRectangle() {
-    return null;
-  }
-
-  @Override
-  public void collide(GameObj obj) {
-
-  }
 
 
   public boolean collidesWith(GameObj otherObj){
