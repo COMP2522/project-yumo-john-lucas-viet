@@ -222,7 +222,9 @@ public class PlaneObj extends GameObj {
       };
       timer.schedule(task, 3000);
     }
+  }
   
-    
+  public void shoot(){
+  
   }
 }
