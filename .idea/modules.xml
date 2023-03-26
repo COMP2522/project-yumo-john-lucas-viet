@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/project-yumo-john-lucas-viet.iml" filepath="$PROJECT_DIR$/project-yumo-john-lucas-viet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaGalaga.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaGalaga.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaGalaga.main.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaGalaga.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaGalaga.test.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaGalaga.test.iml" />
     </modules>
   </component>
 </project>
