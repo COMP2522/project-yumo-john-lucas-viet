@@ -3,6 +3,8 @@ package org.myProject.obj;
 import org.myProject.GameWin;
 
 import java.awt.*;
+//import processing.core.PApplet;
+//import processing.core.PImage;
 //Writing the parent class of the game class
 public class GameObj {
     Image img;
