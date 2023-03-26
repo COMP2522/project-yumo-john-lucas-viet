@@ -92,19 +92,22 @@ public class PlaneObj extends GameObj {
   
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
+    drawHealthUI(gImage);
+    
+   //Add Collisions method here
+  }
   
-    // Draw health bar
+  public void drawHealthUI(Graphics gImage) {
     int barWidth = 150;
     int barHeight = 15;
     int barX = 10; // Left margin
     int barY = this.frame.getHeight() - barHeight - 10; // Bottom margin
-  
+    
     gImage.setColor(Color.WHITE);
     gImage.drawRect(barX, barY, barWidth, barHeight);
-
-// Calculate health percent and fill health bar
+    
     double healthPercent = (double) this.health / 1.0;
-  
+    
     if (healthPercent >= 0.7) {
       gImage.setColor(Color.GREEN);
     } else if (healthPercent >= 0.3) {
@@ -112,35 +115,26 @@ public class PlaneObj extends GameObj {
     } else {
       gImage.setColor(Color.RED);
     }
-  
+    
     int healthBarWidth = (int) (barWidth * healthPercent);
-  
+    
     gImage.fillRect(barX, barY, healthBarWidth, barHeight);
-
-// Draw player sprites for number of lives
+  
+    drawPlayerSprites((Graphics2D) gImage, barX, barY);
+  }
+  
+  public void drawPlayerSprites(Graphics2D gImage, int barX, int barY) {
     Image playerImage = this.img; // Gets the image of the PlaneObj Sprite
     int playerWidth = playerImage.getWidth(null);
     int playerHeight = playerImage.getHeight(null);
     int livesX = barX; // distance between player sprites and health bar
     int livesY = barY - 20;
-  
+    
     for (int i = 0; i < this.lives; i++) {
       gImage.drawImage(playerImage, livesX + i * (playerWidth / 2 + 5), livesY, playerWidth / 2, playerHeight / 2, null);
     }
-  
-  
-    // Check for collision with boss
-    /** No boss yet
-     if (this.frame.bossobj != null && this.getrect().intersects(this.frame.bossobj.getrect())) {
-     // Take damage
-     this.lives--;
- 
-     if (this.lives <= 0) {
-     this.gameWin.state = 4;
-     }
-     }
-     */
   }
+  
   
   
   @Override
@@ -148,19 +142,25 @@ public class PlaneObj extends GameObj {
     return super.getrect();
   }
   
-  public void takeDamage(int dmg) {
-    if (invincible) {
-      return; // if invincible, do not take damage
-    }
-    health -= dmg;
-    if (health <= 0) {
-      explode();
-      respawn();
-    }
-    if (lives <= 0) {
-      gameWin.state = 3;
-    }
+  public boolean collidesWith(GameObj otherObj){
+    Rectangle rect1 = this.getrect();
+    Rectangle rect2 = otherObj.getrect();
+    return rect1.intersects(rect2);
   }
+  
+  public void takeDamage(int dmg) {
+      if (invincible) {
+        return; // if invincible, do not take damage
+      }
+      health -= dmg;
+      if (health <= 0) {
+        explode();
+        respawn();
+      }
+      if (lives <= 0) {
+        gameWin.state = 3;
+      }
+    }
   
   public void explode() {
     try {
