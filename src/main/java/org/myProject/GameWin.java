@@ -23,13 +23,19 @@ public class GameWin extends JFrame {
     int count=1;
     //The number of enemy aircraft present
     int enemyCount=0;
+    
+    //PlaneObj (Player)
+    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
 
     //Movement of the background image
+    /**
     BgObj bgobj=new BgObj(GameUtils.bgimg,0,-400,2);
-    //object of our aircraft
-    public PlaneObj planeobj =new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
+     */
     //boss
+    /**
     public BossObj bossobj =null;
+     */
+     
     public void launch(){
         //Set whether the window is visible
         this.setVisible(true);
@@ -37,10 +43,12 @@ public class GameWin extends JFrame {
         this.setSize(width,height);
         //set window position
         this.setLocationRelativeTo(null);
+        
         //set window title
         this.setTitle("comp2522-Project");
-
+        /**
         GameUtils.gameObjList.add(bgobj);
+         */
         GameUtils.gameObjList.add(planeobj);
 
         //Mouse click
@@ -107,7 +115,9 @@ public class GameWin extends JFrame {
         }
         //Games start
         if(state==1){
+            /**
             GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
+             */
 
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
                 GameUtils.gameObjList.get(i).paintself(gimage);
@@ -115,15 +125,17 @@ public class GameWin extends JFrame {
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
         //game over
-        if(state==3) {
+        if(state ==3) {
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
             GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
 
         }
         //Game Win
         if(state==4) {
+            /**
             gimage.drawImage(GameUtils.explodeimg, bossobj.getX() + 35, bossobj.getY() + 50, null);
             GameUtils.drawWord(gimage, " Game Win", Color.red, 40, 180, 300);
+             */
         }
         GameUtils.drawWord(gimage,score+"SCORE",Color.green,40,30,100);
         //Draw the new picture to the main window at once
@@ -133,6 +145,8 @@ public class GameWin extends JFrame {
     //The creation method is used to generate bullets and enemy planes in batches
      void create(){
         //Our bullets are divided by 10 to control the velocity of the bullets
+        
+         /**
         if(count%10==0){
             GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
             GameUtils.gameObjList.add(GameUtils.shellObjList.get(GameUtils.shellObjList.size()-1));
@@ -153,6 +167,8 @@ public class GameWin extends JFrame {
              bossobj=new BossObj(GameUtils.bossimg,250,20,155,100,5,this);
              GameUtils.gameObjList.add(bossobj);
          }
+          */
+          
     }
 
     public static void main(String[] args) {
