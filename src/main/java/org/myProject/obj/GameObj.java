@@ -4,6 +4,7 @@ import org.myProject.GameWin;
 
 import java.awt.*;
 //Writing the parent class of the game class
+
 public class GameObj{
     Image img;
     int x;

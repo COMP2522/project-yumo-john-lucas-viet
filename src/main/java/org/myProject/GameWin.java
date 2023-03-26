@@ -35,6 +35,7 @@ public class GameWin extends JFrame {
     /**
     public BossObj bossobj =null;
      */
+     
     public void launch(){
         //Set whether the window is visible
         this.setVisible(true);
@@ -144,6 +145,7 @@ public class GameWin extends JFrame {
     //The creation method is used to generate bullets and enemy planes in batches
      void create(){
         //Our bullets are divided by 10 to control the velocity of the bullets
+        
          /**
         if(count%10==0){
             GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
@@ -166,6 +168,7 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
+          
     }
 
     public static void main(String[] args) {

@@ -28,6 +28,7 @@ public class GameUtils {
     public static List<GameObj> gameObjList =new ArrayList<>();
     //our bullets
     /**
+
     public static List<ShellObj> shellObjList =new ArrayList<>();
     //enemies
     public static List<EnemyObj> enemyObjList =new ArrayList<>();
@@ -36,6 +37,7 @@ public class GameUtils {
     //explode
     public static List<ExplodeObj> explodeObjList =new ArrayList<>();
      */
+
     //Tool class for drawing strings
     public static  void drawWord(Graphics gImage,String str,Color color,int size,int x,int y){
         gImage.setColor(color);
