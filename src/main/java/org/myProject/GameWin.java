@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -26,6 +27,18 @@ public class GameWin extends JFrame {
     
     //PlaneObj (Player)
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
+
+
+    public static ArrayList<GameObj> gameObjects = new ArrayList<>();
+
+
+    public void addGameObject(GameObj gameObject) {
+        gameObjects.add(gameObject);
+    }
+
+    public void removeGameObject(GameObj gameObject) {
+        gameObjects.remove(gameObject);
+    }
 
     //Movement of the background image
     /**
@@ -168,8 +181,9 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
-          
-    }
+         PowerUpsObj.spawnPowerUp(this);
+
+     }
 
     public static void main(String[] args) {
         GameWin Gamewin=new GameWin();

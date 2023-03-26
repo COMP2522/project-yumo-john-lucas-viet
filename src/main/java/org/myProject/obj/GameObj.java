@@ -5,7 +5,7 @@ import org.myProject.GameWin;
 import java.awt.*;
 //Writing the parent class of the game class
 
-public class GameObj{
+public abstract class GameObj{
     Image img;
     int x;
     int y;
@@ -102,4 +102,13 @@ public class GameObj{
     public Rectangle getrect(){
         return new Rectangle(x,y,width,height);
     }
+
+    //ly
+    public abstract void move();
+
+    //ly
+    public abstract Rectangle getRectangle();
+
+    //ly
+    public abstract void collide(GameObj obj);
 }

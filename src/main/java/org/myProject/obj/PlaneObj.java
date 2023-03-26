@@ -155,7 +155,23 @@ public class PlaneObj extends GameObj {
   public Rectangle getrect() {
     return super.getrect();
   }
-  
+
+  @Override
+  public void move() {
+
+  }
+
+  @Override
+  public Rectangle getRectangle() {
+    return null;
+  }
+
+  @Override
+  public void collide(GameObj obj) {
+
+  }
+
+
   public boolean collidesWith(GameObj otherObj){
     Rectangle rect1 = this.getrect();
     Rectangle rect2 = otherObj.getrect();
