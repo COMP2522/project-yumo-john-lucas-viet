@@ -1,6 +1,7 @@
 package org.myProject.obj;
 
 import org.myProject.GameWin;
+import org.myProject.utils.GameUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -93,6 +96,7 @@ public class PlaneObj extends GameObj {
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
     drawHealthUI(gImage);
+    checkCollision();
     
    //Add Collisions method here
   }
@@ -120,10 +124,10 @@ public class PlaneObj extends GameObj {
     
     gImage.fillRect(barX, barY, healthBarWidth, barHeight);
   
-    drawPlayerSprites((Graphics2D) gImage, barX, barY);
+    drawLives((Graphics2D) gImage, barX, barY);
   }
   
-  public void drawPlayerSprites(Graphics2D gImage, int barX, int barY) {
+  public void drawLives(Graphics2D gImage, int barX, int barY) {
     Image playerImage = this.img; // Gets the image of the PlaneObj Sprite
     int playerWidth = playerImage.getWidth(null);
     int playerHeight = playerImage.getHeight(null);
@@ -135,7 +139,17 @@ public class PlaneObj extends GameObj {
     }
   }
   
-  
+  public void checkCollision(){
+    List<GameObj> gameObjList = GameUtils.gameObjList;
+    for (GameObj obj : gameObjList) {
+      if (this.collidesWith(obj)) {
+        /**
+        takeDamage(obj.getDamage());
+         */
+        break;
+      }
+    }
+  }
   
   @Override
   public Rectangle getrect() {
@@ -188,6 +202,14 @@ public class PlaneObj extends GameObj {
       this.invincible = true; // set invincibility to true
       invincibleTimer = 0;
   
+      // Reset mouse cursor to player position
+      try {
+        Robot robot = new Robot();
+        robot.mouseMove(this.STARTX, this.STARTY);
+      } catch (AWTException e) {
+        e.printStackTrace();
+      }
+  
       /**
        * Sets a Timer for 3 seconds to turn off the invicibility flag
        */
@@ -201,12 +223,6 @@ public class PlaneObj extends GameObj {
       timer.schedule(task, 3000);
     }
   
-    // Reset mouse cursor to player position
-    try {
-      Robot robot = new Robot();
-      robot.mouseMove(this.STARTX, this.STARTY);
-    } catch (AWTException e) {
-      e.printStackTrace();
-    }
+    
   }
 }
