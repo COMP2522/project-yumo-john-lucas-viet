@@ -71,6 +71,7 @@ public class PlaneObj extends GameObj {
   public Image getImg() {
     return super.getImg();
   }
+  
   public GameWin gameWin;
   
   public PlaneObj() {
@@ -83,8 +84,8 @@ public class PlaneObj extends GameObj {
     this.frame.addMouseMotionListener(new MouseAdapter() {
       @Override
       public void mouseMoved(MouseEvent e) {
-        PlaneObj.super.x=e.getX()-11;
-        PlaneObj.super.y=e.getY()-16;
+        PlaneObj.super.x = e.getX() - 11;
+        PlaneObj.super.y = e.getY() - 16;
       }
     });
   }
@@ -128,17 +129,16 @@ public class PlaneObj extends GameObj {
     }
   
   
-  
     // Check for collision with boss
     /** No boss yet
-    if (this.frame.bossobj != null && this.getrect().intersects(this.frame.bossobj.getrect())) {
-      // Take damage
-      this.lives--;
-      
-      if (this.lives <= 0) {
-        this.gameWin.state = 4;
-      }
-    }
+     if (this.frame.bossobj != null && this.getrect().intersects(this.frame.bossobj.getrect())) {
+     // Take damage
+     this.lives--;
+ 
+     if (this.lives <= 0) {
+     this.gameWin.state = 4;
+     }
+     }
      */
   }
   
@@ -148,21 +148,21 @@ public class PlaneObj extends GameObj {
     return super.getrect();
   }
   
-  public void takeDamage(int dmg){
+  public void takeDamage(int dmg) {
     if (invincible) {
       return; // if invincible, do not take damage
     }
     health -= dmg;
-    if (health <= 0){
+    if (health <= 0) {
       explode();
       respawn();
     }
-    if (lives <= 0){
+    if (lives <= 0) {
       gameWin.state = 3;
     }
   }
   
-  public void explode(){
+  public void explode() {
     try {
       // Load all explosion gifs
       Image[] explosionGifs = new Image[16];
@@ -200,14 +200,13 @@ public class PlaneObj extends GameObj {
       };
       timer.schedule(task, 3000);
     }
-      
-      // Reset mouse cursor to player position
-      try {
-        Robot robot = new Robot();
-        robot.mouseMove(this.STARTX, this.STARTY);
-      } catch (AWTException e) {
-        e.printStackTrace();
-      }
+  
+    // Reset mouse cursor to player position
+    try {
+      Robot robot = new Robot();
+      robot.mouseMove(this.STARTX, this.STARTY);
+    } catch (AWTException e) {
+      e.printStackTrace();
     }
   }
 }
