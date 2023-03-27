@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaGalaga.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaGalaga.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaGalaga.main.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaGalaga.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaGalaga.test.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaGalaga.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/comp2522Project.iml" filepath="$PROJECT_DIR$/.idea/modules/comp2522Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/comp2522Project.main.iml" filepath="$PROJECT_DIR$/.idea/modules/comp2522Project.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/comp2522Project.test.iml" filepath="$PROJECT_DIR$/.idea/modules/comp2522Project.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.main.iml" filepath="$PROJECT_DIR$/.idea/modules/main.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.test.iml" filepath="$PROJECT_DIR$/.idea/modules/main.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/src.main.iml" filepath="$PROJECT_DIR$/.idea/modules/src.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/src.test.iml" filepath="$PROJECT_DIR$/.idea/modules/src.test.iml" />
     </modules>
   </component>
 </project>
