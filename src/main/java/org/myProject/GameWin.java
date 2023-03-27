@@ -196,10 +196,14 @@ public class GameWin extends JFrame {
             /**
             GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
+            PowerUpsObj.spawnPowerUp(this);
+
 
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
                 GameUtils.gameObjList.get(i).paintself(gimage);
             }
+
+
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
         //game over
@@ -248,14 +252,14 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
-         //temp
-         PowerUpsObj.spawnPowerUp(this);
-         startPowerUpTimer();
-         // spawn power-ups every 5 seconds
-         if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
-             PowerUpsObj.spawnPowerUp(this);
-             lastPowerUpSpawnTime = System.currentTimeMillis();
-         }
+//         //temp
+//         PowerUpsObj.spawnPowerUp(this);
+//         startPowerUpTimer();
+//         // spawn power-ups every 5 seconds
+//         if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
+//             PowerUpsObj.spawnPowerUp(this);
+//             lastPowerUpSpawnTime = System.currentTimeMillis();
+//         }
 
 
 
