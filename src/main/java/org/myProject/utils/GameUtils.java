@@ -30,7 +30,7 @@ public class GameUtils {
 
     public static List<BulletObj> bulletObjList =new ArrayList<>();
     //enemies
-    /**
+
     public static List<EnemyObj> enemyObjList =new ArrayList<>();
     //boss bullets
     public static List<ShellObj> shellObjList =new ArrayList<>();

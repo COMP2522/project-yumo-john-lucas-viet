@@ -235,14 +235,39 @@ public class GameWin extends JFrame {
             GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
             GameUtils.gameObjList.add(GameUtils.shellObjList.get(GameUtils.shellObjList.size()-1));
         }
-        //enemy fighter
-        if(count%15==0){
-            GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg,(int)(Math.random()*12)*50,0,50,50,5,this));
-            GameUtils.gameObjList.add(GameUtils.enemyObjList.get(GameUtils.enemyObjList.size()-1));
-            enemyCount++;
-        }
+          /*enemy fighter
+          The first if statement set each enemy to be 35 away from each other horizontally.
+          And add them into enemyObj list and then add them into gameObj list.
+          The total number of enemy on screen is 12. This could be change base
+          on the game progress.
+          The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
+          Intend to make a formation. There will be different formation in the future update.
+          */
+         if (enemyCount < 12) {
+             int x = 32;
+             for (int i = 0; i < 12; i++) {
+                 GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
+                 x += 45;
+                 enemyCount++;
+                 if (enemyCount == 12) {
+                     break;
+                 }
+             }
+             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
+         }
+
+         int y = 0;
+         for (EnemyObj enemy: GameUtils.enemyObjList) {
+             if (y < 4 || y >= 8) {
+                 enemy.moveDown(200);
+             } else {
+                 enemy.moveDown(100);
+             }
+             y++;
+         }
         //enemy boss bullet
          //Bullets are not spawned until the boss appears
+         /*
          if(count%15==0 && bossobj !=null){
              GameUtils.bulletObjList.add(new BulletObj(GameUtils.bulletimg,bossobj.getX()+75,bossobj.getY()+80,15,25,5,this));
              GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
