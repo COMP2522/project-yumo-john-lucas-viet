@@ -8,14 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Timer;
 
 import static org.myProject.utils.GameUtils.bulletimg;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
     public static int state=0;//The default state of the game
-    //COUNTING SCORE
-    public static  int score=0;
     Image offSreenimage=null;
     int width=600;
     int height=600;
@@ -27,7 +26,6 @@ public class GameWin extends JFrame {
     //ly
     private final int BULLET_SPEED = 10;
     private final int BULLET_DELAY = 100; // Time between bullet shots, in milliseconds
-
     private Timer bulletTimer;
 
 
@@ -35,11 +33,7 @@ public class GameWin extends JFrame {
     //PlaneObj (Player)
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
 
-
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
-
-
-
 
     public void addGameObject(GameObj gameObject) {
         gameObjects.add(gameObject);
@@ -159,15 +153,12 @@ public class GameWin extends JFrame {
             GameUtils.drawWord(gimage, " Game Win", Color.red, 40, 180, 300);
              */
         }
-        GameUtils.drawWord(gimage,score+"SCORE",Color.green,40,30,100);
         //Draw the new picture to the main window at once
         g.drawImage(offSreenimage,0,0,null);
         count++;
     }
     //The creation method is used to generate bullets and enemy planes in batches
      void create(){
-        //Our bullets are divided by 10 to control the velocity of the bullets
-        
          /**
         if(count%10==0){
             GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
