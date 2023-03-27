@@ -6,6 +6,7 @@ import java.awt.*;
 //import processing.core.PApplet;
 //import processing.core.PImage;
 //Writing the parent class of the game class
+
 public class GameObj {
     Image img;
     int x;
@@ -75,6 +76,7 @@ public class GameObj {
     public void setFrame(GameWin frame) {
         this.frame = frame;
     }
+
     //Parameterized and no-argument constructors
     public GameObj() {
     }
@@ -95,12 +97,17 @@ public class GameObj {
         this.speed = speed;
         this.frame = frame;
     }
+
     //draw itself
-    public void paintself(Graphics gImage){
-        gImage.drawImage(img,x,y,null);
+    public void paintself(Graphics gImage) {
+        gImage.drawImage(img, x, y, null);
     }
+
     //The method of drawing a rectangle is used for collision detection
-    public Rectangle getrect(){
-        return new Rectangle(x,y,width,height);
+    public Rectangle getrect() {
+        return new Rectangle(x, y, width, height);
     }
 }
+
+
+
