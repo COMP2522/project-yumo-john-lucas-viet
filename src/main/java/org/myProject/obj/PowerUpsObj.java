@@ -57,8 +57,13 @@ public class PowerUpsObj extends GameObj {
       gameWin.addGameObject(powerUpObj);
       GameUtils.gameObjList.add(powerUpObj); // add power-up object to the game object list
 
+
     }
   }
+
+
+
+
 
 
 
