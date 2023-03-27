@@ -26,6 +26,9 @@ public class PlaneObj extends GameObj {
   private int maxLives = 3;
   private static int invincibleTimer = 0;
   private boolean invincible = false;
+  private int fireRate = 10;
+  
+  private int fireType = 1;
   
   public static final int STARTX = 290;
   public static final int STARTY = 550;
@@ -128,6 +131,16 @@ public class PlaneObj extends GameObj {
    */
   public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame) {
     super(img, x, y, width, height, speed, frame);
+    
+    // Add a Timer to shoot bullets every 10 milliseconds
+    Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
+      public void run() {
+        shoot();
+      }
+    };
+    timer.schedule(task, 0, 10);
+    
     //The plane moves with the mouse
     this.frame.addMouseMotionListener(new MouseAdapter() {
       @Override
@@ -307,7 +320,26 @@ public class PlaneObj extends GameObj {
     }
   }
   
-  public void shoot(){
+  public void shoot(int fireType){
+    switch (fireType){
+      case 1:
+        singleFire();
+        break;
+      case 2:
+        doubleFire();
+        break;
+      case 3:
+        tripleFire();
+        break;
+      case 4:
+        spreadFire();
+        break;
+      case 5:
+        beam();
+        break;
+    }
   
   }
+  
+  
 }
