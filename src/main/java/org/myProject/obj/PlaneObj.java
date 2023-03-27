@@ -41,7 +41,9 @@ public class PlaneObj extends GameObj {
   
   public static final int STARTX = 290;
   public static final int STARTY = 550;
-  
+
+
+
   /**
    Gets the current health of the plane.
    @return The current health of the plane.
@@ -342,6 +344,17 @@ public class PlaneObj extends GameObj {
   public void beam(){
   
   }
+
+  public void paintPower() {
+    PowerUpsObj powerUpsObj = new PowerUpsObj(GameUtils.powerups, x, -GameUtils.powerups.getHeight(null),
+            GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),
+            2, gameWin);
+    while (true) {
+      powerUpsObj.spawnPowerUp(gameWin);
+    }
+  }
+
+
   
   
 }
