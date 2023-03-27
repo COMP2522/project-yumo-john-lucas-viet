@@ -289,25 +289,27 @@ public class PlaneObj extends GameObj {
     }
   }
   
-  public void shoot(int fireType){
-    switch (fireType){
-      case 1:
-       straightShot();
-        break;
-      case 2:
-        doubleFire();
-        break;
-      case 3:
-        tripleFire();
-        break;
-      case 4:
-        spreadFire();
-        break;
-      case 5:
-        beam();
-        break;
-      default:
-        break;
+  public void shoot(int fireType) {
+    while (GameWin.state == 1) {
+      switch (fireType) {
+        case 1:
+          straightShot();
+          break;
+        case 2:
+          doubleFire();
+          break;
+        case 3:
+          tripleFire();
+          break;
+        case 4:
+          spreadFire();
+          break;
+        case 5:
+          beam();
+          break;
+        default:
+          break;
+      }
     }
   }
   
