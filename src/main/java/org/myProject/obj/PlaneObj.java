@@ -9,10 +9,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static org.myProject.utils.GameUtils.bulletimg;
 
 //Player-BasicFunctions-JT
 //Player-Shoot-And-PowerUps
@@ -21,14 +22,20 @@ import java.util.TimerTask;
  This class represents a plane object in a game.
  */
 public class PlaneObj extends GameObj {
+  
+  private long lastShotTime = 0;
+  private final long SHOT_DELAY = 250000000; // 0.25 seconds in nanoseconds
+  
   private int health = 100;
   private int lives = 3;
   private int maxLives = 3;
   private static int invincibleTimer = 0;
   private boolean invincible = false;
-  private int fireRate = 10;
-  
   private int fireType = 1;
+  
+  /**
+  private int score = 0;
+   */
   
   public static final int STARTX = 290;
   public static final int STARTY = 550;
@@ -302,13 +309,15 @@ public class PlaneObj extends GameObj {
       this.health = 1;
       this.invincible = true; // set invincibility to true
       invincibleTimer = 0;
-      
-      // Reset mouse cursor to player position
+  
+      /**
+       * Reset mouse course to start position of player dies
+       */
       try {
         Robot robot = new Robot();
         robot.mouseMove(this.STARTX, this.STARTY);
       } catch (AWTException e) {
-        e.printStackTrace();
+        System.err.println("Mouse reset error");
       }
       /**
        * Sets a Timer for 3 seconds to turn off the invicibility flag
@@ -327,7 +336,7 @@ public class PlaneObj extends GameObj {
   public void shoot(int fireType){
     switch (fireType){
       case 1:
-        singleFire();
+       straightShot();
         break;
       case 2:
         doubleFire();
@@ -341,11 +350,23 @@ public class PlaneObj extends GameObj {
       case 5:
         beam();
         break;
+      default:
+        break;
     }
   }
   
-  public void singleFire(){
-  
+  public void straightShot() {
+    long currentTime = System.nanoTime();
+    
+    if (currentTime - lastShotTime >= SHOT_DELAY) {
+      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame);
+      bullet.setX(this.getX() + 4);
+      bullet.setY(this.getY() - 20);
+      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+4,this.getY()-16,14,29,12,frame));
+      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
+      
+      lastShotTime = currentTime;
+    }
   }
   
   public void doubleFire(){

@@ -38,9 +38,6 @@ public class GameWin extends JFrame {
 
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
 
-
-
-
     public void addGameObject(GameObj gameObject) {
         gameObjects.add(gameObject);
     }
@@ -166,7 +163,6 @@ public class GameWin extends JFrame {
     }
     //The creation method is used to generate bullets and enemy planes in batches
      void create(){
-        //Our bullets are divided by 10 to control the velocity of the bullets
         
          /**
         if(count%10==0){
