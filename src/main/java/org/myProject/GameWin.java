@@ -28,9 +28,9 @@ public class GameWin extends JFrame {
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
 
     //Movement of the background image
-    /**
+
     BgObj bgobj=new BgObj(GameUtils.bgimg,0,-400,2);
-     */
+
     //boss
     /**
     public BossObj bossobj =null;
@@ -46,9 +46,9 @@ public class GameWin extends JFrame {
         
         //set window title
         this.setTitle("comp2522-Project");
-        /**
+
         GameUtils.gameObjList.add(bgobj);
-         */
+
         GameUtils.gameObjList.add(planeobj);
 
         //Mouse click
