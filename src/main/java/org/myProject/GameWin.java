@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -94,6 +95,8 @@ public class GameWin extends JFrame {
                 throw new RuntimeException(e);
             }
         }
+
+
     }
 
     @Override
@@ -146,17 +149,45 @@ public class GameWin extends JFrame {
      void create(){
         //Our bullets are divided by 10 to control the velocity of the bullets
         
+
+//        if(count%10==0){
+//            GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
+//            GameUtils.gameObjList.add(GameUtils.shellObjList.get(GameUtils.shellObjList.size()-1));
+//        }
+
+        /*enemy fighter
+        The first if statement set each enemy to be 35 away from each other horizontally.
+        And add them into enemyObj list and then add them into gameObj list.
+        The total number of enemy on screen is 12. This could be change base
+        on the game progress.
+
+        The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
+        Intend to make a formation. There will be different formation in the future update.
+         */
+         if (enemyCount < 12) {
+             int x = 32;
+             for (int i = 0; i < 12; i++) {
+                 GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
+                 x += 45;
+                 enemyCount++;
+                 if (enemyCount == 12) {
+                     break;
+                 }
+             }
+             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
+         }
+
+         int y = 0;
+         for (EnemyObj enemy: GameUtils.enemyObjList) {
+             if (y < 4 || y >= 8) {
+                 enemy.moveDown(200);
+             } else {
+                 enemy.moveDown(100);
+             }
+             y++;
+         }
+
          /**
-        if(count%10==0){
-            GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
-            GameUtils.gameObjList.add(GameUtils.shellObjList.get(GameUtils.shellObjList.size()-1));
-        }
-        //enemy fighter
-        if(count%15==0){
-            GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg,(int)(Math.random()*12)*50,0,50,50,5,this));
-            GameUtils.gameObjList.add(GameUtils.enemyObjList.get(GameUtils.enemyObjList.size()-1));
-            enemyCount++;
-        }
         //enemy boss bullet
          //Bullets are not spawned until the boss appears
          if(count%15==0 && bossobj !=null){

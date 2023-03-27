@@ -27,12 +27,13 @@ public class GameUtils {
     //everything
     public static List<GameObj> gameObjList =new ArrayList<>();
     //our bullets
-    /**
+
 
     public static List<ShellObj> shellObjList =new ArrayList<>();
     //enemies
     public static List<EnemyObj> enemyObjList =new ArrayList<>();
     //boss bullets
+    /**
     public static List<BulletObj> bulletObjList =new ArrayList<>();
     //explode
     public static List<ExplodeObj> explodeObjList =new ArrayList<>();
