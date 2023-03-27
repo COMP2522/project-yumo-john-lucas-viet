@@ -8,9 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
-
-import static org.myProject.utils.GameUtils.bulletimg;
+import java.util.TimerTask;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -28,20 +28,82 @@ public class GameWin extends JFrame {
     private final int BULLET_DELAY = 100; // Time between bullet shots, in milliseconds
     private Timer bulletTimer;
 
+    //ly
+    // Define constants for power-ups
+    private static final int POWERUP_WIDTH = 30;
+    private static final int POWERUP_HEIGHT = 30;
+    private static final int POWERUP_SPEED = 5;
+    private static final int POWERUP_DELAY = 5000; // milliseconds
 
-    
+    private static final int GAME_DELAY = 10; // milliseconds
+    private long lastPowerUpSpawnTime;
+
+
+
+    // Define a timer for spawning power-ups
+    private Timer powerUpTimer;
+
+    // Define a list to store power-up objects
+    private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
+
+    public GameWin() {
+        // ...
+        lastPowerUpSpawnTime = System.currentTimeMillis();
+    }
+
+
+
+
     //PlaneObj (Player)
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
 
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
 
-    public void addGameObject(GameObj gameObject) {
-        gameObjects.add(gameObject);
+    public void addGameObject(GameObj obj) {
+        gameObjects.add(obj);
+//        if (obj instanceof BulletObj) {
+//            bulletObjs.add((BulletObj) obj);
+//        } else if (obj instanceof EnemyObj) {
+//            enemyObjs.add((EnemyObj) obj);
+//        } else
+        if (obj instanceof PowerUpsObj) {
+            powerUps.add((PowerUpsObj) obj);
+        }
     }
+
 
     public void removeGameObject(GameObj gameObject) {
         gameObjects.remove(gameObject);
     }
+
+
+    public Image getPowerUpImage() {
+        return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
+    }
+
+
+
+    //ly
+    // Define a method for starting the power-up timer
+    private void startPowerUpTimer() {
+        TimerTask powerUpTask = new TimerTask() {
+            @Override
+            public void run() {
+                // Generate a random x-coordinate for the power-up
+                int x = new Random().nextInt(getWidth() - POWERUP_WIDTH);
+
+                // Create a new power-up object and add it to the game's list of objects
+                Image powerUpImg = getPowerUpImage();
+                PowerUpsObj powerUpObj = new PowerUpsObj(powerUpImg, x, 0, POWERUP_WIDTH, POWERUP_HEIGHT, POWERUP_SPEED, GameWin.this);
+                addGameObject(powerUpObj);
+                powerUps.add(powerUpObj);
+            }
+        };
+        powerUpTimer = new Timer();
+        powerUpTimer.schedule(powerUpTask, 0, POWERUP_DELAY);
+    }
+
+
 
     //Movement of the background image
     /**
@@ -156,6 +218,11 @@ public class GameWin extends JFrame {
         //Draw the new picture to the main window at once
         g.drawImage(offSreenimage,0,0,null);
         count++;
+
+
+
+
+
     }
     //The creation method is used to generate bullets and enemy planes in batches
      void create(){
@@ -181,7 +248,16 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
+         //temp
          PowerUpsObj.spawnPowerUp(this);
+         startPowerUpTimer();
+         // spawn power-ups every 5 seconds
+         if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
+             PowerUpsObj.spawnPowerUp(this);
+             lastPowerUpSpawnTime = System.currentTimeMillis();
+         }
+
+
 
      }
 
