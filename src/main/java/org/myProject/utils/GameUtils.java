@@ -44,7 +44,7 @@ public class GameUtils {
     //Tool class for drawing strings
     public static  void drawWord(Graphics gImage,String str,Color color,int size,int x,int y){
         gImage.setColor(color);
-        gImage.setFont(new Font("仿宋",Font.BOLD,size));
+        gImage.setFont(new Font("Arial", Font.BOLD, size));
         gImage.drawString(str,x,y);
     }
 
