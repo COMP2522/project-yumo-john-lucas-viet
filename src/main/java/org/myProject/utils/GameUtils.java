@@ -27,21 +27,24 @@ public class GameUtils {
     //everything
     public static List<GameObj> gameObjList =new ArrayList<>();
     //our bullets
-    /**
 
-    public static List<ShellObj> shellObjList =new ArrayList<>();
+    public static List<BulletObj> bulletObjList =new ArrayList<>();
     //enemies
+    /**
     public static List<EnemyObj> enemyObjList =new ArrayList<>();
     //boss bullets
-    public static List<BulletObj> bulletObjList =new ArrayList<>();
+    public static List<ShellObj> shellObjList =new ArrayList<>();
     //explode
+     /**
     public static List<ExplodeObj> explodeObjList =new ArrayList<>();
      */
+
+    public static Image powerups =Toolkit.getDefaultToolkit().getImage("image/shell.png");
 
     //Tool class for drawing strings
     public static  void drawWord(Graphics gImage,String str,Color color,int size,int x,int y){
         gImage.setColor(color);
-        gImage.setFont(new Font("仿宋",Font.BOLD,size));
+        gImage.setFont(new Font("Arial", Font.BOLD, size));
         gImage.drawString(str,x,y);
     }
 
