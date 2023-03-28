@@ -1,13 +1,30 @@
 package org.myProject.obj;
 
-import org.myProject.GameWin;
 import org.myProject.utils.GameUtils;
 
 import java.awt.*;
 
+/**
+ * PlayerUIObj is used with the PlaneObj class to track player,health,lives, and
+ * score and displays it on screen as the UI
+ *
+ * @author John Tu
+ */
 public class PlayerUIObj extends GameObj {
   
   private final PlaneObj player;
+  
+  private static final int LIVES_VERTICAL_GAP = 20;
+  private static final int MAX_HEALTH = 100;
+  private static final int HEALTH_BAR_WIDTH = 150;
+  private static final int HEALTH_BAR_HEIGHT = 15;
+  private static final int HEALTH_BAR_MARGIN_LEFT = 10;
+  private static final int HEALTH_BAR_MARGIN_BOTTOM = 10;
+  private static final int LIVES_MARGIN_TOP = LIVES_VERTICAL_GAP;
+  private static final int PLAYER_SPRITE_GAP = 5;
+  private static final int SCORE_FONT_SIZE = 30;
+  private static final int SCORE_MARGIN_LEFT = 15;
+  private static final int SCORE_MARGIN_TOP = 60;
   
   public PlayerUIObj(PlaneObj player) {
     this.player = player;
@@ -17,27 +34,15 @@ public class PlayerUIObj extends GameObj {
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
     drawHealthUI(gImage);
-    drawScore(gImage);
   }
   
-  /**
-   * Draws the player's health bar and remaining lives on the specified Graphics object.
-   * The health bar is a rectangular shape filled with a color that indicates the player's current
-   * health percentage. The remaining lives are drawn as small versions of the player sprite.
-   *
-   * @param gImage the Graphics object to draw the health UI on
-   */
   public void drawHealthUI(Graphics gImage) {
-    int barWidth = 2;
-    int barHeight = 15;
-    int barX = 10; // Left margin
-    int barY = player.frame.getHeight() - barHeight - 10; // Bottom margin
-    
+    int barX = HEALTH_BAR_MARGIN_LEFT;
+    int barY = player.frame.getHeight() - HEALTH_BAR_HEIGHT - HEALTH_BAR_MARGIN_BOTTOM;
     gImage.setColor(Color.WHITE);
-    gImage.drawRect(barX, barY, barWidth, barHeight);
+    gImage.drawRect(barX, barY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
     
-    double healthPercent = (double) player.getHealth() / 1.0;
-    
+    double healthPercent = (double) player.getHealth() / MAX_HEALTH;
     if (healthPercent >= 0.7) {
       gImage.setColor(Color.GREEN);
     } else if (healthPercent >= 0.3) {
@@ -46,38 +51,26 @@ public class PlayerUIObj extends GameObj {
       gImage.setColor(Color.RED);
     }
     
-    int healthBarWidth = (int) (barWidth * healthPercent);
-    
-    gImage.fillRect(barX, barY, healthBarWidth, barHeight);
+    int healthBarWidth = (int) (HEALTH_BAR_WIDTH * healthPercent);
+    gImage.fillRect(barX, barY, healthBarWidth, HEALTH_BAR_HEIGHT);
     
     drawLives((Graphics2D) gImage, barX, barY);
-    
     drawScore(gImage);
   }
   
-  /**
-   * Draws the player's remaining lives as small versions of the player sprite. The images are
-   * drawn starting from the top-left corner of the health bar, spaced evenly apart with a fixed
-   * gap between them.
-   *
-   * @param gImage the Graphics2D object to draw the images on
-   * @param barX   the x-coordinate of the top-left corner of the health bar
-   */
   public void drawLives(Graphics2D gImage, int barX, int barY) {
-    Image playerImage = player.img; // Gets the image of the PlaneObj Sprite
-    int playerWidth = playerImage.getWidth(null);
-    int playerHeight = playerImage.getHeight(null);
-    int livesX = barX; // distance between player sprites and health bar
-    int livesY = barY - 20;
+    Image playerImage = player.img;
+    int playerWidth = player.width;
+    int playerHeight = player.height;
+    int livesY = barY - LIVES_MARGIN_TOP;
     
     for (int i = 0; i < player.getLives(); i++) {
-      gImage.drawImage(playerImage, livesX + i * (playerWidth / 2 + 5), livesY, playerWidth / 2, playerHeight / 2, null);
+      gImage.drawImage(playerImage, barX + i * (playerWidth / 2 + PLAYER_SPRITE_GAP), livesY, playerWidth / 2, playerHeight / 2, null);
     }
   }
   
   public void drawScore(Graphics gImage) {
     int score = player.getScore();
-    GameUtils.drawWord(gImage,"Score: " + score, Color.green, 30,15,60);
+    GameUtils.drawWord(gImage, "Score: " + score, Color.green, SCORE_FONT_SIZE, SCORE_MARGIN_LEFT, SCORE_MARGIN_TOP);
   }
-
 }
