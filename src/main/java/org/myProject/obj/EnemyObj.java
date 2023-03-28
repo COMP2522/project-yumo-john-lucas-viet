@@ -23,7 +23,18 @@ public class EnemyObj extends GameObj implements ActionListener {
     private boolean isActive;
     int distance;
     private long lastShotTime = 0;
-
+    
+    /**
+     * Constructor for EnemyObj class.
+     *
+     * @param img    The image of the enemy object.
+     * @param x      The x-coordinate of the enemy object.
+     * @param y      The y-coordinate of the enemy object.
+     * @param width  The width of the enemy object.
+     * @param height The height of the enemy object.
+     * @param speed  The speed of the enemy object.
+     * @param frame  The game window frame.
+     */
     public EnemyObj(Image img, int x, int y, int width, int height, double speed, GameWin frame) {
         super(img, x, y, width, height, speed, frame);
         this.timer = new Timer(20, this);
@@ -31,13 +42,21 @@ public class EnemyObj extends GameObj implements ActionListener {
         this.isActive = true;
     }
 
+    /**
+     * Checks if the enemy object collides with another game object.
+     *
+     * @param otherObj The game object to check collision with.
+     * @return True if the enemy object collides with the other game object, false otherwise.
+     */
     private boolean collidesWith(GameObj otherObj){
         Rectangle rect1 = this.getrect();
         Rectangle rect2 = otherObj.getrect();
         return rect1.intersects(rect2);
     }
 
-    //TODO 1: Complete the checkCollision method
+    /**
+     * Checks collision between the enemy object and other game objects.
+     */
     public void checkCollision(){
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
@@ -50,6 +69,11 @@ public class EnemyObj extends GameObj implements ActionListener {
         }
     }
 
+    /**
+     * Moves the enemy object down.
+     *
+     * @param distance The distance the enemy object should move down.
+     */
     public void moveDown(int distance) {
         this.distance = distance;
         if (this.y < distance) { // move down until the enemy reaches y-coordinate 100
@@ -67,6 +91,9 @@ public class EnemyObj extends GameObj implements ActionListener {
         }
     }
 
+    /**
+     * Fires a bullet from the enemy object.
+     */
     public void fire(){
         long currentTime = System.nanoTime();
         long timeSinceLastShot = currentTime - lastShotTime;
