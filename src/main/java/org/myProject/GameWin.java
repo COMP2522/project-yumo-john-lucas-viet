@@ -228,11 +228,6 @@ public class GameWin extends JFrame {
     }
     //The creation method is used to generate bullets and enemy planes in batches
      void create(){
-         /**
-        if(count%10==0){
-            GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
-            GameUtils.gameObjList.add(GameUtils.shellObjList.get(GameUtils.shellObjList.size()-1));
-        }
           /*enemy fighter
           The first if statement set each enemy to be 35 away from each other horizontally.
           And add them into enemyObj list and then add them into gameObj list.
