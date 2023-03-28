@@ -32,6 +32,8 @@ public class PlaneObj extends GameObj {
   public static final int MOUSE_OFFSET_Y = 16;
   public static final int SHOOT_DELAY_MS = 10;
   
+  public static final int BULLET_SPACING = 20;
+  
   private int health = 100;
   private int lives = 3;
   private int maxLives = 3;
@@ -306,10 +308,13 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   * Fires a bullet in a straight line from the player's current position. Bullets originate from
-   * the center of the player
+   * Fires bullets in a straight line from the player's current position. Bullets originate from
+   * the center of the player.
+   *
+   * @param bulletCount The number of bullets to fire.
+   * @param bulletSpacing The spacing between the bullets.
    */
-  public void straightShot() {
+  private void fireBullets(int bulletCount, int bulletSpacing) {
     final int BULLET_WIDTH = 14;
     final int BULLET_HEIGHT = 29;
     final int BULLET_SPEED = 12;
@@ -317,84 +322,44 @@ public class PlaneObj extends GameObj {
     final int BULLET_Y_OFFSET = -20;
     
     long currentTime = System.nanoTime();
-  
-    if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet.setX(this.getX() + BULLET_X_OFFSET);
-      bullet.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(new BulletObj(shellimg,this.getX()+BULLET_X_OFFSET,this.getY()-16,BULLET_WIDTH,BULLET_HEIGHT,BULLET_SPEED,frame));
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
     
+    if (currentTime - lastShotTime >= SHOT_DELAY) {
+      int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
+      
+      for (int i = 0; i < bulletCount; i++) {
+        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
+        bullet.setX(startX + i * bulletSpacing);
+        bullet.setY(this.getY() + BULLET_Y_OFFSET);
+        GameUtils.bulletObjList.add(bullet);
+        GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+      }
+      
       lastShotTime = currentTime;
     }
+  }
+  
+  /**
+   * Fires a bullet in a straight line from the player's current position. Bullets originate from
+   * the center of the player.
+   */
+  public void straightShot() {
+    fireBullets(1, 0);
   }
   
   /**
    * Fires bullets in 2 straight lines from the player's current position. Bullets are on even offset from the center
    * of the player.
    */
-  public void doubleFire(){
-    final int BULLET_WIDTH = 14;
-    final int BULLET_HEIGHT = 29;
-    final int BULLET_SPEED = 12;
-    final int BULLET_X_OFFSET = 4;
-    final int BULLET_Y_OFFSET = -20;
-    final int BULLET_SPACING = 20; // Offset between the two bullets
-    
-    long currentTime = System.nanoTime();
-    
-    if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet1 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet1.setX(this.getX() + BULLET_X_OFFSET - BULLET_SPACING/2);
-      bullet1.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet1);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-      
-      BulletObj bullet2 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet2.setX(this.getX() + BULLET_X_OFFSET + BULLET_SPACING/2);
-      bullet2.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet2);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-      
-      lastShotTime = currentTime;
-    }
+  public void doubleFire() {
+    fireBullets(2, BULLET_SPACING);
   }
   
   /**
    * Fires bullets in 3 straight lines from the player's current position. Bullets are on even offset from the center
    * of the player.
    */
-  public void tripleFire(){
-    final int BULLET_WIDTH = 14;
-    final int BULLET_HEIGHT = 29;
-    final int BULLET_SPEED = 12;
-    final int BULLET_X_OFFSET = 4;
-    final int BULLET_Y_OFFSET = -20;
-    final int BULLET_SPACING = 20; // Offset between the bullets
-    
-    long currentTime = System.nanoTime();
-    
-    if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet1 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet1.setX(this.getX() + BULLET_X_OFFSET - BULLET_SPACING);
-      bullet1.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet1);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-      
-      BulletObj bullet2 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet2.setX(this.getX() + BULLET_X_OFFSET);
-      bullet2.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet2);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-      
-      BulletObj bullet3 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet3.setX(this.getX() + BULLET_X_OFFSET + BULLET_SPACING);
-      bullet3.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet3);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-      
-      lastShotTime = currentTime;
-    }
+  public void tripleFire() {
+    fireBullets(3, BULLET_SPACING);
   }
   
   /**
@@ -402,49 +367,9 @@ public class PlaneObj extends GameObj {
    * of the player.
    */
   public void pentaFire() {
-    final int BULLET_WIDTH = 14;
-    final int BULLET_HEIGHT = 29;
-    final int BULLET_SPEED = 12;
-    final int BULLET_X_OFFSET = 4;
-    final int BULLET_Y_OFFSET = -20;
-    final int BULLET_SPACING = 20; // Offset between the bullets
-  
-    long currentTime = System.nanoTime();
-  
-    if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet1 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet1.setX(this.getX() + BULLET_X_OFFSET - 2 * BULLET_SPACING);
-      bullet1.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet1);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
-    
-      BulletObj bullet2 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet2.setX(this.getX() + BULLET_X_OFFSET - BULLET_SPACING);
-      bullet2.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet2);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
-    
-      BulletObj bullet3 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet3.setX(this.getX() + BULLET_X_OFFSET);
-      bullet3.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet3);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
-    
-      BulletObj bullet4 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet4.setX(this.getX() + BULLET_X_OFFSET + BULLET_SPACING);
-      bullet4.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet4);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
-    
-      BulletObj bullet5 = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet5.setX(this.getX() + BULLET_X_OFFSET + 2 * BULLET_SPACING);
-      bullet5.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(bullet5);
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
-    
-      lastShotTime = currentTime;
-    }
+    fireBullets(5, BULLET_SPACING);
   }
+  
   
   
   
