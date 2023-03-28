@@ -322,18 +322,14 @@ public class PlaneObj extends GameObj {
     final int BULLET_Y_OFFSET = -20;
     
     long currentTime = System.nanoTime();
-    
+  
     if (currentTime - lastShotTime >= SHOT_DELAY) {
-      int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
-      
-      for (int i = 0; i < bulletCount; i++) {
-        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-        bullet.setX(startX + i * bulletSpacing);
-        bullet.setY(this.getY() + BULLET_Y_OFFSET);
-        GameUtils.bulletObjList.add(bullet);
-        GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
-      }
-      
+      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
+      bullet.setX(this.getX() + BULLET_X_OFFSET);
+      bullet.setY(this.getY() + BULLET_Y_OFFSET);
+      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+BULLET_X_OFFSET,this.getY()-16,BULLET_WIDTH,BULLET_HEIGHT,BULLET_SPEED,frame, false));
+      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
+
       lastShotTime = currentTime;
     }
   }
