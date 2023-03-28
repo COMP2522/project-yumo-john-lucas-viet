@@ -80,7 +80,7 @@ public class GameWin extends JFrame {
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
-    
+
     //ly
     // Define a method for starting the power-up timer
     private void startPowerUpTimer() {
@@ -109,9 +109,9 @@ public class GameWin extends JFrame {
 
     //boss
     /**
-    public BossObj bossobj =null;
+     public BossObj bossobj =null;
      */
-     
+
     public void launch(){
         //Set whether the window is visible
         this.setVisible(true);
@@ -119,7 +119,7 @@ public class GameWin extends JFrame {
         this.setSize(width,height);
         //set window position
         this.setLocationRelativeTo(null);
-        
+
         //set window title
         this.setTitle("comp2522-Project");
 
@@ -192,7 +192,7 @@ public class GameWin extends JFrame {
         //Games start
         if(state==1){
             /**
-            GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
+             GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
             PowerUpsObj.spawnPowerUp(this);
 
@@ -213,8 +213,8 @@ public class GameWin extends JFrame {
         //Game Win
         if(state==4) {
             /**
-            gimage.drawImage(GameUtils.explodeimg, bossobj.getX() + 35, bossobj.getY() + 50, null);
-            GameUtils.drawWord(gimage, " Game Win", Color.red, 40, 180, 300);
+             gimage.drawImage(GameUtils.explodeimg, bossobj.getX() + 35, bossobj.getY() + 50, null);
+             GameUtils.drawWord(gimage, " Game Win", Color.red, 40, 180, 300);
              */
         }
         //Draw the new picture to the main window at once
@@ -227,7 +227,7 @@ public class GameWin extends JFrame {
 
     }
     //The creation method is used to generate bullets and enemy planes in batches
-     void create(){
+    void create(){
           /*enemy fighter
           The first if statement set each enemy to be 35 away from each other horizontally.
           And add them into enemyObj list and then add them into gameObj list.
@@ -236,41 +236,41 @@ public class GameWin extends JFrame {
           The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
           Intend to make a formation. There will be different formation in the future update.
           */
-         if (enemyCount < 12) {
-             int x = 32;
-             for (int i = 0; i < 12; i++) {
-                 GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
-                 x += 45;
-                 enemyCount++;
-                 if (enemyCount == 12) {
-                     break;
-                 }
-             }
-             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
-         }
+        if (enemyCount < 12) {
+            int x = 32;
+            for (int i = 0; i < 12; i++) {
+                GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
+                x += 45;
+                enemyCount++;
+                if (enemyCount == 12) {
+                    break;
+                }
+            }
+            GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
+        }
 
-         for(EnemyObj enemy : GameUtils.enemyObjList){
-             enemy.checkCollision();
-         }
+        for(EnemyObj enemy : GameUtils.enemyObjList){
+            enemy.checkCollision();
+        }
 
-         /**
-          * Make the enemy plane fly in reversed V formation
-          */
-         int y = 0;
-         for (EnemyObj enemy: GameUtils.enemyObjList) {
-             if (y < 2 || y >= 10) {
-                 enemy.moveDown(200);
-             } else if(y < 4 || y >= 8) {
-                 enemy.moveDown(150);
-             }else if(y < 5 || y == 7){
-                 enemy.moveDown(100);
-             }else{
-                 enemy.moveDown(50);
-             }
-             y++;
-         }
+        /**
+         * Make the enemy plane fly in reversed V formation
+         */
+        int y = 0;
+        for (EnemyObj enemy: GameUtils.enemyObjList) {
+            if (y < 2 || y >= 10) {
+                enemy.moveDown(200);
+            } else if(y < 4 || y >= 8) {
+                enemy.moveDown(150);
+            }else if(y < 5 || y == 7){
+                enemy.moveDown(100);
+            }else{
+                enemy.moveDown(50);
+            }
+            y++;
+        }
         //enemy boss bullet
-         //Bullets are not spawned until the boss appears
+        //Bullets are not spawned until the boss appears
          /*
          if(count%15==0 && bossobj !=null){
              GameUtils.bulletObjList.add(new BulletObj(GameUtils.bulletimg,bossobj.getX()+75,bossobj.getY()+80,15,25,5,this));
@@ -281,18 +281,18 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
-         //temp
-         PowerUpsObj.spawnPowerUp(this);
-         startPowerUpTimer();
-         // spawn power-ups every 5 seconds
-         if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
-             PowerUpsObj.spawnPowerUp(this);
-             lastPowerUpSpawnTime = System.currentTimeMillis();
-         }
+        //temp
+        PowerUpsObj.spawnPowerUp(this);
+        startPowerUpTimer();
+        // spawn power-ups every 5 seconds
+        if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
+            PowerUpsObj.spawnPowerUp(this);
+            lastPowerUpSpawnTime = System.currentTimeMillis();
+        }
 
 
 
-     }
+    }
 
     public static void main(String[] args) {
         GameWin Gamewin=new GameWin();

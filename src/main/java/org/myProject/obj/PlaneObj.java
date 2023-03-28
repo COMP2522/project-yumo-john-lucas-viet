@@ -15,22 +15,27 @@ import java.util.TimerTask;
 
 import static org.myProject.utils.GameUtils.bulletimg;
 
-//Player-BasicFunctions-JT
-//Player-Shoot-And-PowerUps
-
 /**
- This class represents a plane object in a game.
+ * PlaneObj is class representing the player. This class is responsible
+ * for handling player functions such as shooting, checking collision,
+ * updating player info (Health, score).
+ *
+ * @author John Tu
  */
 public class PlaneObj extends GameObj {
   
-  private long lastShotTime = 0;
-  private final long SHOT_DELAY = 250000000; // 0.25 seconds in nanoseconds
+  public long lastShotTime = 0;
+  public static final long SHOT_DELAY = 250000000; // 0.25 seconds in nanoseconds
+  
+  public static final int MOUSE_OFFSET_X = 11;
+  public static final int MOUSE_OFFSET_Y = 16;
+  public static final int SHOOT_DELAY_MS = 10;
   
   private int health = 100;
   private int lives = 3;
   private int maxLives = 3;
-  private static int invincibleTimer = 0;
   private boolean invincible = false;
+  
   private int fireType = 1;
   private int score = 0;
   
@@ -39,8 +44,8 @@ public class PlaneObj extends GameObj {
    */
   public GameWin gameWin;
   
-  public static final int STARTX = 290;
-  public static final int STARTY = 550;
+  public static final int START_X = 290;
+  public static final int START_Y = 550;
 
 
 
@@ -93,19 +98,19 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Gets the invincible timer value.
-   @return The invincible timer value.
+   * Gets the current FireType the plane current has.
+   * @return The current fire type of the plane
    */
-  public static int getInvincibleTimer() {
-    return invincibleTimer;
+  public int getFireType() {
+    return fireType;
   }
   
   /**
-   Sets the invincible timer value.
-   @param invincibleTimer The invincible timer value.
+   * Sets the fire type the plane can have
+   * @param fireType The mode/style of firing type
    */
-  public static void setInvincibleTimer(int invincibleTimer) {
-    PlaneObj.invincibleTimer = invincibleTimer;
+  public void setFireType(int fireType) {
+    this.fireType = fireType;
   }
   
   /**
@@ -123,6 +128,8 @@ public class PlaneObj extends GameObj {
   public void setScore(int score) {
     this.score = score;
   }
+  
+  
   
   /**
    Gets the image of the plane object.
@@ -146,28 +153,26 @@ public class PlaneObj extends GameObj {
   public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame) {
     super(img, x, y, width, height, speed, frame);
     
-    // Add a Timer to shoot bullets every 10 milliseconds
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
       public void run() {
         shoot(fireType);
       }
     };
-    timer.schedule(task, 0, 10);
+    timer.schedule(task, 0, SHOOT_DELAY_MS);
     
-    //The plane moves with the mouse
     this.frame.addMouseMotionListener(new MouseAdapter() {
       @Override
       public void mouseMoved(MouseEvent e) {
-        PlaneObj.super.x = e.getX() - 11;
-        PlaneObj.super.y = e.getY() - 16;
+        PlaneObj.super.x = e.getX() - MOUSE_OFFSET_X;
+        PlaneObj.super.y = e.getY() - MOUSE_OFFSET_Y;
       }
     });
   }
   
   /**
    * Used to constantly update player sprite position, health, and check collision
-   * @param gImage
+   * @param gImage representing the image of the plan
    */
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
@@ -185,9 +190,9 @@ public class PlaneObj extends GameObj {
     List<GameObj> gameObjList = GameUtils.gameObjList;
     for (GameObj obj : gameObjList) {
       if (this.collidesWith(obj)) {
-        /**
-         takeDamage(obj.getDamage(obj.getDamage()));
-         */
+        //Waiting on bullet getDamage() and enemy getDamage()
+         //takeDamage(obj.getDamage(obj.getDamage()));
+         
         break;
       }
     }
@@ -230,12 +235,12 @@ public class PlaneObj extends GameObj {
       respawn();
     }
     if (lives <= 0) {
-      gameWin.state = 3;
+      GameWin.state = 3;
     }
   }
   
   /**
-   Triggers an explosion animation at the current PlaneObj's location when
+   Triggers an explosion animation at the current Plane's location when
    player health equals 0. This function is called in takeDamage()
    */
   public void explode() {
@@ -245,7 +250,7 @@ public class PlaneObj extends GameObj {
       for (int i = 1; i <= 16; i++) {
         explosionGifs[i - 1] = ImageIO.read(new File("explode/e" + i + ".gif"));
       }
-      // Draw current explosion gif at PlaneObj's location
+      // Draw current explosion gif at Plane location
       int currentExplosionIndex = 0; // Update this variable to change which explosion frame is shown
       Graphics gImage = this.frame.getGraphics(); // Get the graphics object of the frame
       gImage.drawImage(explosionGifs[currentExplosionIndex], this.x, this.y, null); // Draw the explosion gif
@@ -259,27 +264,22 @@ public class PlaneObj extends GameObj {
    and sets a Timer to turn off invincibility after 3 seconds.
    */
   public void respawn() {
-    health = 1;
     lives--;
     if (lives >= 0) {
-      this.x = STARTX;
-      this.y = STARTY;
-      this.health = 1;
+      this.x = START_X;
+      this.y = START_Y;
+      this.health = 100;
       this.invincible = true; // set invincibility to true
-      invincibleTimer = 0;
   
-      /**
-       * Reset mouse course to start position of player dies
-       */
+      //Resets the mouse course to the starting position of the player
       try {
         Robot robot = new Robot();
-        robot.mouseMove(this.STARTX, this.STARTY);
+        robot.mouseMove(START_X, START_Y);
       } catch (AWTException e) {
         System.err.println("Mouse reset error");
       }
-      /**
-       * Sets a Timer for 3 seconds to turn off the invicibility flag
-       */
+      
+      //Sets up a timer to turn off the player invincibility after 3secs
       Timer timer = new Timer();
       TimerTask task = new TimerTask() {
         @Override
@@ -294,67 +294,71 @@ public class PlaneObj extends GameObj {
   public void shoot(int fireType) {
     while (GameWin.state == 1) {
       switch (fireType) {
-        case 1:
-          straightShot();
-          break;
-        case 2:
-          doubleFire();
-          break;
-        case 3:
-          tripleFire();
-          break;
-        case 4:
-          spreadFire();
-          break;
-        case 5:
-          beam();
-          break;
-        default:
-          break;
+        case 1 -> straightShot();
+        case 2 -> doubleFire();
+        case 3 -> tripleFire();
+        case 4 -> spreadFire();
+        default -> {
+        }
       }
     }
   }
   
+  /**
+   * Fires a bullet in a straight line from the player's current position. Bullets originate from
+   * the center of the player
+   */
   public void straightShot() {
-    long currentTime = System.nanoTime();
+    final int BULLET_WIDTH = 14;
+    final int BULLET_HEIGHT = 29;
+    final int BULLET_SPEED = 12;
+    final int BULLET_X_OFFSET = 4;
+    final int BULLET_Y_OFFSET = -20;
     
+    long currentTime = System.nanoTime();
+  
     if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame, false);
-      bullet.setX(this.getX() + 4);
-      bullet.setY(this.getY() - 20);
-      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+4,this.getY()-16,14,29,12,frame, false));
+      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
+      bullet.setX(this.getX() + BULLET_X_OFFSET);
+      bullet.setY(this.getY() + BULLET_Y_OFFSET);
+      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+BULLET_X_OFFSET,this.getY()-16,BULLET_WIDTH,BULLET_HEIGHT,BULLET_SPEED,frame));
       GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-      
+    
       lastShotTime = currentTime;
     }
   }
   
+  /**
+   * Fires bullets in 2 straight lines from the player's current position. Bullets are on even offset from the center
+   * of the player.
+   */
   public void doubleFire(){
   
   }
-  
+  /**
+   * Fires bullets in 3 straight lines from the player's current position. Bullets are on even offset from the center
+   * of the player.
+   */
   public void tripleFire(){
   
   }
   
+  /**
+   * Fires bullets in 5 straight lines from the player's current position. This will allow the player to fire in an arc
+   */
   public void spreadFire(){
   
   }
   
-  public void beam(){
-  
-  }
-
+  /**
+   * Move this to your own class Lucas, and remove this comment after
+   */
   public void paintPower() {
     PowerUpsObj powerUpsObj = new PowerUpsObj(GameUtils.powerups, x, -GameUtils.powerups.getHeight(null),
             GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),
             2, gameWin);
     while (true) {
-      powerUpsObj.spawnPowerUp(gameWin);
+      PowerUpsObj.spawnPowerUp(gameWin);
     }
   }
-
-
-  
-  
 }
