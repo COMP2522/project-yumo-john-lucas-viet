@@ -319,10 +319,10 @@ public class PlaneObj extends GameObj {
     long currentTime = System.nanoTime();
     
     if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame);
+      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame, false);
       bullet.setX(this.getX() + 4);
       bullet.setY(this.getY() - 20);
-      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+4,this.getY()-16,14,29,12,frame));
+      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+4,this.getY()-16,14,29,12,frame, false));
       GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
       
       lastShotTime = currentTime;

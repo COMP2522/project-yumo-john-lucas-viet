@@ -256,12 +256,19 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
          }
 
+         /**
+          * Make the enemy plane fly in reversed V formation
+          */
          int y = 0;
          for (EnemyObj enemy: GameUtils.enemyObjList) {
-             if (y < 4 || y >= 8) {
+             if (y < 2 || y >= 10) {
                  enemy.moveDown(200);
-             } else {
+             } else if(y < 4 || y >= 8) {
+                 enemy.moveDown(150);
+             }else if(y < 5 || y == 7){
                  enemy.moveDown(100);
+             }else{
+                 enemy.moveDown(50);
              }
              y++;
          }
