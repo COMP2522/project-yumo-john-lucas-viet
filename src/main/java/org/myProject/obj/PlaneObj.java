@@ -15,11 +15,12 @@ import java.util.TimerTask;
 
 import static org.myProject.utils.GameUtils.bulletimg;
 
-//Player-BasicFunctions-JT
-//Player-Shoot-And-PowerUps
-
 /**
- This class represents a plane object in a game.
+ * PlaneObj is class representing the player. This class is responsible
+ * for handling player functions such as shooting, checking collision,
+ * updating player info (Health, score).
+ *
+ * @author John Tu
  */
 public class PlaneObj extends GameObj {
   

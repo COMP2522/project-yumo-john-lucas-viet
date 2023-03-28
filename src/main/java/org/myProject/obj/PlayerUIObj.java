@@ -4,6 +4,12 @@ import org.myProject.utils.GameUtils;
 
 import java.awt.*;
 
+/**
+ * PlayerUIObj is used with the PlaneObj class to track player,health,lives, and
+ * score and displays it on screen as the UI
+ *
+ * @author John Tu
+ */
 public class PlayerUIObj extends GameObj {
   
   private final PlaneObj player;
