@@ -38,12 +38,12 @@ public class PowerUpsObj extends GameObj {
   }
 
 
-  public void collide(GameObj obj) {
-    if (obj instanceof PlaneObj) {
-      // add power-up effect here
-      GameWin.gameObjects.remove(this);
-    }
-  }
+//  public void collide(GameObj obj) {
+//    if (obj instanceof PlaneObj) {
+//      // add power-up effect here
+//      GameWin.gameObjects.remove(this);
+//    }
+//  }
 
 
   public static void spawnPowerUp(GameWin gameWin) {
