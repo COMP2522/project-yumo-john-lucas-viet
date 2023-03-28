@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class BulletObj extends GameObj {
   private final int DAMAGE = 1;
-  private boolean isEnemyBullet = true;
+  public boolean isEnemyBullet = true;
   
   public BulletObj(Image img, int x, int y, int width, int height, double speed, GameWin frame, boolean isEnemyBullet) {
     super(img, x, y, width, height, speed, frame);

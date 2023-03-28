@@ -80,9 +80,7 @@ public class GameWin extends JFrame {
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
-
-
-
+    
     //ly
     // Define a method for starting the power-up timer
     private void startPowerUpTimer() {
@@ -256,6 +254,10 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
          }
 
+         for(EnemyObj enemy : GameUtils.enemyObjList){
+             enemy.checkCollision();
+         }
+
          /**
           * Make the enemy plane fly in reversed V formation
           */
@@ -284,14 +286,14 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
-//         //temp
-//         PowerUpsObj.spawnPowerUp(this);
-//         startPowerUpTimer();
-//         // spawn power-ups every 5 seconds
-//         if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
-//             PowerUpsObj.spawnPowerUp(this);
-//             lastPowerUpSpawnTime = System.currentTimeMillis();
-//         }
+         //temp
+         PowerUpsObj.spawnPowerUp(this);
+         startPowerUpTimer();
+         // spawn power-ups every 5 seconds
+         if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
+             PowerUpsObj.spawnPowerUp(this);
+             lastPowerUpSpawnTime = System.currentTimeMillis();
+         }
 
 
 
@@ -300,6 +302,7 @@ public class GameWin extends JFrame {
     public static void main(String[] args) {
         GameWin Gamewin=new GameWin();
         Gamewin.launch();
+
     }
 
 }
