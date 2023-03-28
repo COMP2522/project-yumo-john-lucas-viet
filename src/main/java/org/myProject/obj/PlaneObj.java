@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static org.myProject.utils.GameUtils.bulletimg;
+import static org.myProject.utils.GameUtils.shellimg;
 
 /**
  * PlaneObj is class representing the player. This class is responsible
@@ -31,12 +32,14 @@ public class PlaneObj extends GameObj {
   public static final int MOUSE_OFFSET_Y = 16;
   public static final int SHOOT_DELAY_MS = 10;
   
+  public static final int BULLET_SPACING = 20;
+  
   private int health = 100;
   private int lives = 3;
   private int maxLives = 3;
   private boolean invincible = false;
   
-  private int fireType = 1;
+  private int fireType = 4;
   private int score = 0;
   
   /**
@@ -297,7 +300,7 @@ public class PlaneObj extends GameObj {
         case 1 -> straightShot();
         case 2 -> doubleFire();
         case 3 -> tripleFire();
-        case 4 -> spreadFire();
+        case 4 -> pentaFire();
         default -> {
         }
       }
@@ -305,10 +308,13 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   * Fires a bullet in a straight line from the player's current position. Bullets originate from
-   * the center of the player
+   * Fires bullets in a straight line from the player's current position. Bullets originate from
+   * the center of the player.
+   *
+   * @param bulletCount The number of bullets to fire.
+   * @param bulletSpacing The spacing between the bullets.
    */
-  public void straightShot() {
+  private void fireBullets(int bulletCount, int bulletSpacing) {
     final int BULLET_WIDTH = 14;
     final int BULLET_HEIGHT = 29;
     final int BULLET_SPEED = 12;
@@ -316,39 +322,56 @@ public class PlaneObj extends GameObj {
     final int BULLET_Y_OFFSET = -20;
     
     long currentTime = System.nanoTime();
-  
-    if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
-      bullet.setX(this.getX() + BULLET_X_OFFSET);
-      bullet.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+BULLET_X_OFFSET,this.getY()-16,BULLET_WIDTH,BULLET_HEIGHT,BULLET_SPEED,frame));
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
     
+    if (currentTime - lastShotTime >= SHOT_DELAY) {
+      int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
+      
+      for (int i = 0; i < bulletCount; i++) {
+        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
+        bullet.setX(startX + i * bulletSpacing);
+        bullet.setY(this.getY() + BULLET_Y_OFFSET);
+        GameUtils.bulletObjList.add(bullet);
+        GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+      }
+      
       lastShotTime = currentTime;
     }
+  }
+  
+  /**
+   * Fires a bullet in a straight line from the player's current position. Bullets originate from
+   * the center of the player.
+   */
+  public void straightShot() {
+    fireBullets(1, 0);
   }
   
   /**
    * Fires bullets in 2 straight lines from the player's current position. Bullets are on even offset from the center
    * of the player.
    */
-  public void doubleFire(){
-  
+  public void doubleFire() {
+    fireBullets(2, BULLET_SPACING);
   }
+  
   /**
    * Fires bullets in 3 straight lines from the player's current position. Bullets are on even offset from the center
    * of the player.
    */
-  public void tripleFire(){
-  
+  public void tripleFire() {
+    fireBullets(3, BULLET_SPACING);
   }
   
   /**
-   * Fires bullets in 5 straight lines from the player's current position. This will allow the player to fire in an arc
+   * Fires bullets in 5 straight lines from the player's current position. Bullets are on even offset from the center
+   * of the player.
    */
-  public void spreadFire(){
-  
+  public void pentaFire() {
+    fireBullets(5, BULLET_SPACING);
   }
+  
+  
+  
   
   /**
    * Move this to your own class Lucas, and remove this comment after
