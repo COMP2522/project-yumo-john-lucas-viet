@@ -35,9 +35,8 @@ public class GameUtils {
     //boss bullets
     public static List<ShellObj> shellObjList =new ArrayList<>();
     //explode
-     /**
     public static List<ExplodeObj> explodeObjList =new ArrayList<>();
-     */
+  
 
     public static Image powerups =Toolkit.getDefaultToolkit().getImage("image/shell.png");
 

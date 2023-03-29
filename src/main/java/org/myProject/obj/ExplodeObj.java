@@ -20,7 +20,6 @@ public class ExplodeObj extends GameObj {
     public void paintself(Graphics gImage) {
 
         if(explodeCount<16){
-            //绘制数组中的图片
             img=pic[explodeCount];
             super.paintself(gImage);
             explodeCount++;
