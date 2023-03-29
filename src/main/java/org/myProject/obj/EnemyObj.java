@@ -22,7 +22,9 @@ public class EnemyObj extends GameObj implements ActionListener {
     private Timer timer;
     private boolean isActive;
     int distance;
+    int damage;
     private long lastShotTime = 0;
+    public static EnemyObj enemy;
 
     /**
      * Constructor for EnemyObj class.
@@ -40,7 +42,14 @@ public class EnemyObj extends GameObj implements ActionListener {
         this.timer = new Timer(20, this);
         this.timer.start();
         this.isActive = true;
+        this.damage = 1;
     }
+
+//    public static EnemyObj getInstance(){
+//        if (this.enemy == null){
+//            return new EnemyObj()
+//        }
+//    }
 
     /**
      * Checks if the enemy object collides with another game object.
@@ -63,7 +72,7 @@ public class EnemyObj extends GameObj implements ActionListener {
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
                 this.isActive = false;
                 GameUtils.removeobjList.add(this);
-//                ((BulletObj) obj).setActive(false);
+
                 break;
             }
         }
@@ -104,9 +113,19 @@ public class EnemyObj extends GameObj implements ActionListener {
             bullet.setX(this.getX() + 20);
             GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+4,this.getY()-16,14,29,12,frame, true));
             GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-
+            bullet.removeBullet();
             lastShotTime = currentTime;
         }
     }
+
+    /**
+     * Get the damage cause by enemy.
+     * @return integer amount of damage.
+     */
+    public int getDamage() {
+        return damage;
+    }
+
+//    public
 }
 

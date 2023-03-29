@@ -236,7 +236,7 @@ public class GameWin extends JFrame {
           The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
           Intend to make a formation. There will be different formation in the future update.
           */
-        if (enemyCount < 12) {
+        if (GameUtils.enemyObjList.size() < 12) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
                 GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
