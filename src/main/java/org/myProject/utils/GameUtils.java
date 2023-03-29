@@ -33,8 +33,6 @@ public class GameUtils {
 
     public static List<EnemyObj> enemyObjList =new ArrayList<>();
     //boss bullets
-    public static List<ShellObj> shellObjList =new ArrayList<>();
-    //explode
      /**
     public static List<ExplodeObj> explodeObjList =new ArrayList<>();
      */
