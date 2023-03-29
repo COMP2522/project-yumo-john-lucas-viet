@@ -24,7 +24,7 @@ public class EnemyObj extends GameObj implements ActionListener {
     private boolean isActive;
     int distance;
     private long lastShotTime = 0;
-    
+
     /**
      * If player collides with an enemy ship, player will take this amount of damage
      */
