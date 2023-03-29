@@ -39,7 +39,7 @@ public class GameUtils {
     public static List<ExplodeObj> explodeObjList =new ArrayList<>();
      */
 
-    public static Image powerups =Toolkit.getDefaultToolkit().getImage("image/shell.png");
+    public static Image powerups =Toolkit.getDefaultToolkit().getImage("image/powerup.png");
 
     //Tool class for drawing strings
     public static  void drawWord(Graphics gImage,String str,Color color,int size,int x,int y){

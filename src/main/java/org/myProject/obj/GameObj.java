@@ -103,6 +103,8 @@ public class GameObj {
         gImage.drawImage(img, x, y, null);
     }
 
+
+
     //The method of drawing a rectangle is used for collision detection
     public Rectangle getrect() {
         return new Rectangle(x, y, width, height);

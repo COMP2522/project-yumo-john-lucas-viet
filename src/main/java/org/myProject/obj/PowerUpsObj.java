@@ -13,7 +13,7 @@ public class PowerUpsObj extends GameObj {
 
   public PowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin gameWin) {
     super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, gameWin);
-    this.powerUpImg = Toolkit.getDefaultToolkit().getImage("image/plane.png");;
+    this.powerUpImg = Toolkit.getDefaultToolkit().getImage("image/powerup.jpg");;
     this.powerUpWidth = powerUpWidth;
     this.powerUpHeight = powerUpHeight;
   }
@@ -26,6 +26,8 @@ public class PowerUpsObj extends GameObj {
   public void paintself(Graphics g) {
     g.drawImage(powerUpImg, getX(), getY(), null);
   }
+
+
 
 
   public void move() {
@@ -51,7 +53,7 @@ public class PowerUpsObj extends GameObj {
 //      int x = (int) (Math.random() * (gameWin.getWidth() - GameUtils.powerups.getWidth(null)));
       int x = (gameWin.getWidth() - GameUtils.powerups.getWidth(null)) / 2;
 
-      PowerUpsObj powerUpObj = new PowerUpsObj(GameUtils.powerups, x, GameUtils.powerups.getHeight(null),
+      PowerUpsObj powerUpObj = new PowerUpsObj(GameUtils.powerups, 100, 400,
               GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),
               0, gameWin);
       gameWin.addGameObject(powerUpObj);
@@ -60,11 +62,4 @@ public class PowerUpsObj extends GameObj {
 
     }
   }
-
-
-
-
-
-
-
 }

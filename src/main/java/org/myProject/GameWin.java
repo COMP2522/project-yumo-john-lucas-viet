@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -27,8 +28,15 @@ public class GameWin extends JFrame {
     BgObj bgobj=new BgObj(GameUtils.bgimg,0,-400,2);
     //object of our aircraft
     public PlaneObj planeobj =new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
+
+    public static ArrayList<GameObj> gameObjects = new ArrayList<>();
+    private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
+
+
+
+
     //boss
-    public BossObj bossobj =null;
+    //public BossObj bossobj =null;
     public void launch(){
         //Set whether the window is visible
         this.setVisible(true);
@@ -87,6 +95,18 @@ public class GameWin extends JFrame {
         }
     }
 
+    public void addGameObject(GameObj obj) {
+        gameObjects.add(obj);
+//        if (obj instanceof BulletObj) {
+//            bulletObjs.add((BulletObj) obj);
+//        } else if (obj instanceof EnemyObj) {
+//            enemyObjs.add((EnemyObj) obj);
+//        } else
+        if (obj instanceof PowerUpsObj) {
+            powerUps.add((PowerUpsObj) obj);
+        }
+    }
+
     @Override
     public void paint(Graphics g) {
         if(offSreenimage==null){
@@ -106,7 +126,9 @@ public class GameWin extends JFrame {
         }
         //Games start
         if(state==1){
-            GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
+            //GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
+            PowerUpsObj.spawnPowerUp(this);
+
 
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
                 GameUtils.gameObjList.get(i).paintself(gimage);
@@ -121,7 +143,7 @@ public class GameWin extends JFrame {
         }
         //Game Win
         if(state==4) {
-            gimage.drawImage(GameUtils.explodeimg, bossobj.getX() + 35, bossobj.getY() + 50, null);
+            //gimage.drawImage(GameUtils.explodeimg, bossobj.getX() + 35, bossobj.getY() + 50, null);
             GameUtils.drawWord(gimage, " Game Win", Color.red, 40, 180, 300);
         }
         GameUtils.drawWord(gimage,score+"SCORE",Color.green,40,30,100);
@@ -131,6 +153,7 @@ public class GameWin extends JFrame {
     }
     //The creation method is used to generate bullets and enemy planes in batches
     void create(){
+        /**
         //Our bullets are divided by 10 to control the velocity of the bullets
         if(count%10==0){
             GameUtils.shellObjList.add(new ShellObj(GameUtils.shellimg,planeobj.getX()+4,planeobj.getY()-16,14,29,5,this));
@@ -151,6 +174,41 @@ public class GameWin extends JFrame {
         if( enemyCount>30 && bossobj == null ){
             bossobj=new BossObj(GameUtils.bossimg,250,20,155,100,5,this);
             GameUtils.gameObjList.add(bossobj);
+        }
+         */
+
+        if (enemyCount < 12) {
+            int x = 32;
+            for (int i = 0; i < 12; i++) {
+                GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
+                x += 45;
+                enemyCount++;
+                if (enemyCount == 12) {
+                    break;
+                }
+            }
+            GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
+        }
+
+        for(EnemyObj enemy : GameUtils.enemyObjList){
+            enemy.checkCollision();
+        }
+
+        /**
+         * Make the enemy plane fly in reversed V formation
+         */
+        int y = 0;
+        for (EnemyObj enemy: GameUtils.enemyObjList) {
+            if (y < 2 || y >= 10) {
+                enemy.moveDown(200);
+            } else if(y < 4 || y >= 8) {
+                enemy.moveDown(150);
+            }else if(y < 5 || y == 7){
+                enemy.moveDown(100);
+            }else{
+                enemy.moveDown(50);
+            }
+            y++;
         }
     }
 

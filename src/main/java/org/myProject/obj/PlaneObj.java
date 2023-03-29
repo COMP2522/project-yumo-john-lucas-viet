@@ -39,7 +39,7 @@ public class PlaneObj extends GameObj {
   private int maxLives = 3;
   private boolean invincible = false;
   
-  private int fireType = 4;
+  private int fireType = 3;
   private int score = 0;
   
   /**
@@ -327,7 +327,7 @@ public class PlaneObj extends GameObj {
       int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
       
       for (int i = 0; i < bulletCount; i++) {
-        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame);
+        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
         bullet.setX(startX + i * bulletSpacing);
         bullet.setY(this.getY() + BULLET_Y_OFFSET);
         GameUtils.bulletObjList.add(bullet);
