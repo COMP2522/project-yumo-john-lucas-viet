@@ -109,6 +109,7 @@ public class GameObj {
     public Rectangle getrect() {
         return new Rectangle(x, y, width, height);
     }
+    
 }
 
 

@@ -6,11 +6,9 @@ import org.myProject.utils.GameUtils;
 import java.awt.*;
 
 public class BulletObj extends GameObj {
-  private final int DAMAGE = 1;
-
+  private final int DAMAGE = 25;
   public boolean isEnemyBullet = true;
-
-
+  
   public BulletObj(Image img, int x, int y, int width, int height, double speed, GameWin frame, boolean isEnemyBullet) {
     super(img, x, y, width, height, speed, frame);
     this.isEnemyBullet = isEnemyBullet;
@@ -24,7 +22,6 @@ public class BulletObj extends GameObj {
   }
 
   public void move() {
-    // Move the bullet up the screen at the given speed
     int newY;
     if (isEnemyBullet) {
       // Move the bullet down the screen at the given speed for enemy bullets
@@ -35,6 +32,7 @@ public class BulletObj extends GameObj {
     }
     setY(newY);
   }
+
 
   public boolean isOffScreen() {
     // Check if the bullet has gone off the top of the screen

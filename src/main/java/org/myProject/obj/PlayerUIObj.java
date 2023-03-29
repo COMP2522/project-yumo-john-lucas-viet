@@ -41,7 +41,7 @@ public class PlayerUIObj extends GameObj {
     int barY = player.frame.getHeight() - HEALTH_BAR_HEIGHT - HEALTH_BAR_MARGIN_BOTTOM;
     gImage.setColor(Color.WHITE);
     gImage.drawRect(barX, barY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
-    
+  
     double healthPercent = (double) player.getHealth() / MAX_HEALTH;
     if (healthPercent >= 0.7) {
       gImage.setColor(Color.GREEN);
@@ -50,23 +50,10 @@ public class PlayerUIObj extends GameObj {
     } else {
       gImage.setColor(Color.RED);
     }
-    
+  
     int healthBarWidth = (int) (HEALTH_BAR_WIDTH * healthPercent);
     gImage.fillRect(barX, barY, healthBarWidth, HEALTH_BAR_HEIGHT);
-    
-    drawLives((Graphics2D) gImage, barX, barY);
     drawScore(gImage);
-  }
-  
-  public void drawLives(Graphics2D gImage, int barX, int barY) {
-    Image playerImage = player.img;
-    int playerWidth = player.width;
-    int playerHeight = player.height;
-    int livesY = barY - LIVES_MARGIN_TOP;
-    
-    for (int i = 0; i < player.getLives(); i++) {
-      gImage.drawImage(playerImage, barX + i * (playerWidth / 2 + PLAYER_SPRITE_GAP), livesY, playerWidth / 2, playerHeight / 2, null);
-    }
   }
   
   public void drawScore(Graphics gImage) {
