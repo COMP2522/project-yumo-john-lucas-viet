@@ -1,6 +1,7 @@
 package org.myProject.obj;
 
 import java.awt.*;
+import java.util.List;
 
 import org.myProject.GameWin;
 import org.myProject.utils.GameUtils;
@@ -10,6 +11,10 @@ public class PowerUpsObj extends GameObj {
   private Image powerUpImg;
   private int powerUpWidth;
   private int powerUpHeight;
+
+  private boolean isActive;
+
+  GameWin gameWin;
 
   public PowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin gameWin) {
     super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, gameWin);
@@ -60,6 +65,24 @@ public class PowerUpsObj extends GameObj {
       GameUtils.gameObjList.add(powerUpObj); // add power-up object to the game object list
 
 
+    }
+  }
+
+  private boolean collidesWith(GameObj otherObj){
+    Rectangle rect1 = this.getrect();
+    Rectangle rect2 = otherObj.getrect();
+    return rect1.intersects(rect2);
+  }
+
+  public void checkCollision(GameWin gameWin){
+    List<GameObj> gameObjList = GameUtils.gameObjList;
+    PowerUpsObj powerUpObj = new PowerUpsObj(GameUtils.powerups, 100, 400,
+            GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),
+            0, gameWin);
+    for (GameObj obj : gameObjList) {
+      if (this.collidesWith(obj)) {
+        GameUtils.removeobjList.add(powerUpObj);
+      }
     }
   }
 }

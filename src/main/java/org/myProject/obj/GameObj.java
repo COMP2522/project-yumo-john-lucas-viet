@@ -16,6 +16,8 @@ public class GameObj {
     double speed;//Moving speed
     GameWin frame;//window reference
 
+
+
     public Image getImg() {
         return img;
     }

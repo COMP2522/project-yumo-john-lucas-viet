@@ -194,7 +194,7 @@ public class GameWin extends JFrame {
             /**
              GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
-            PowerUpsObj.spawnPowerUp(this);
+            //PowerUpsObj.spawnPowerUp(this);
 
 
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
@@ -236,6 +236,15 @@ public class GameWin extends JFrame {
           The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
           Intend to make a formation. There will be different formation in the future update.
           */
+
+
+        if (true) {
+                GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.enemyimg, 100, 400, GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),
+                        0, this));
+            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
+        }
+
+
         if (enemyCount < 12) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
@@ -281,14 +290,7 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
-        //temp
-        PowerUpsObj.spawnPowerUp(this);
-        startPowerUpTimer();
-        // spawn power-ups every 5 seconds
-        if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
-            PowerUpsObj.spawnPowerUp(this);
-            lastPowerUpSpawnTime = System.currentTimeMillis();
-        }
+
 
 
 

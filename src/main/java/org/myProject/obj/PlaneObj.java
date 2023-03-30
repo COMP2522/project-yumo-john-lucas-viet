@@ -33,7 +33,7 @@ public class PlaneObj extends GameObj {
   private int health = 100;
   private boolean invincible = false;
   
-  private int fireType = 4;
+  private int fireType = 1;
   private int score = 0;
   
   
@@ -158,6 +158,7 @@ public class PlaneObj extends GameObj {
     for (GameObj obj : gameObjList) {
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
+        GameUtils.removeobjList.add(obj);
       }
     }
   }
