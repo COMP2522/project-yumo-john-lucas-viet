@@ -2,14 +2,19 @@ package org.myProject.obj;
 
 import org.myProject.GameWin;
 import org.myProject.utils.GameUtils;
+import processing.data.JSONObject;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 
 import static org.myProject.utils.GameUtils.bulletimg;
 
@@ -291,6 +296,37 @@ public class PlaneObj extends GameObj {
    */
   public void pentaFire() {
     fireBullets(5, BULLET_SPACING);
+  }
+  
+  public void saveGameAsync() {
+    if (gameWin.state != 3) {
+      CompletableFuture.runAsync(() -> {
+        System.out.println("Saved Player Data");
+        // create a JSON object to store game data
+        JSONObject gameData = new JSONObject();
+        gameData.put("health", health);
+        gameData.put("score", score);
+        gameData.put("xPOS", x);
+        gameData.put("yPOS", y);
+    
+        // create a JSON file if it doesn't exist
+        File saveFile = new File("save.json");
+        if (!saveFile.exists()) {
+          try {
+            saveFile.createNewFile();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+        // write game data to the JSON file
+        try (FileWriter file = new FileWriter(saveFile)) {
+          file.write(gameData.toString());
+          file.flush();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      });
+    }
   }
   
 }
