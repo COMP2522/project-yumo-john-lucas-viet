@@ -301,6 +301,10 @@ public class GameWin extends JFrame {
                 planeobj.saveGameAsync();
             }
         }, 0, 1000);
+        if (GameWin.state == 3){
+            planeobj.saveGameAsync();
+            timer.cancel();
+        }
     }
 
     public static void main(String[] args) {

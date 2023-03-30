@@ -164,6 +164,9 @@ public class PlaneObj extends GameObj {
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
       }
+      if (obj instanceof EnemyObj && this.collidesWith(obj)){
+        takeDamage(((EnemyObj) obj).getDamage());
+      }
     }
   }
   
