@@ -2,16 +2,22 @@ package org.myProject.obj;
 
 import org.myProject.GameWin;
 import org.myProject.utils.GameUtils;
+import processing.data.JSONObject;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 
 import static org.myProject.utils.GameUtils.bulletimg;
+import static org.myProject.utils.GameUtils.shellimg;
 
 /**
  * PlaneObj is class representing the player. This class is responsible
@@ -33,7 +39,7 @@ public class PlaneObj extends GameObj {
   private int health = 100;
   private boolean invincible = false;
   
-  private int fireType = 4;
+  private int fireType = 2;
   private int score = 0;
   
   
@@ -159,6 +165,9 @@ public class PlaneObj extends GameObj {
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
       }
+      if (obj instanceof EnemyObj && this.collidesWith(obj)){
+        takeDamage(((EnemyObj) obj).getDamage());
+      }
     }
   }
   
@@ -224,12 +233,17 @@ public class PlaneObj extends GameObj {
   public void shoot(int fireType) {
     while (GameWin.state == 1) {
       switch (fireType) {
-        case 1 -> straightShot();
-        case 2 -> doubleFire();
-        case 3 -> tripleFire();
-        case 4 -> pentaFire();
-        default -> {
-        }
+        case 1:
+          straightShot();
+          break;
+        case 2: doubleFire();
+        break;
+        case 3: tripleFire();
+        break;
+        case 4: pentaFire();
+        break;
+        default:
+          break;
       }
     }
   }
@@ -247,15 +261,19 @@ public class PlaneObj extends GameObj {
     final int BULLET_SPEED = 12;
     final int BULLET_X_OFFSET = 4;
     final int BULLET_Y_OFFSET = -20;
-    
+
     long currentTime = System.nanoTime();
-  
+
     if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
-      bullet.setX(this.getX() + BULLET_X_OFFSET);
-      bullet.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+BULLET_X_OFFSET,this.getY()-16,BULLET_WIDTH,BULLET_HEIGHT,BULLET_SPEED,frame, false));
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
+      int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
+
+      for (int i = 0; i < bulletCount; i++) {
+        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
+        bullet.setX(startX + i * bulletSpacing);
+        bullet.setY(this.getY() + BULLET_Y_OFFSET);
+        GameUtils.bulletObjList.add(bullet);
+        GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+      }
 
       lastShotTime = currentTime;
     }
@@ -291,6 +309,37 @@ public class PlaneObj extends GameObj {
    */
   public void pentaFire() {
     fireBullets(5, BULLET_SPACING);
+  }
+  
+  public void saveGameAsync() {
+    if (gameWin.state != 3) {
+      CompletableFuture.runAsync(() -> {
+        System.out.println("Saved Player Data");
+        // create a JSON object to store game data
+        JSONObject gameData = new JSONObject();
+        gameData.put("health", health);
+        gameData.put("score", score);
+        gameData.put("xPOS", x);
+        gameData.put("yPOS", y);
+    
+        // create a JSON file if it doesn't exist
+        File saveFile = new File("save.json");
+        if (!saveFile.exists()) {
+          try {
+            saveFile.createNewFile();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+        // write game data to the JSON file
+        try (FileWriter file = new FileWriter(saveFile)) {
+          file.write(gameData.toString());
+          file.flush();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      });
+    }
   }
   
 }

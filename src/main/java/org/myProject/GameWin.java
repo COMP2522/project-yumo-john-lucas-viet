@@ -165,9 +165,12 @@ public class GameWin extends JFrame {
             }
         });
         while(true){
-            if(state==1){
+            if(state==1) {
                 create();
                 repaint();
+                if (state == 1) {
+                    save();
+                }
             }
 
             try {
@@ -219,7 +222,6 @@ public class GameWin extends JFrame {
         if(state ==3) {
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
             GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
-
         }
         //Game Win
         if(state==4) {
@@ -299,9 +301,20 @@ public class GameWin extends JFrame {
             PowerUpsObj.spawnPowerUp(this);
             lastPowerUpSpawnTime = System.currentTimeMillis();
         }
-
-
-
+    }
+    
+    public void save(){
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                planeobj.saveGameAsync();
+            }
+        }, 0, 1000);
+        if (GameWin.state == 3){
+            planeobj.saveGameAsync();
+            timer.cancel();
+        }
     }
 
     public static void main(String[] args) {
