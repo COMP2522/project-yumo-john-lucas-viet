@@ -23,33 +23,15 @@ public class GameWin extends JFrame {
     //The number of enemy aircraft present
     int enemyCount=0;
 
-    //ly
-    private final int BULLET_SPEED = 10;
-    private final int BULLET_DELAY = 100; // Time between bullet shots, in milliseconds
-    private Timer bulletTimer;
-
-    //ly
-    // Define constants for power-ups
-    private static final int POWERUP_WIDTH = 30;
-    private static final int POWERUP_HEIGHT = 30;
-    private static final int POWERUP_SPEED = 5;
-    private static final int POWERUP_DELAY = 5000; // milliseconds
-
-    private static final int GAME_DELAY = 10; // milliseconds
-    private long lastPowerUpSpawnTime;
+    boolean hasPowerup = true;
 
 
 
-    // Define a timer for spawning power-ups
-    private Timer powerUpTimer;
 
     // Define a list to store power-up objects
     private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
 
-    public GameWin() {
-        // ...
-        lastPowerUpSpawnTime = System.currentTimeMillis();
-    }
+
 
 
 
@@ -61,11 +43,6 @@ public class GameWin extends JFrame {
 
     public void addGameObject(GameObj obj) {
         gameObjects.add(obj);
-//        if (obj instanceof BulletObj) {
-//            bulletObjs.add((BulletObj) obj);
-//        } else if (obj instanceof EnemyObj) {
-//            enemyObjs.add((EnemyObj) obj);
-//        } else
         if (obj instanceof PowerUpsObj) {
             powerUps.add((PowerUpsObj) obj);
         }
@@ -81,25 +58,8 @@ public class GameWin extends JFrame {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
 
-    //ly
-    // Define a method for starting the power-up timer
-    private void startPowerUpTimer() {
-        TimerTask powerUpTask = new TimerTask() {
-            @Override
-            public void run() {
-                // Generate a random x-coordinate for the power-up
-                int x = new Random().nextInt(getWidth() - POWERUP_WIDTH);
 
-                // Create a new power-up object and add it to the game's list of objects
-                Image powerUpImg = getPowerUpImage();
-                PowerUpsObj powerUpObj = new PowerUpsObj(powerUpImg, x, 0, POWERUP_WIDTH, POWERUP_HEIGHT, POWERUP_SPEED, GameWin.this);
-                addGameObject(powerUpObj);
-                powerUps.add(powerUpObj);
-            }
-        };
-        powerUpTimer = new Timer();
-        powerUpTimer.schedule(powerUpTask, 0, POWERUP_DELAY);
-    }
+
 
 
 
@@ -160,6 +120,7 @@ public class GameWin extends JFrame {
         });
         while(true){
             if(state==1){
+
                 create();
                 repaint();
             }
@@ -174,6 +135,7 @@ public class GameWin extends JFrame {
 
     @Override
     public void paint(Graphics g) {
+
         if(offSreenimage==null){
             offSreenimage=createImage(width,height);
         }
@@ -195,6 +157,7 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
             //PowerUpsObj.spawnPowerUp(this);
+
 
 
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
@@ -238,10 +201,15 @@ public class GameWin extends JFrame {
           */
 
 
-        if (true) {
-                GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.enemyimg, 100, 400, GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),
-                        0, this));
+        if (hasPowerup) {
+            hasPowerup = false;
+            GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0,
+                    2, this));
             GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
+        }
+
+        for(PowerUpsObj power : GameUtils.powerUpsObjList){
+            power.checkCollision();
         }
 
 
@@ -297,6 +265,7 @@ public class GameWin extends JFrame {
     }
 
     public static void main(String[] args) {
+
         GameWin Gamewin=new GameWin();
         Gamewin.launch();
 

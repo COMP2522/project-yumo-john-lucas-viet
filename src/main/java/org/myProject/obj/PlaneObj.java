@@ -33,9 +33,10 @@ public class PlaneObj extends GameObj {
   private int health = 100;
   private boolean invincible = false;
   
-  private int fireType = 1;
+  private int fireType = 3;
   private int score = 0;
-  
+
+
   
   /**
    The game win object associated with the plane.
@@ -226,6 +227,7 @@ public class PlaneObj extends GameObj {
     while (GameWin.state == 1) {
       switch (fireType) {
         case 1 -> straightShot();
+
         case 2 -> doubleFire();
         case 3 -> tripleFire();
         case 4 -> pentaFire();
