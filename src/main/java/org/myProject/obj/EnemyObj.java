@@ -25,7 +25,6 @@ public class EnemyObj extends GameObj implements ActionListener {
     int distance;
     private long lastShotTime = 0;
 
-    public int playerKills = 0;
 
 
     /**
@@ -81,11 +80,12 @@ public class EnemyObj extends GameObj implements ActionListener {
                 if (this.isActive) {
                     this.isActive = false;
                     planeobj.setScore(planeobj.getScore() + 1);
-                    playerKills += 1;
+
                 }
                 GameUtils.removeobjList.add(this);
                 break;
             }
+
         }
     }
 

@@ -34,7 +34,7 @@ public class GameWin extends JFrame {
 
 
 
-
+    public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
     //PlaneObj (Player)
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
@@ -86,6 +86,11 @@ public class GameWin extends JFrame {
         GameUtils.gameObjList.add(bgobj);
 
         GameUtils.gameObjList.add(planeobj);
+
+        //GameUtils.gameObjList.add(powerobj);
+
+
+
 
         //Mouse click
         this.addMouseListener(new MouseAdapter() {
@@ -203,14 +208,16 @@ public class GameWin extends JFrame {
 
         if (hasPowerup) {
             hasPowerup = false;
-            GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0,
+            GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
+                    2, this));
+            GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 400, 400, 20, 30,
                     2, this));
             GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
         }
 
-        for(PowerUpsObj power : GameUtils.powerUpsObjList){
-            power.checkCollision();
-        }
+//        for(PowerUpsObj power : GameUtils.powerUpsObjList){
+//            power.checkCollision();
+//        }
 
 
         if (enemyCount < 12) {
