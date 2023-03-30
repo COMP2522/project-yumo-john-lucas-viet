@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.Timer;
 
 import static org.myProject.utils.GameUtils.bulletimg;
+
 /**
  EnemyObj class - this class represent the enemy object in the game.
  This class contain enemy basic functions.
@@ -25,7 +26,7 @@ public class EnemyObj extends GameObj implements ActionListener {
     int damage;
     private long lastShotTime = 0;
     public static EnemyObj enemy;
-
+    
     /**
      * Constructor for EnemyObj class.
      *
@@ -66,13 +67,15 @@ public class EnemyObj extends GameObj implements ActionListener {
     /**
      * Checks collision between the enemy object and other game objects.
      */
-    public void checkCollision(){
+    public void checkCollision(PlaneObj planeobj){
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-                this.isActive = false;
+                if (this.isActive) {
+                    this.isActive = false;
+                    planeobj.setScore(planeobj.getScore() + 1);
+                }
                 GameUtils.removeobjList.add(this);
-
                 break;
             }
         }
@@ -117,15 +120,5 @@ public class EnemyObj extends GameObj implements ActionListener {
             lastShotTime = currentTime;
         }
     }
-
-    /**
-     * Get the damage cause by enemy.
-     * @return integer amount of damage.
-     */
-    public int getDamage() {
-        return damage;
-    }
-
-//    public
 }
 

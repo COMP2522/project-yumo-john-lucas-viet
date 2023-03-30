@@ -250,7 +250,7 @@ public class GameWin extends JFrame {
         }
 
         for(EnemyObj enemy : GameUtils.enemyObjList){
-            enemy.checkCollision();
+            enemy.checkCollision(planeobj);
         }
 
         /**

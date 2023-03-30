@@ -3,18 +3,15 @@ package org.myProject.obj;
 import org.myProject.GameWin;
 import org.myProject.utils.GameUtils;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static org.myProject.utils.GameUtils.bulletimg;
-import static org.myProject.utils.GameUtils.shellimg;
 
 /**
  * PlaneObj is class representing the player. This class is responsible
@@ -31,16 +28,14 @@ public class PlaneObj extends GameObj {
   public static final int MOUSE_OFFSET_X = 11;
   public static final int MOUSE_OFFSET_Y = 16;
   public static final int SHOOT_DELAY_MS = 10;
-  
   public static final int BULLET_SPACING = 20;
   
   private int health = 100;
-  private int lives = 3;
-  private int maxLives = 3;
   private boolean invincible = false;
   
   private int fireType = 4;
   private int score = 0;
+  
   
   /**
    The game win object associated with the plane.
@@ -69,38 +64,6 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Gets the current number of lives the plane has.
-   @return The current number of lives the plane has.
-   */
-  public int getLives() {
-    return lives;
-  }
-  
-  /**
-   Sets the current number of lives the plane has.
-   @param lives The current number of lives the plane has.
-   */
-  public void setLives(int lives) {
-    this.lives = lives;
-  }
-  
-  /**
-   Gets the maximum number of lives the plane can have.
-   @return The maximum number of lives the plane can have.
-   */
-  public int getMaxLives() {
-    return maxLives;
-  }
-  
-  /**
-   Sets the maximum number of lives the plane can have.
-   @param maxLives The maximum number of lives the plane can have.
-   */
-  public void setMaxLives(int maxLives) {
-    this.maxLives = maxLives;
-  }
-  
-  /**
    * Gets the current FireType the plane current has.
    * @return The current fire type of the plane
    */
@@ -125,12 +88,13 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Sets the score to the specified value.
-   @param score the integer value to set the score to
+   Sets the score to the size of the given ArrayList.
+   @param score value that will be used to set score
    */
   public void setScore(int score) {
-    this.score = score;
+    this.score = score; // set the score to the size of the ArrayList
   }
+  
   
   
   
@@ -192,11 +156,8 @@ public class PlaneObj extends GameObj {
   public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
     for (GameObj obj : gameObjList) {
-      if (this.collidesWith(obj)) {
-        //Waiting on bullet getDamage() and enemy getDamage()
-         //takeDamage(obj.getDamage(obj.getDamage()));
-         
-        break;
+      if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
+        takeDamage(((BulletObj) obj).getDamage());
       }
     }
   }
@@ -235,11 +196,19 @@ public class PlaneObj extends GameObj {
     health -= dmg;
     if (health <= 0) {
       explode();
-      respawn();
+      gameWin.state = 3;
     }
-    if (lives <= 0) {
-      GameWin.state = 3;
-    }
+    invincible = true;
+    //Player will become invincible for 0.5s after being hit
+    Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
+      @Override
+      public void run() {
+        invincible = false;
+      }
+    };
+    timer.schedule(task, 500);
+    
   }
   
   /**
@@ -247,51 +216,9 @@ public class PlaneObj extends GameObj {
    player health equals 0. This function is called in takeDamage()
    */
   public void explode() {
-    try {
-      // Load all explosion gifs
-      Image[] explosionGifs = new Image[16];
-      for (int i = 1; i <= 16; i++) {
-        explosionGifs[i - 1] = ImageIO.read(new File("explode/e" + i + ".gif"));
-      }
-      // Draw current explosion gif at Plane location
-      int currentExplosionIndex = 0; // Update this variable to change which explosion frame is shown
-      Graphics gImage = this.frame.getGraphics(); // Get the graphics object of the frame
-      gImage.drawImage(explosionGifs[currentExplosionIndex], this.x, this.y, null); // Draw the explosion gif
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  /**
-   Resets player's health and position upon death, sets invincibility to true for 3 seconds,
-   and sets a Timer to turn off invincibility after 3 seconds.
-   */
-  public void respawn() {
-    lives--;
-    if (lives >= 0) {
-      this.x = START_X;
-      this.y = START_Y;
-      this.health = 100;
-      this.invincible = true; // set invincibility to true
-  
-      //Resets the mouse course to the starting position of the player
-      try {
-        Robot robot = new Robot();
-        robot.mouseMove(START_X, START_Y);
-      } catch (AWTException e) {
-        System.err.println("Mouse reset error");
-      }
-      
-      //Sets up a timer to turn off the player invincibility after 3secs
-      Timer timer = new Timer();
-      TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-          invincible = false;
-        }
-      };
-      timer.schedule(task, 3000);
-    }
+    ExplodeObj explodeobj=new ExplodeObj(this.x,this.y);
+    GameUtils.explodeObjList.add(explodeobj);
+    GameUtils.removeobjList.add(explodeobj);
   }
   
   public void shoot(int fireType) {
@@ -366,18 +293,4 @@ public class PlaneObj extends GameObj {
     fireBullets(5, BULLET_SPACING);
   }
   
-  
-  
-  
-  /**
-   * Move this to your own class Lucas, and remove this comment after
-   */
-  public void paintPower() {
-    PowerUpsObj powerUpsObj = new PowerUpsObj(GameUtils.powerups, x, -GameUtils.powerups.getHeight(null),
-            GameUtils.powerups.getWidth(null), GameUtils.powerups.getHeight(null),
-            2, gameWin);
-    while (true) {
-      PowerUpsObj.spawnPowerUp(gameWin);
-    }
-  }
 }
