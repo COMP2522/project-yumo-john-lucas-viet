@@ -34,7 +34,7 @@ public class GameWin extends JFrame {
 
 
 
-
+    public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
     //PlaneObj (Player)
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
@@ -86,6 +86,11 @@ public class GameWin extends JFrame {
         GameUtils.gameObjList.add(bgobj);
 
         GameUtils.gameObjList.add(planeobj);
+
+        //GameUtils.gameObjList.add(powerobj);
+
+
+
 
         //Mouse click
         this.addMouseListener(new MouseAdapter() {

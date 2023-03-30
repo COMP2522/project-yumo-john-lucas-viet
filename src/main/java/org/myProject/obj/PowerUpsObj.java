@@ -8,12 +8,10 @@ import org.myProject.utils.GameUtils;
 
 public class PowerUpsObj extends GameObj {
 
-  private Image powerUpImg;
   private int powerUpWidth;
   private int powerUpHeight;
 
 
-  GameWin gameWin;
 
   public PowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin gameWin) {
     super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, gameWin);
@@ -28,7 +26,7 @@ public class PowerUpsObj extends GameObj {
 
   public void paintself(Graphics gImage) {
     //g.drawImage(powerUpImg, getX(), getY(), null);
-    super.paintself(gImage);
+    //super.paintself(gImage);
     checkCollision();
   }
 
@@ -50,12 +48,12 @@ public class PowerUpsObj extends GameObj {
   }
 
 
-  public void checkCollision() {
+  public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
-
     for (GameObj obj : gameObjList) {
-      if (this.collidesWith(obj)) {
+      if (obj instanceof PlaneObj && this.collidesWith(obj)) {
         GameUtils.removeobjList.add(this);
+
       }
     }
   }
