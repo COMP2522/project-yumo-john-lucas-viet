@@ -16,6 +16,8 @@ public class GameObj {
     double speed;//Moving speed
     GameWin frame;//window reference
 
+
+
     public Image getImg() {
         return img;
     }
@@ -102,6 +104,8 @@ public class GameObj {
     public void paintself(Graphics gImage) {
         gImage.drawImage(img, x, y, null);
     }
+
+
 
     //The method of drawing a rectangle is used for collision detection
     public Rectangle getrect() {

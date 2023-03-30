@@ -7,8 +7,10 @@ import org.myProject.utils.GameUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -21,36 +23,18 @@ public class GameWin extends JFrame {
     //The number of enemy aircraft present
     int enemyCount=0;
 
-    //ly
-    private final int BULLET_SPEED = 10;
-    private final int BULLET_DELAY = 100; // Time between bullet shots, in milliseconds
-    private Timer bulletTimer;
-
-    //ly
-    // Define constants for power-ups
-    private static final int POWERUP_WIDTH = 30;
-    private static final int POWERUP_HEIGHT = 30;
-    private static final int POWERUP_SPEED = 5;
-    private static final int POWERUP_DELAY = 5000; // milliseconds
-
-    private static final int GAME_DELAY = 10; // milliseconds
-    private long lastPowerUpSpawnTime;
+    boolean hasPowerup = true;
 
 
 
-    // Define a timer for spawning power-ups
-    private Timer powerUpTimer;
 
     // Define a list to store power-up objects
     private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
 
-    public GameWin() {
-        // ...
-        lastPowerUpSpawnTime = System.currentTimeMillis();
-    }
 
 
 
+    public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
     //PlaneObj (Player)
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
@@ -59,11 +43,6 @@ public class GameWin extends JFrame {
 
     public void addGameObject(GameObj obj) {
         gameObjects.add(obj);
-//        if (obj instanceof BulletObj) {
-//            bulletObjs.add((BulletObj) obj);
-//        } else if (obj instanceof EnemyObj) {
-//            enemyObjs.add((EnemyObj) obj);
-//        } else
         if (obj instanceof PowerUpsObj) {
             powerUps.add((PowerUpsObj) obj);
         }
@@ -74,38 +53,13 @@ public class GameWin extends JFrame {
         gameObjects.remove(gameObject);
     }
 
-    public int getEnemyCount(){
-        return this.enemyCount;
-    }
-
-    public void setEnemyCount(int x){
-        this.enemyCount-=x;
-    }
-
 
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
 
-    //ly
-    // Define a method for starting the power-up timer
-    private void startPowerUpTimer() {
-        TimerTask powerUpTask = new TimerTask() {
-            @Override
-            public void run() {
-                // Generate a random x-coordinate for the power-up
-                int x = new Random().nextInt(getWidth() - POWERUP_WIDTH);
 
-                // Create a new power-up object and add it to the game's list of objects
-                Image powerUpImg = getPowerUpImage();
-                PowerUpsObj powerUpObj = new PowerUpsObj(powerUpImg, x, 0, POWERUP_WIDTH, POWERUP_HEIGHT, POWERUP_SPEED, GameWin.this);
-                addGameObject(powerUpObj);
-                powerUps.add(powerUpObj);
-            }
-        };
-        powerUpTimer = new Timer();
-        powerUpTimer.schedule(powerUpTask, 0, POWERUP_DELAY);
-    }
+
 
 
 
@@ -132,6 +86,11 @@ public class GameWin extends JFrame {
         GameUtils.gameObjList.add(bgobj);
 
         GameUtils.gameObjList.add(planeobj);
+
+        //GameUtils.gameObjList.add(powerobj);
+
+
+
 
         //Mouse click
         this.addMouseListener(new MouseAdapter() {
@@ -165,12 +124,10 @@ public class GameWin extends JFrame {
             }
         });
         while(true){
-            if(state==1) {
+            if(state==1){
+
                 create();
                 repaint();
-                if (state == 1) {
-                    save();
-                }
             }
 
             try {
@@ -183,6 +140,7 @@ public class GameWin extends JFrame {
 
     @Override
     public void paint(Graphics g) {
+
         if(offSreenimage==null){
             offSreenimage=createImage(width,height);
         }
@@ -203,18 +161,14 @@ public class GameWin extends JFrame {
             /**
              GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
-            PowerUpsObj.spawnPowerUp(this);
+            //PowerUpsObj.spawnPowerUp(this);
+
 
 
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
                 GameUtils.gameObjList.get(i).paintself(gimage);
             }
 
-            try{
-                for(EnemyObj enemy : GameUtils.enemyObjList){
-                    enemy.removeEnemy();
-                }
-            }catch (ConcurrentModificationException e){}
 
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
@@ -222,6 +176,7 @@ public class GameWin extends JFrame {
         if(state ==3) {
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
             GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
+
         }
         //Game Win
         if(state==4) {
@@ -234,10 +189,14 @@ public class GameWin extends JFrame {
         g.drawImage(offSreenimage,0,0,null);
         count++;
 
+
+
+
+
     }
     //The creation method is used to generate bullets and enemy planes in batches
     void create(){
-          /**enemy fighter
+          /*enemy fighter
           The first if statement set each enemy to be 35 away from each other horizontally.
           And add them into enemyObj list and then add them into gameObj list.
           The total number of enemy on screen is 12. This could be change base
@@ -245,7 +204,23 @@ public class GameWin extends JFrame {
           The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
           Intend to make a formation. There will be different formation in the future update.
           */
-        if (enemyCount == 0) {
+
+
+        if (hasPowerup) {
+            hasPowerup = false;
+            GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
+                    2, this));
+            GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 400, 400, 20, 30,
+                    2, this));
+            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
+        }
+
+//        for(PowerUpsObj power : GameUtils.powerUpsObjList){
+//            power.checkCollision();
+//        }
+
+
+        if (enemyCount < 12) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
                 GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
@@ -258,9 +233,6 @@ public class GameWin extends JFrame {
             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
         }
 
-        /**
-         * Check for collision with player's bullet
-         */
         for(EnemyObj enemy : GameUtils.enemyObjList){
             enemy.checkCollision(planeobj);
         }
@@ -293,31 +265,14 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
-        //temp
-        PowerUpsObj.spawnPowerUp(this);
-        startPowerUpTimer();
-        // spawn power-ups every 5 seconds
-        if (System.currentTimeMillis() - lastPowerUpSpawnTime > 5000) {
-            PowerUpsObj.spawnPowerUp(this);
-            lastPowerUpSpawnTime = System.currentTimeMillis();
-        }
-    }
-    
-    public void save(){
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                planeobj.saveGameAsync();
-            }
-        }, 0, 1000);
-        if (GameWin.state == 3){
-            planeobj.saveGameAsync();
-            timer.cancel();
-        }
+
+
+
+
     }
 
     public static void main(String[] args) {
+
         GameWin Gamewin=new GameWin();
         Gamewin.launch();
 
