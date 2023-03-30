@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="modified powerup related.">
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/EnemyObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/EnemyObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/EnemyObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/EnemyObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="comp2522Project" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2NewrXytEs73zg3Jqer8IKGmvyj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sfroz/IdeaProjects/new 2522 2/project-yumo-john-lucas-viet&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="GameWin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.myProject.GameWin" />
+      <module name="comp2522Project.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.myProject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GameWin" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="" />
+      <created>1680038063252</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680038063252</updated>
+      <workItem from="1680038066801" duration="1272000" />
+      <workItem from="1680039380544" duration="2439000" />
+      <workItem from="1680069145286" duration="964000" />
+      <workItem from="1680070331788" duration="1150000" />
+      <workItem from="1680118159938" duration="980000" />
+      <workItem from="1680131805487" duration="1477000" />
+      <workItem from="1680149916166" duration="6661000" />
+      <workItem from="1680193804045" duration="4426000" />
+      <workItem from="1680199029198" duration="2784000" />
+      <workItem from="1680204758158" duration="4526000" />
+      <workItem from="1680212167261" duration="415000" />
+    </task>
+    <task id="LOCAL-00001" summary="combined viet's and john's code">
+      <created>1680118567775</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680118567775</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fixed errors of the codes">
+      <created>1680154022813</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680154022813</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fixed more errors">
+      <created>1680197486587</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680197486587</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fixed more errors">
+      <created>1680197506437</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680197506437</updated>
+    </task>
+    <task id="LOCAL-00005" summary="modified powerup related.">
+      <created>1680204810437</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680204810437</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Ly_power_new" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="combined viet's and john's code" />
+    <MESSAGE value="fixed errors of the codes" />
+    <MESSAGE value="fixed more errors" />
+    <MESSAGE value="fixed more errors." />
+    <MESSAGE value="Implemented power up" />
+    <MESSAGE value="modified powerup related." />
+    <option name="LAST_COMMIT_MESSAGE" value="modified powerup related." />
+  </component>
+</project>

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static org.myProject.utils.GameUtils.bulletimg;
+import static org.myProject.utils.GameUtils.*;
 
 /**
  * PlaneObj is class representing the player. This class is responsible
@@ -33,9 +33,12 @@ public class PlaneObj extends GameObj {
   private int health = 100;
   private boolean invincible = false;
   
-  private int fireType = 4;
+  private int fireType = 1;
   private int score = 0;
-  
+
+  boolean pickUpPowerup;
+
+
   
   /**
    The game win object associated with the plane.
@@ -158,9 +161,24 @@ public class PlaneObj extends GameObj {
     for (GameObj obj : gameObjList) {
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
+        GameUtils.removeobjList.add(obj);
+      }
+      if (obj instanceof EnemyObj && this.collidesWith(obj)){
+        takeDamage(((EnemyObj) obj).getDamage());
+        GameUtils.removeobjList.add(obj);
+
+      }
+
+      if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
+        GameUtils.removeobjList.add(obj);
+        pickUpPowerup = true;
+      }
+
+
+
       }
     }
-  }
+
   
   /**
    Returns the rectangular bounds of this GameObj.
@@ -223,6 +241,9 @@ public class PlaneObj extends GameObj {
   
   public void shoot(int fireType) {
     while (GameWin.state == 1) {
+      if (pickUpPowerup) {
+        fireType = 3;
+      }
       switch (fireType) {
         case 1 -> straightShot();
         case 2 -> doubleFire();
@@ -233,6 +254,7 @@ public class PlaneObj extends GameObj {
       }
     }
   }
+
   
   /**
    * Fires bullets in a straight line from the player's current position. Bullets originate from
@@ -247,15 +269,19 @@ public class PlaneObj extends GameObj {
     final int BULLET_SPEED = 12;
     final int BULLET_X_OFFSET = 4;
     final int BULLET_Y_OFFSET = -20;
-    
+
     long currentTime = System.nanoTime();
-  
+
     if (currentTime - lastShotTime >= SHOT_DELAY) {
-      BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
-      bullet.setX(this.getX() + BULLET_X_OFFSET);
-      bullet.setY(this.getY() + BULLET_Y_OFFSET);
-      GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+BULLET_X_OFFSET,this.getY()-16,BULLET_WIDTH,BULLET_HEIGHT,BULLET_SPEED,frame, false));
-      GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
+      int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
+
+      for (int i = 0; i < bulletCount; i++) {
+        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
+        bullet.setX(startX + i * bulletSpacing);
+        bullet.setY(this.getY() + BULLET_Y_OFFSET);
+        GameUtils.bulletObjList.add(bullet);
+        GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+      }
 
       lastShotTime = currentTime;
     }

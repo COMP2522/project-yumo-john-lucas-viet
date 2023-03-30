@@ -18,7 +18,7 @@ public class BgObj extends GameObj {
         super.paintself(gImage);
         y+=speed;
         if(y>=0){
-            y=-400;
+            y = -400;
         }
     }
 }
