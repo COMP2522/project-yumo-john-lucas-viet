@@ -7,6 +7,7 @@ import org.myProject.utils.GameUtils;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import javax.swing.Timer;
 
@@ -25,8 +26,9 @@ public class EnemyObj extends GameObj implements ActionListener {
     int distance;
     int damage;
     private long lastShotTime = 0;
-    public static EnemyObj enemy;
-    
+
+    public GameWin window;
+
     /**
      * Constructor for EnemyObj class.
      *
@@ -44,13 +46,8 @@ public class EnemyObj extends GameObj implements ActionListener {
         this.timer.start();
         this.isActive = true;
         this.damage = 1;
+        this.window = frame;
     }
-
-//    public static EnemyObj getInstance(){
-//        if (this.enemy == null){
-//            return new EnemyObj()
-//        }
-//    }
 
     /**
      * Checks if the enemy object collides with another game object.
@@ -71,6 +68,8 @@ public class EnemyObj extends GameObj implements ActionListener {
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
+                //this.window.setEnemyCount(1);
+                explode();
                 if (this.isActive) {
                     this.isActive = false;
                     planeobj.setScore(planeobj.getScore() + 1);
@@ -79,6 +78,13 @@ public class EnemyObj extends GameObj implements ActionListener {
                 break;
             }
         }
+    }
+
+
+    private void explode() {
+        ExplodeObj explodeobj = new ExplodeObj(this.x,this.y);
+        GameUtils.explodeObjList.add(explodeobj);
+        GameUtils.removeobjList.add(explodeobj);
     }
 
     /**
@@ -118,6 +124,16 @@ public class EnemyObj extends GameObj implements ActionListener {
             GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
             bullet.removeBullet();
             lastShotTime = currentTime;
+        }
+    }
+
+    /**
+     * Remove an enemy plane when it's no longer active
+     */
+    public void removeEnemy(){
+        if(!this.isActive) {
+            GameUtils.enemyObjList.remove(this);
+            this.window.setEnemyCount(1);
         }
     }
 }

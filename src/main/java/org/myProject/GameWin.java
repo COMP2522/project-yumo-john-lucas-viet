@@ -7,10 +7,8 @@ import org.myProject.utils.GameUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -74,6 +72,14 @@ public class GameWin extends JFrame {
 
     public void removeGameObject(GameObj gameObject) {
         gameObjects.remove(gameObject);
+    }
+
+    public int getEnemyCount(){
+        return this.enemyCount;
+    }
+
+    public void setEnemyCount(int x){
+        this.enemyCount-=x;
     }
 
 
@@ -201,6 +207,11 @@ public class GameWin extends JFrame {
                 GameUtils.gameObjList.get(i).paintself(gimage);
             }
 
+            try{
+                for(EnemyObj enemy : GameUtils.enemyObjList){
+                    enemy.removeEnemy();
+                }
+            }catch (ConcurrentModificationException e){}
 
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
@@ -221,14 +232,10 @@ public class GameWin extends JFrame {
         g.drawImage(offSreenimage,0,0,null);
         count++;
 
-
-
-
-
     }
     //The creation method is used to generate bullets and enemy planes in batches
     void create(){
-          /*enemy fighter
+          /**enemy fighter
           The first if statement set each enemy to be 35 away from each other horizontally.
           And add them into enemyObj list and then add them into gameObj list.
           The total number of enemy on screen is 12. This could be change base
@@ -236,7 +243,7 @@ public class GameWin extends JFrame {
           The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
           Intend to make a formation. There will be different formation in the future update.
           */
-        if (GameUtils.enemyObjList.size() < 12) {
+        if (enemyCount == 0) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
                 GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
@@ -249,6 +256,9 @@ public class GameWin extends JFrame {
             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
         }
 
+        /**
+         * Check for collision with player's bullet
+         */
         for(EnemyObj enemy : GameUtils.enemyObjList){
             enemy.checkCollision(planeobj);
         }
