@@ -25,14 +25,8 @@ public class GameWin extends JFrame {
 
     boolean hasPowerup = true;
 
-
-
-
     // Define a list to store power-up objects
     private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
-
-
-
 
     public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
@@ -48,28 +42,18 @@ public class GameWin extends JFrame {
         }
     }
 
-
     public void removeGameObject(GameObj gameObject) {
         gameObjects.remove(gameObject);
     }
 
-<<<<<<< HEAD
     public void setEnemyCount(int x){
         this.enemyCount-=x;
     }
     public PlaneObj getPlaneobj(){return this.planeobj;}
 
-=======
->>>>>>> b134fb459aad9a7bc6a3d7854425d27079ede453
-
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
-
-
-
-
-
 
     //Movement of the background image
 
@@ -97,14 +81,10 @@ public class GameWin extends JFrame {
 
         //GameUtils.gameObjList.add(powerobj);
 
-
-
-
         //Mouse click
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 //Before starting and clicking the left mouse button
                 if(e.getButton()==1&&state==0){
                     state=1;
@@ -133,7 +113,6 @@ public class GameWin extends JFrame {
         });
         while(true){
             if(state==1){
-
                 create();
                 repaint();
             }
@@ -171,16 +150,10 @@ public class GameWin extends JFrame {
              */
             //PowerUpsObj.spawnPowerUp(this);
 
-
-
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
                 GameUtils.gameObjList.get(i).paintself(gimage);
             }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b134fb459aad9a7bc6a3d7854425d27079ede453
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
         //game over
@@ -199,10 +172,6 @@ public class GameWin extends JFrame {
         //Draw the new picture to the main window at once
         g.drawImage(offSreenimage,0,0,null);
         count++;
-
-
-
-
 
     }
     //The creation method is used to generate bullets and enemy planes in batches
@@ -231,7 +200,7 @@ public class GameWin extends JFrame {
 //        }
 
 
-        if (enemyCount < 12) {
+        if (enemyCount == 0) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
                 GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
@@ -244,13 +213,6 @@ public class GameWin extends JFrame {
             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
         }
 
-<<<<<<< HEAD
-=======
-        for(EnemyObj enemy : GameUtils.enemyObjList){
-            enemy.checkCollision(planeobj);
-        }
-
->>>>>>> b134fb459aad9a7bc6a3d7854425d27079ede453
         /**
          * Make the enemy plane fly in reversed V formation
          */
@@ -267,6 +229,7 @@ public class GameWin extends JFrame {
             }
             y++;
         }
+
         //enemy boss bullet
         //Bullets are not spawned until the boss appears
          /*
