@@ -7,7 +7,6 @@ import org.myProject.utils.GameUtils;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import javax.swing.Timer;
 
@@ -26,7 +25,6 @@ public class EnemyObj extends GameObj implements ActionListener {
     int distance;
     int damage;
     private long lastShotTime = 0;
-
     public GameWin window;
 
     /**
@@ -50,6 +48,16 @@ public class EnemyObj extends GameObj implements ActionListener {
     }
 
     /**
+     * Used to constantly update player sprite position, health, and check collision
+     * @param gImage representing the image of the plan
+     */
+    public void paintself(Graphics gImage) {
+        super.paintself(gImage);
+        checkCollision(window.getPlaneobj());
+        removeEnemy();
+    }
+
+    /**
      * Checks if the enemy object collides with another game object.
      *
      * @param otherObj The game object to check collision with.
@@ -64,7 +72,7 @@ public class EnemyObj extends GameObj implements ActionListener {
     /**
      * Checks collision between the enemy object and other game objects.
      */
-    public void checkCollision(PlaneObj planeobj){
+    private void checkCollision(PlaneObj planeobj){
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
@@ -79,7 +87,6 @@ public class EnemyObj extends GameObj implements ActionListener {
             }
         }
     }
-
 
     private void explode() {
         ExplodeObj explodeobj = new ExplodeObj(this.x,this.y);
@@ -130,11 +137,10 @@ public class EnemyObj extends GameObj implements ActionListener {
     /**
      * Remove an enemy plane when it's no longer active
      */
-    public void removeEnemy(){
+    private void removeEnemy(){
         if(!this.isActive) {
             GameUtils.enemyObjList.remove(this);
             this.window.setEnemyCount(1);
         }
     }
 }
-

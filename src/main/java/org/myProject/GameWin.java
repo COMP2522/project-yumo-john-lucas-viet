@@ -74,13 +74,10 @@ public class GameWin extends JFrame {
         gameObjects.remove(gameObject);
     }
 
-    public int getEnemyCount(){
-        return this.enemyCount;
-    }
-
     public void setEnemyCount(int x){
         this.enemyCount-=x;
     }
+    public PlaneObj getPlaneobj(){return this.planeobj;}
 
 
     public Image getPowerUpImage() {
@@ -207,12 +204,6 @@ public class GameWin extends JFrame {
                 GameUtils.gameObjList.get(i).paintself(gimage);
             }
 
-            try{
-                for(EnemyObj enemy : GameUtils.enemyObjList){
-                    enemy.removeEnemy();
-                }
-            }catch (ConcurrentModificationException e){}
-
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
         //game over
@@ -254,13 +245,6 @@ public class GameWin extends JFrame {
                 }
             }
             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
-        }
-
-        /**
-         * Check for collision with player's bullet
-         */
-        for(EnemyObj enemy : GameUtils.enemyObjList){
-            enemy.checkCollision(planeobj);
         }
 
         /**
