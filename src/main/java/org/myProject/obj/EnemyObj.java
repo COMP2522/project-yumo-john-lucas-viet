@@ -24,6 +24,7 @@ public class EnemyObj extends GameObj implements ActionListener {
     private boolean isActive;
     int distance;
     private long lastShotTime = 0;
+    public GameWin window;
 
 
 
@@ -56,6 +57,17 @@ public class EnemyObj extends GameObj implements ActionListener {
         this.timer = new Timer(20, this);
         this.timer.start();
         this.isActive = true;
+        window = frame;
+    }
+
+    /**
+     * Used to constantly update player sprite position, health, and check collision
+     * @param gImage representing the image of the plan
+     */
+    public void paintself(Graphics gImage) {
+        super.paintself(gImage);
+        checkCollision(window.getPlaneobj());
+        removeEnemy();
     }
 
     /**
@@ -73,7 +85,7 @@ public class EnemyObj extends GameObj implements ActionListener {
     /**
      * Checks collision between the enemy object and other game objects.
      */
-    public void checkCollision(PlaneObj planeobj){
+    private void checkCollision(PlaneObj planeobj){
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
@@ -87,6 +99,12 @@ public class EnemyObj extends GameObj implements ActionListener {
             }
 
         }
+    }
+
+    private void explode() {
+        ExplodeObj explodeobj = new ExplodeObj(this.x,this.y);
+        GameUtils.explodeObjList.add(explodeobj);
+        GameUtils.removeobjList.add(explodeobj);
     }
 
     /**
@@ -114,7 +132,7 @@ public class EnemyObj extends GameObj implements ActionListener {
     /**
      * Fires a bullet from the enemy object.
      */
-    public void fire(){
+    public void fire() {
         long currentTime = System.nanoTime();
         long timeSinceLastShot = currentTime - lastShotTime;
 
@@ -122,11 +140,19 @@ public class EnemyObj extends GameObj implements ActionListener {
             BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame, true);
             bullet.setY(this.getY() + 30);
             bullet.setX(this.getX() + 20);
-            GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg,this.getX()+4,this.getY()-16,14,29,12,frame, true));
-            GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-
+            GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg, this.getX() + 4, this.getY() - 16, 14, 29, 12, frame, true));
+            GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
             lastShotTime = currentTime;
         }
     }
-}
 
+    /**
+     * Remove an enemy plane when it's no longer active
+     */
+    private void removeEnemy(){
+        if(!this.isActive) {
+            GameUtils.enemyObjList.remove(this);
+            this.window.setEnemyCount(1);
+        }
+    }
+}
