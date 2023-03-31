@@ -1,6 +1,9 @@
 package org.myProject;
 
+import com.jogamp.opengl.math.geom.Frustum;
+import org.bson.Document;
 import org.myProject.obj.*;
+import org.myProject.utils.DB;
 import org.myProject.utils.GameUtils;
 
 
@@ -24,9 +27,8 @@ public class GameWin extends JFrame {
     int enemyCount=0;
 
     boolean hasPowerup = true;
-
-
-
+    
+    DB db = new DB();
 
     // Define a list to store power-up objects
     private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
@@ -37,7 +39,10 @@ public class GameWin extends JFrame {
     public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
     //PlaneObj (Player)
-    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
+    //String playerName = JOptionPane.showInputDialog(this, "Enter your name:");
+    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this, "");
+    
+    public TopScoresUI topScores = new TopScoresUI(db);
 
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
 
@@ -57,6 +62,7 @@ public class GameWin extends JFrame {
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
+    
 
 
 
@@ -72,7 +78,27 @@ public class GameWin extends JFrame {
      public BossObj bossobj =null;
      */
 
+    public String getValidPlayerName(PlaneObj planeobj, DB db) {
+        String playerName;
+        while (true) {
+            playerName = JOptionPane.showInputDialog(this, "Enter your name:");
+            if (db.validateName(playerName)) {
+                planeobj.setName(playerName);
+                // insert the new user into the database
+                db.put(planeobj.getName(), planeobj.getScore());
+                break; // exit the loop once a valid name is entered
+            } else {
+                JOptionPane.showMessageDialog(this, "Name already taken. Please choose a different name.");
+            }
+        }
+        return playerName;
+    }
+    
+    
     public void launch(){
+    
+        planeobj.setName(getValidPlayerName(planeobj, db));
+    
         //Set whether the window is visible
         this.setVisible(true);
         //set window size
@@ -86,6 +112,8 @@ public class GameWin extends JFrame {
         GameUtils.gameObjList.add(bgobj);
 
         GameUtils.gameObjList.add(planeobj);
+    
+        GameUtils.gameObjList.add(topScores);
 
         //GameUtils.gameObjList.add(powerobj);
 
@@ -162,6 +190,7 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
             //PowerUpsObj.spawnPowerUp(this);
+            db.put(planeobj.getName(), planeobj.getScore());
 
 
 
@@ -265,10 +294,6 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.add(bossobj);
          }
           */
-
-
-
-
     }
 
     public static void main(String[] args) {

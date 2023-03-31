@@ -1,15 +1,21 @@
 package org.myProject.obj;
 
+import org.json.simple.JSONObject;
 import org.myProject.GameWin;
+import org.myProject.utils.DB;
 import org.myProject.utils.GameUtils;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 
 import static org.myProject.utils.GameUtils.*;
 
@@ -35,6 +41,8 @@ public class PlaneObj extends GameObj {
   
   private int fireType = 1;
   private int score = 0;
+  
+  private String name;
 
   boolean pickUpPowerup;
 
@@ -47,9 +55,15 @@ public class PlaneObj extends GameObj {
   
   public static final int START_X = 290;
   public static final int START_Y = 550;
-
-
-
+  
+  public String getName() {
+    return name;
+  }
+  
+  public void setName(String name) {
+    this.name = name;
+  }
+  
   /**
    Gets the current health of the plane.
    @return The current health of the plane.
@@ -120,8 +134,9 @@ public class PlaneObj extends GameObj {
    @param speed The speed of the plane object.
    @param frame The GameWin object associated with the plane.
    */
-  public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame) {
+  public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame, String name) {
     super(img, x, y, width, height, speed, frame);
+    this.name = name;
     
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
@@ -245,13 +260,22 @@ public class PlaneObj extends GameObj {
         fireType = 3;
       }
       switch (fireType) {
-        case 1 -> straightShot();
-        case 2 -> doubleFire();
-        case 3 -> tripleFire();
-        case 4 -> pentaFire();
-        default -> {
-        }
+        case 1:
+          straightShot();
+          break;
+        case 2:
+          doubleFire();
+          break;
+        case 3:
+          tripleFire();
+          break;
+        case 4:
+          pentaFire();
+          break;
+        default:
+          break;
       }
+  
     }
   }
 
@@ -318,5 +342,6 @@ public class PlaneObj extends GameObj {
   public void pentaFire() {
     fireBullets(5, BULLET_SPACING);
   }
+  
   
 }
