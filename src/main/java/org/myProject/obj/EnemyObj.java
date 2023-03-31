@@ -92,6 +92,8 @@ public class EnemyObj extends GameObj implements ActionListener {
                 if (this.isActive) {
                     this.isActive = false;
                     planeobj.setScore(planeobj.getScore() + 1);
+                    PowerUpsObj power = new PowerUpsObj();
+                    power.spawnPowerUp(x, y);
 
                 }
                 GameUtils.removeobjList.add(this);

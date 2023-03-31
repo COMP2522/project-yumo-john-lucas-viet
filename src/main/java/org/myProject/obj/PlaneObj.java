@@ -36,8 +36,8 @@ public class PlaneObj extends GameObj {
   private int fireType = 1;
   private int score = 0;
 
-  boolean pickUpPowerup;
-
+  boolean pickUpPowerupBullet;
+  boolean pickUpPowerupHealth;
 
   
   /**
@@ -165,16 +165,27 @@ public class PlaneObj extends GameObj {
       }
       if (obj instanceof EnemyObj && this.collidesWith(obj)){
         takeDamage(((EnemyObj) obj).getDamage());
-        GameUtils.removeobjList.add(obj);
 
       }
 
       if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
         GameUtils.removeobjList.add(obj);
-        pickUpPowerup = true;
+        pickUpPowerupBullet = true;
+
       }
 
+      if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
+        GameUtils.removeobjList.add(obj);
+        pickUpPowerupHealth = true;
 
+      }
+
+      if (pickUpPowerupHealth) {
+        if (health <= 95) {
+          health += 5;
+        }
+        pickUpPowerupHealth = false;
+      }
 
       }
     }
@@ -241,8 +252,12 @@ public class PlaneObj extends GameObj {
   
   public void shoot(int fireType) {
     while (GameWin.state == 1) {
-      if (pickUpPowerup) {
-        fireType = 3;
+      if (pickUpPowerupBullet) {
+        fireType += 1;
+        pickUpPowerupBullet = false;
+        if (fireType > 4) {
+          fireType = 4;
+        }
       }
       switch (fireType) {
         case 1 -> straightShot();

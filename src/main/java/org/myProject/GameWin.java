@@ -190,9 +190,11 @@ public class GameWin extends JFrame {
             hasPowerup = false;
             GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
                     2, this));
-            GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, 400, 400, 20, 30,
+            GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, 400, 400, 20, 30,
                     2, this));
             GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
+            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList2);
+
         }
 
 //        for(PowerUpsObj power : GameUtils.powerUpsObjList){
