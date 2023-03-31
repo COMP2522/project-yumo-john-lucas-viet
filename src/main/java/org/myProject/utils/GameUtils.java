@@ -36,8 +36,15 @@ public class GameUtils {
     public static List<ExplodeObj> explodeObjList = new ArrayList<>();
 
     public static List<PowerUpsObj> powerUpsObjList = new ArrayList<>();
+    public static List<HealPowerUpsObj> powerUpsObjList2 = new ArrayList<>();
+
+    public static List<HealPowerUpsObj> powerUpsObjList3 = new ArrayList<>();
+    public static List<PowerUpsObj> powerUpsObjList4 = new ArrayList<>();
+
+
 
     public static Image powerups = Toolkit.getDefaultToolkit().getImage("image/powerup.jpg");
+    public static Image powerups2 = Toolkit.getDefaultToolkit().getImage("image/shell.png");
 
     // Tool class for drawing strings
     public static void drawWord(Graphics gImage, String str, Color color, int size, int x, int y) {

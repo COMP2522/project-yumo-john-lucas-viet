@@ -6,10 +6,8 @@ import org.myProject.utils.GameUtils;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static org.myProject.utils.GameUtils.*;
 
@@ -36,8 +34,8 @@ public class PlaneObj extends GameObj {
   private int fireType = 1;
   private int score = 0;
 
-  boolean pickUpPowerup;
-
+  boolean pickUpPowerupBullet;
+  boolean pickUpPowerupHealth;
 
   
   /**
@@ -158,6 +156,7 @@ public class PlaneObj extends GameObj {
    */
   public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
+    try{
     for (GameObj obj : gameObjList) {
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
@@ -165,19 +164,32 @@ public class PlaneObj extends GameObj {
       }
       if (obj instanceof EnemyObj && this.collidesWith(obj)){
         takeDamage(((EnemyObj) obj).getDamage());
-        GameUtils.removeobjList.add(obj);
 
       }
 
       if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
-        GameUtils.removeobjList.add(obj);
-        pickUpPowerup = true;
-      }
-
-
+        GameUtils.gameObjList.remove(obj);
+        pickUpPowerupBullet = true;
 
       }
-    }
+
+      if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
+        GameUtils.gameObjList.remove(obj);
+        pickUpPowerupHealth = true;
+
+      }
+
+      if (pickUpPowerupHealth) {
+        if (health <= 95) {
+          health += 5;
+        }
+        pickUpPowerupHealth = false;
+      }
+
+      }
+    }catch(ConcurrentModificationException e){}
+  }
+
 
   
   /**
@@ -241,8 +253,12 @@ public class PlaneObj extends GameObj {
   
   public void shoot(int fireType) {
     while (GameWin.state == 1) {
-      if (pickUpPowerup) {
-        fireType = 3;
+      if (pickUpPowerupBullet) {
+        fireType += 1;
+        pickUpPowerupBullet = false;
+        if (fireType > 4) {
+          fireType = 4;
+        }
       }
       switch (fireType) {
         case 1 -> straightShot();
