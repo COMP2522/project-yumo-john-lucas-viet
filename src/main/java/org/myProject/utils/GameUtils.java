@@ -38,6 +38,9 @@ public class GameUtils {
     public static List<PowerUpsObj> powerUpsObjList = new ArrayList<>();
     public static List<HealPowerUpsObj> powerUpsObjList2 = new ArrayList<>();
 
+    public static List<HealPowerUpsObj> powerUpsObjList3 = new ArrayList<>();
+    public static List<PowerUpsObj> powerUpsObjList4 = new ArrayList<>();
+
 
 
     public static Image powerups = Toolkit.getDefaultToolkit().getImage("image/powerup.jpg");

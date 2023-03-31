@@ -6,10 +6,8 @@ import org.myProject.utils.GameUtils;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static org.myProject.utils.GameUtils.*;
 
@@ -158,6 +156,7 @@ public class PlaneObj extends GameObj {
    */
   public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
+    try{
     for (GameObj obj : gameObjList) {
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
@@ -169,13 +168,13 @@ public class PlaneObj extends GameObj {
       }
 
       if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
-        GameUtils.removeobjList.add(obj);
+        GameUtils.gameObjList.remove(obj);
         pickUpPowerupBullet = true;
 
       }
 
       if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
-        GameUtils.removeobjList.add(obj);
+        GameUtils.gameObjList.remove(obj);
         pickUpPowerupHealth = true;
 
       }
@@ -188,7 +187,9 @@ public class PlaneObj extends GameObj {
       }
 
       }
-    }
+    }catch(ConcurrentModificationException e){}
+  }
+
 
   
   /**

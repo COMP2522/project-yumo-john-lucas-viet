@@ -58,7 +58,7 @@ public class PowerUpsObj extends GameObj {
     List<GameObj> gameObjList = GameUtils.gameObjList;
     for (GameObj obj : gameObjList) {
       if (obj instanceof PlaneObj && this.collidesWith(obj)) {
-        GameUtils.removeobjList.add(this);
+        GameUtils.gameObjList.remove(this);
 
 
       }
@@ -68,17 +68,19 @@ public class PowerUpsObj extends GameObj {
   public void spawnPowerUp(int x, int y) {
     double probability = Math.random();
 
-    if (probability <= 0.5) {
-      if (number == 1) {
-        GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30,
-                0, gameWin));
-      } else {
-        GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30,
-                0, gameWin));
-      }
-      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
-      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList2);
+      if (probability <= 0.5) {
+        if (number == 1) {
+          GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30,
+                  0, gameWin));
+        } else {
+          GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30,
+                  0, gameWin));
+        }
+        GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
+        GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList2);
+
 
     }
+
   }
 }
