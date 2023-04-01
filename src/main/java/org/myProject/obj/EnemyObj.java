@@ -26,6 +26,10 @@ public class EnemyObj extends GameObj implements ActionListener {
     private long lastShotTime = 0;
     public GameWin window;
 
+    public boolean powerupSpawned = false;
+
+
+
 
 
     /**
@@ -70,6 +74,8 @@ public class EnemyObj extends GameObj implements ActionListener {
         removeEnemy();
     }
 
+
+
     /**
      * Checks if the enemy object collides with another game object.
      *
@@ -95,8 +101,11 @@ public class EnemyObj extends GameObj implements ActionListener {
                     PowerUpsObj power = new PowerUpsObj();
                     power.spawnPowerUp(x, y+50);
 
+
                 }
                 GameUtils.removeobjList.add(this);
+                powerupSpawned = true;
+
                 break;
             }
 
@@ -157,4 +166,6 @@ public class EnemyObj extends GameObj implements ActionListener {
             this.window.setEnemyCount(1);
         }
     }
+
+
 }

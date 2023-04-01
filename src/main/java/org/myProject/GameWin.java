@@ -21,6 +21,8 @@ public class GameWin extends JFrame {
     //The number of enemy aircraft present
     int enemyCount=0;
 
+
+
     boolean hasPowerup = true;
 
     // Define a list to store power-up objects
@@ -47,6 +49,8 @@ public class GameWin extends JFrame {
     public void setEnemyCount(int x){
         this.enemyCount-=x;
     }
+
+
     public PlaneObj getPlaneobj(){return this.planeobj;}
 
     public Image getPowerUpImage() {

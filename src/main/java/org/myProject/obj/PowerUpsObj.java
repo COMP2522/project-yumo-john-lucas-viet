@@ -1,9 +1,10 @@
 package org.myProject.obj;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
-import java.util.Random;
+
 
 import org.myProject.GameWin;
 import org.myProject.utils.GameUtils;
@@ -13,10 +14,10 @@ public class PowerUpsObj extends GameObj {
   private int powerUpWidth;
   private int powerUpHeight;
 
+
   GameWin gameWin;
 
-  Random rand = new Random();
-  int number = rand.nextInt(2) + 1;
+
 
 
 
@@ -38,6 +39,10 @@ public class PowerUpsObj extends GameObj {
       checkCollision();
     } catch(ConcurrentModificationException e){}
   }
+
+
+
+
 
 
   public void move() {
@@ -71,22 +76,33 @@ public class PowerUpsObj extends GameObj {
 
 }
 
+
+
   public void spawnPowerUp(int x, int y) {
     double probability = Math.random();
+    int number = (int) (Math.random() * 2) + 1;
 
-      if (probability <= 0.1) {
-        if (number == 1) {
-          GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30,
-                  0, gameWin));
-        } else {
-          GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30,
-                  0, gameWin));
-        }
-        GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
-        GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList2);
+
+
+
+    if (probability <= 0.8) {
+      if (number == 1) {
+        GameUtils.gameObjList.remove(GameUtils.powerUpsObjList);
+        GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, gameWin));
+      } else {
+        GameUtils.gameObjList.remove(GameUtils.powerUpsObjList2);
+        GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, gameWin));
+      }
+      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
+      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList2);
+
 
 
     }
-
   }
+
+
+
+
 }
+

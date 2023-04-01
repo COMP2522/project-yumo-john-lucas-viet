@@ -160,7 +160,7 @@ public class PlaneObj extends GameObj {
     for (GameObj obj : gameObjList) {
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
-        GameUtils.removeobjList.add(obj);
+        GameUtils.gameObjList.remove(obj);
       }
       if (obj instanceof EnemyObj && this.collidesWith(obj)){
         takeDamage(((EnemyObj) obj).getDamage());
@@ -169,12 +169,17 @@ public class PlaneObj extends GameObj {
 
       if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
         GameUtils.gameObjList.remove(obj);
+        GameUtils.gameObjList.remove(GameUtils.powerUpsObjList);
+
         pickUpPowerupBullet = true;
 
       }
 
       if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
         GameUtils.gameObjList.remove(obj);
+        GameUtils.gameObjList.remove(GameUtils.powerUpsObjList2);
+
+
         pickUpPowerupHealth = true;
 
       }
