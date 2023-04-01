@@ -7,10 +7,8 @@ import org.myProject.utils.GameUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -149,11 +147,11 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
             //PowerUpsObj.spawnPowerUp(this);
-
-            for(int i = 0; i< GameUtils.gameObjList.size(); i++){
-                GameUtils.gameObjList.get(i).paintself(gimage);
-            }
-
+            try {
+                for (int i = 0; i < GameUtils.gameObjList.size(); i++) {
+                    GameUtils.gameObjList.get(i).paintself(gimage);
+                }
+            } catch(ConcurrentModificationException e){}
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
         //game over

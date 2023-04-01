@@ -1,6 +1,7 @@
 package org.myProject.obj;
 
 import java.awt.*;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Random;
 
@@ -32,8 +33,10 @@ public class PowerUpsObj extends GameObj {
 
   public void paintself(Graphics gImage) {
     //g.drawImage(powerUpImg, getX(), getY(), null);
-    super.paintself(gImage);
-    checkCollision();
+    try {
+      super.paintself(gImage);
+      checkCollision();
+    } catch(ConcurrentModificationException e){}
   }
 
 
@@ -56,19 +59,22 @@ public class PowerUpsObj extends GameObj {
 
   public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
-    for (GameObj obj : gameObjList) {
-      if (obj instanceof PlaneObj && this.collidesWith(obj)) {
-        GameUtils.gameObjList.remove(this);
+    try {
+      for (GameObj obj : gameObjList) {
+        if (obj instanceof PlaneObj && this.collidesWith(obj)) {
+          GameUtils.gameObjList.remove(this);
 
 
+        }
       }
-    }
-  }
+    } catch(ConcurrentModificationException e){}
+
+}
 
   public void spawnPowerUp(int x, int y) {
     double probability = Math.random();
 
-      if (probability <= 0.5) {
+      if (probability <= 0.1) {
         if (number == 1) {
           GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30,
                   0, gameWin));

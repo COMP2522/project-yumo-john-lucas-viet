@@ -93,7 +93,7 @@ public class EnemyObj extends GameObj implements ActionListener {
                     this.isActive = false;
                     planeobj.setScore(planeobj.getScore() + 1);
                     PowerUpsObj power = new PowerUpsObj();
-                    power.spawnPowerUp(x, y);
+                    power.spawnPowerUp(x, y+50);
 
                 }
                 GameUtils.removeobjList.add(this);
@@ -142,7 +142,7 @@ public class EnemyObj extends GameObj implements ActionListener {
             BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame, true);
             bullet.setY(this.getY() + 30);
             bullet.setX(this.getX() + 20);
-            GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg, this.getX() + 4, this.getY() - 16, 14, 29, 12, frame, true));
+            GameUtils.bulletObjList.add(new BulletObj(GameUtils.enemyshellimg, this.getX() + 4, this.getY() - 16, 14, 29, 12, frame, true));
             GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
             lastShotTime = currentTime;
         }

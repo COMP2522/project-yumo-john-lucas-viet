@@ -17,6 +17,9 @@ public class GameUtils {
     public static Image planeimg = Toolkit.getDefaultToolkit().getImage("image/plane.png");
     // our bullets
     public static Image shellimg = Toolkit.getDefaultToolkit().getImage("image/shell.png");
+
+    public static Image enemyshellimg = Toolkit.getDefaultToolkit().getImage("image/enemyshell.png");
+
     // boss bullets
     public static Image bulletimg = Toolkit.getDefaultToolkit().getImage("image/bossbullet.png");
     // enemy
