@@ -54,10 +54,19 @@ public class PlayerUIObj extends GameObj {
     int healthBarWidth = (int) (HEALTH_BAR_WIDTH * healthPercent);
     gImage.fillRect(barX, barY, healthBarWidth, HEALTH_BAR_HEIGHT);
     drawScore(gImage);
+    drawName(gImage);
   }
   
   public void drawScore(Graphics gImage) {
     int score = player.getScore();
     GameUtils.drawWord(gImage, "Score: " + score, Color.green, SCORE_FONT_SIZE, SCORE_MARGIN_LEFT, SCORE_MARGIN_TOP);
+  }
+  public void drawName(Graphics gImage) {
+    gImage.setColor(Color.WHITE);
+    gImage.setFont(new Font("Arial", Font.BOLD, 12));
+    String playerName = player.getName(); // assuming there's a getName() method in PlaneObj
+    int playerNameX = player.getX() + player.getWidth() / 2 - gImage.getFontMetrics().stringWidth(playerName) / 2;
+    int playerNameY = player.getY() + player.getHeight() + PLAYER_SPRITE_GAP + 12; // 12 is the font size
+    gImage.drawString(playerName, playerNameX, playerNameY);
   }
 }

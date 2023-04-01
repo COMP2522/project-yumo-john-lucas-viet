@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="Test implementation">
+    <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="Working, now refactoring to fit proj reqs">
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlayerUIObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlayerUIObj.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +119,7 @@
       <workItem from="1680212167261" duration="415000" />
       <workItem from="1680282577466" duration="671000" />
       <workItem from="1680291483179" duration="940000" />
-      <workItem from="1680382520971" duration="6205000" />
+      <workItem from="1680382520971" duration="7782000" />
     </task>
     <task id="LOCAL-00001" summary="combined viet's and john's code">
       <created>1680118567775</created>
@@ -170,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680389600709</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Working, now refactoring to fit proj reqs">
+      <created>1680390139209</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1680390139209</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,7 +215,8 @@
     <MESSAGE value="modified powerup related." />
     <MESSAGE value="added a health power up and made them spawn at enemy spot when destroyed at a fixed chance." />
     <MESSAGE value="Test implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test implementation" />
+    <MESSAGE value="Working, now refactoring to fit proj reqs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working, now refactoring to fit proj reqs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

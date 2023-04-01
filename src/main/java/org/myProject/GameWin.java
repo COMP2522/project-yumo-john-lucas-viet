@@ -99,6 +99,16 @@ public class GameWin extends JFrame {
     
         planeobj.setName(getValidPlayerName(planeobj, db));
     
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // call db.put method here
+                db.put(planeobj.getName(), planeobj.getScore());
+            }
+        }, 0, 5000); // execute the task every 5 seconds
+    
+    
         //Set whether the window is visible
         this.setVisible(true);
         //set window size
@@ -195,6 +205,7 @@ public class GameWin extends JFrame {
         }
         //game over
         if(state ==3) {
+            //Final player data written when the game is over
             db.put(planeobj.getName(), planeobj.getScore());
             System.out.println(planeobj.getName()  +" "+ planeobj.getScore());
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
