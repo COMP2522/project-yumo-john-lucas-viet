@@ -147,7 +147,6 @@ public class BossObj extends GameObj implements ActionListener{
             }
             lastShotTime = currentTime;
         }
-
     }
 
     /**
