@@ -15,9 +15,14 @@
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/BossObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/BossObj.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/EnemyObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/EnemyObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/BossObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/BossObj.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/EnemyObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/EnemyObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,11 +59,11 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -80,7 +85,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/hyper/intellij_workspace/ll-13-VietNguyenSet1D",
+    "last_opened_file_path": "C:/Users/hyper/intellij_workspace/MidtermExamBonus",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -104,6 +109,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GameWin" />
         <item itemvalue="Application.GameWin" />
       </list>
     </recent_temporary>

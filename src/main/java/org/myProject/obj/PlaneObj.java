@@ -163,10 +163,15 @@ public class PlaneObj extends GameObj {
         takeDamage(((BulletObj) obj).getDamage());
         GameUtils.removeobjList.add(obj);
       }
+
       if (obj instanceof EnemyObj && this.collidesWith(obj)){
         takeDamage(((EnemyObj) obj).getDamage());
         GameUtils.removeobjList.add(obj);
+      }
 
+      if (obj instanceof BossObj && this.collidesWith(obj)){
+        takeDamage(((BossObj) obj).getDamage());
+        GameUtils.removeobjList.add(obj);
       }
 
       if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {

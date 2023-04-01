@@ -22,11 +22,11 @@ public class BossObj extends GameObj implements ActionListener{
     private Timer timer;
     private boolean isActive;
     private int distance;
-    private int damage;
+    private int damage = 100;
     private long lastShotTime = 0;
     public GameWin window;
-    private double hitpoints = 15;
-    private int direction = 100;
+    private double hitpoints = 150;
+    private int direction = 1;
 
     /**
      * Creates a new boss object with the given image, position, size, speed, and game window.
@@ -85,8 +85,8 @@ public class BossObj extends GameObj implements ActionListener{
     private void checkCollision(PlaneObj planeobj, Graphics gImage){
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
+            //Decrement boss's hit-points by one everytime it get hit by player's bullet
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-                //Decrement enemy's hit-points by one everytime it get hit by player's bullet
                 this.hitpoints -= 1;
                 if(this.hitpoints == 0){
                     planeobj.setScore(planeobj.getScore() + 30);
@@ -96,11 +96,19 @@ public class BossObj extends GameObj implements ActionListener{
                     break;
                 }
             }
+
+            //If boss plane collide directly with player's plane it will be deleted.
+            if (obj instanceof PlaneObj && this.collidesWith(obj)){
+                this.isActive = false;
+                gImage.drawImage(GameUtils.explodeimg, this.x, this.y, null);
+                GameUtils.removeobjList.add(this);
+                break;
+            }
         }
     }
 
     /**
-     * Moves the enemy object down.
+     * Moves the enemy object vertically down.
      *
      * @param distance The distance the enemy object should move down.
      */
@@ -111,21 +119,34 @@ public class BossObj extends GameObj implements ActionListener{
         }
         if(this.y >= distance && this.isActive){
             fire();
-//            moveSideWay();
+            moveSideWay();
         }
     }
 
-//    private void moveSideWay(){
-//        this.x += direction;
-//        if(this.x > getWidth() || this.x < 0){
-//            direction *= -1;
-//        }
-//    }
+    /**
+     * Move the boss horizontally right then left.
+     * Direction will change if the boss hit the border of the window.
+     */
+    private void moveSideWay(){
+        if(this.x >= window.getWidth() - this.getWidth()){
+            direction *= -1;
+        }
+        if(this.x <= 0){
+            direction *=-1;
+        }
+        this.x += direction;
+    }
 
+    /**
+     * Perform the method every 1 second.
+     * Make the movement look smoother.
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == timer) {
             moveDown(this.distance);
+            moveSideWay();
         }
     }
 

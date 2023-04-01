@@ -206,7 +206,6 @@ public class GameWin extends JFrame {
                     break;
                 }
             }
-            System.out.println(waveCount);
             //Keep track of number of enemy waves
             if(waveCount == 4){
                 setBossAppear(true);
