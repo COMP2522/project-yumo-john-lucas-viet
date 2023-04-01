@@ -25,21 +25,12 @@ public class EnemyObj extends GameObj implements ActionListener {
     int distance;
     private long lastShotTime = 0;
     public GameWin window;
-
-
+    private int hitpoints = 10;
 
     /**
      * If player collides with an enemy ship, player will take this amount of damage
      */
     private int Damage = 50;
-    
-    public int getDamage() {
-        return Damage;
-    }
-    
-    public void setDamage(int Damage) {
-        this.Damage = Damage;
-    }
     
     /**
      * Constructor for EnemyObj class.
@@ -52,7 +43,7 @@ public class EnemyObj extends GameObj implements ActionListener {
      * @param speed  The speed of the enemy object.
      * @param frame  The game window frame.
      */
-    public EnemyObj(Image img, int x, int y, int width, int height, double speed, GameWin frame) {
+    public EnemyObj(Image img, int x, int y, int width, int height, double speed, GameWin frame, int distance) {
         super(img, x, y, width, height, speed, frame);
         this.timer = new Timer(20, this);
         this.timer.start();
@@ -61,12 +52,20 @@ public class EnemyObj extends GameObj implements ActionListener {
     }
 
     /**
+     * Enemy damage when collide with player's plane
+     * @return amount of damage dealt by enemy when collided.
+     */
+    public int getDamage() {
+        return Damage;
+    }
+
+    /**
      * Used to constantly update player sprite position, health, and check collision
      * @param gImage representing the image of the plan
      */
     public void paintself(Graphics gImage) {
         super.paintself(gImage);
-        checkCollision(window.getPlaneobj());
+        checkCollision(window.getPlaneobj(), gImage);
         removeEnemy();
     }
 
@@ -85,26 +84,21 @@ public class EnemyObj extends GameObj implements ActionListener {
     /**
      * Checks collision between the enemy object and other game objects.
      */
-    private void checkCollision(PlaneObj planeobj){
+    private void checkCollision(PlaneObj planeobj, Graphics gImage){
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-                if (this.isActive) {
-                    this.isActive = false;
+                //Decrement enemy's hit-points by one everytime it get hit by player's bullet
+                this.hitpoints--;
+                if(this.hitpoints == 0){
                     planeobj.setScore(planeobj.getScore() + 1);
-
+                    this.isActive = false;
+                    gImage.drawImage(GameUtils.explodeimg, this.getX() - 35, this.getY() - 50, null);
+                    GameUtils.removeobjList.add(this);
+                    break;
                 }
-                GameUtils.removeobjList.add(this);
-                break;
             }
-
         }
-    }
-
-    private void explode() {
-        ExplodeObj explodeobj = new ExplodeObj(this.x,this.y);
-        GameUtils.explodeObjList.add(explodeobj);
-        GameUtils.removeobjList.add(explodeobj);
     }
 
     /**
@@ -117,7 +111,7 @@ public class EnemyObj extends GameObj implements ActionListener {
         if (this.y < distance) { // move down until the enemy reaches y-coordinate 100
             this.y += this.speed;
         }
-        if(this.y == distance && this.isActive){
+        if(this.y >= distance && this.isActive){
             fire();
         }
     }
@@ -138,8 +132,8 @@ public class EnemyObj extends GameObj implements ActionListener {
 
         if (timeSinceLastShot >= 900000000) {
             BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame, true);
-            bullet.setY(this.getY() + 30);
-            bullet.setX(this.getX() + 20);
+            bullet.setY(this.y);
+            bullet.setX(this.x);
             GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg, this.getX() + 4, this.getY() - 16, 14, 29, 12, frame, true));
             GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
             lastShotTime = currentTime;
