@@ -28,6 +28,9 @@ public class EnemyObj extends GameObj implements ActionListener {
 
     public boolean powerupSpawned = false;
 
+    GameWin gameWin;
+    Image powerUpImage;
+
 
 
 
@@ -98,7 +101,7 @@ public class EnemyObj extends GameObj implements ActionListener {
                 if (this.isActive) {
                     this.isActive = false;
                     planeobj.setScore(planeobj.getScore() + 1);
-                    PowerUpsObj power = new PowerUpsObj();
+                    PowerUpsObj power = new PowerUpsObj(powerUpImage, x, y, 20, 30, 2, gameWin);
                     power.spawnPowerUp(x, y+50);
 
 
