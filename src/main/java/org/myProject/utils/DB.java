@@ -14,6 +14,7 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,6 +58,12 @@ public class DB {
       .sort(new Document("Score", -1))
       .limit(5)
       .into(new ArrayList<>()), executorService);
+  }
+  
+  public List<Document> getTop5Scores() throws InterruptedException, ExecutionException {
+    CompletableFuture<List<Document>> future = new DB().getTop5ScoresAsync();
+    List<Document> result = future.get();
+    return result;
   }
   
   

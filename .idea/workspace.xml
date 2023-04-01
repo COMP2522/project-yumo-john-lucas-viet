@@ -7,9 +7,21 @@
     <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="added a health power up and made them spawn at enemy spot when destroyed at a fixed chance.">
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/HealPowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/HealPowerUpsObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/BossObj.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/EnemyObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/EnemyObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/utils/GameUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/utils/GameUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/TopScoresUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/TopScoresUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/utils/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/utils/DB.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +127,7 @@
       <workItem from="1680212167261" duration="415000" />
       <workItem from="1680282577466" duration="671000" />
       <workItem from="1680291483179" duration="940000" />
+      <workItem from="1680382520971" duration="5853000" />
     </task>
     <task id="LOCAL-00001" summary="combined viet's and john's code">
       <created>1680118567775</created>

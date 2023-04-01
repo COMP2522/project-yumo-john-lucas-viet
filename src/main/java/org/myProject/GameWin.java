@@ -35,12 +35,10 @@ public class GameWin extends JFrame {
     private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
 
     public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
-
-    //PlaneObj (Player)
-    //String playerName = JOptionPane.showInputDialog(this, "Enter your name:");
-    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this, "");
     
     public TopScoresUI topScores = new TopScoresUI(db);
+    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this, "", topScores);
+    
 
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
 
@@ -197,6 +195,7 @@ public class GameWin extends JFrame {
         }
         //game over
         if(state ==3) {
+            db.put(planeobj.getName(), planeobj.getScore());
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
             GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
 
