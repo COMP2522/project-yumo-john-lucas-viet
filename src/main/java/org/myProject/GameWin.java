@@ -85,7 +85,7 @@ public class GameWin extends JFrame {
             if (db.validateName(playerName)) {
                 planeobj.setName(playerName);
                 // insert the new user into the database
-                db.put(planeobj.getName(), planeobj.getScore());
+                //db.put(planeobj.getName(), planeobj.getScore());
                 break; // exit the loop once a valid name is entered
             } else {
                 JOptionPane.showMessageDialog(this, "Name already taken. Please choose a different name.");
@@ -185,7 +185,7 @@ public class GameWin extends JFrame {
              GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
             //PowerUpsObj.spawnPowerUp(this);
-            db.put(planeobj.getName(), planeobj.getScore());
+            //db.put(planeobj.getName(), planeobj.getScore());
 
             for(int i = 0; i< GameUtils.gameObjList.size(); i++){
                 GameUtils.gameObjList.get(i).paintself(gimage);
@@ -196,6 +196,7 @@ public class GameWin extends JFrame {
         //game over
         if(state ==3) {
             db.put(planeobj.getName(), planeobj.getScore());
+            System.out.println(planeobj.getName()  +" "+ planeobj.getScore());
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
             GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
 
