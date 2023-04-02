@@ -1,22 +1,15 @@
 package org.myProject.obj;
 
-import org.json.simple.JSONObject;
 import org.myProject.GameWin;
-import org.myProject.utils.DB;
 import org.myProject.utils.GameUtils;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CompletableFuture;
 
 import static org.myProject.utils.GameUtils.*;
 
@@ -50,13 +43,10 @@ public class PlaneObj extends GameObj {
 
   
   /**
-   The game win object associated with the plane.
+   * The game win object associated with the plane.
    */
   public GameWin gameWin;
   public TopScoresUI topScore;
-  
-  public static final int START_X = 290;
-  public static final int START_Y = 550;
   
   public String getName() {
     return name;
@@ -67,16 +57,16 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Gets the current health of the plane.
-   @return The current health of the plane.
+   * Gets the current health of the plane.
+   * @return The current health of the plane.
    */
   public int getHealth() {
     return health;
   }
   
   /**
-   Sets the current health of the plane.
-   @param health The current health of the plane.
+   * Sets the health of the plane.
+   * @param health The current health of the plane.
    */
   public void setHealth(int health) {
     this.health = health;
@@ -99,28 +89,25 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Returns the current score.
-   @return an integer representing the current score
+   * Returns the current score.
+   * @return an integer representing the current score
    */
   public int getScore() {
     return score;
   }
   
   /**
-   Sets the score to the size of the given ArrayList.
-   @param score value that will be used to set score
+   * Sets the score to the size of the given ArrayList.
+   * @param score value that will be used to set score
    */
   public void setScore(int score) {
     this.score = score; // set the score to the size of the ArrayList
     topScore.addLocalScore(this);
   }
   
-  
-  
-  
   /**
-   Gets the image of the plane object.
-   @return The image of the plane object.
+   * Gets the image of the plane object.
+   * @return The image of the plane object.
    */
   @Override
   public Image getImg() {
@@ -128,14 +115,14 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Creates a PlaneObj object with the given parameters.
-   @param img The image of the plane object.
-   @param x The x-coordinate of the plane object.
-   @param y The y-coordinate of the plane object.
-   @param width The width of the plane object.
-   @param height The height of the plane object.
-   @param speed The speed of the plane object.
-   @param frame The GameWin object associated with the plane.
+   * Creates a PlaneObj object with the given parameters.
+   * @param img The image of the plane object.
+   * @param x The x-coordinate of the plane object.
+   * @param y The y-coordinate of the plane object.
+   * @param width The width of the plane object.
+   * @param height The height of the plane object.
+   * @param speed The speed of the plane object.
+   * @param frame The GameWin object associated with the plane.
    */
   public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame, String name, TopScoresUI topScore) {
     super(img, x, y, width, height, speed, frame);
@@ -166,14 +153,15 @@ public class PlaneObj extends GameObj {
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
     checkCollision();
+    shoot(fireType);
     PlayerUIObj UI = new PlayerUIObj(this);
     UI.drawHealthUI(gImage);
   }
   
   
   /**
-   Checks for collisions between the current GameObj and all GameObjs in the gameObjList.
-   If a collision is detected, the current GameObj takes damage based on the damage inflicted by the other GameObj.
+   * Checks for collisions between the current GameObj and all GameObjs in the gameObjList.
+   * If a collision is detected, the current GameObj takes damage based on the damage inflicted by the other GameObj.
    */
   public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
@@ -224,9 +212,9 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Checks if the current GameObj collides with another GameObj by comparing their rectangles.
-   @param otherObj the GameObj to check collision against
-   @return true or false if rectangles of GameObj are intersecting
+   *Checks if the current GameObj collides with another GameObj by comparing their rectangles.
+   *@param otherObj the GameObj to check collision against
+   *@return true or false if rectangles of GameObj are intersecting
    */
   public boolean collidesWith(GameObj otherObj){
     Rectangle rect1 = this.getrect();
@@ -242,13 +230,13 @@ public class PlaneObj extends GameObj {
    @param dmg the amount of damage to subtract from the player's health
    */
   public void takeDamage(int dmg) {
+    final int GAME_OVER = 3;
     if (invincible) {
       return; // if invincible, do not take damage
     }
     health -= dmg;
     if (health <= 0) {
-      explode();
-      gameWin.state = 3;
+      gameWin.state = GAME_OVER;
     }
     invincible = true;
     //Player will become invincible for 0.5s after being hit
@@ -264,15 +252,10 @@ public class PlaneObj extends GameObj {
   }
   
   /**
-   Triggers an explosion animation at the current Plane's location when
-   player health equals 0. This function is called in takeDamage()
+   * This method allows the player to shoot their weapon, depending on the type of power-up they have collected.
+   * @param fireType an integer representing the current type of bullet being used by the player's weapon
+   * 1 = straight shot, 2 = double shot, 3 = triple shot, 4 = penta shot
    */
-  public void explode() {
-    ExplodeObj explodeobj=new ExplodeObj(this.x,this.y);
-    GameUtils.explodeObjList.add(explodeobj);
-    GameUtils.removeobjList.add(explodeobj);
-  }
-  
   public void shoot(int fireType) {
     while (GameWin.state == 1) {
       if (pickUpPowerupBullet) {

@@ -5,12 +5,17 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.bson.Document;
 import org.myProject.utils.DB;
 
+/**
+ * This class represents the user interface resposible for
+ * displaying the topScores
+ *
+ * @author John2T
+ */
 public class TopScoresUI extends GameObj {
   
   private static final int TOP_SCORES_FONT_SIZE = 10;
@@ -18,10 +23,13 @@ public class TopScoresUI extends GameObj {
   private static final int TOP_SCORES_MARGIN_TOP = 75;
   private static final int TOP_SCORES_VERTICAL_GAP = 20;
   private static final int TOP_FIVE_SCORES = 5;
-  private DB db;
+  private final DB db;
   private List<Document> topScores;
   
-  
+  /**
+   * Constructs a new instance of the TopScoresUI class.
+   * @param db The database instance used to retrieve the top 5 scores.
+   */
   public TopScoresUI(DB db) {
     this.db = db;
     try {
@@ -31,15 +39,22 @@ public class TopScoresUI extends GameObj {
       e.printStackTrace();
     }
   }
-  
+
+/**
+ * Overrides the paintself method in GameObj.
+ * Draws the top scores on the screen.
+ * @param gImage The Graphics object to draw on.
+ */
   @Override
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
     drawTopScores(gImage);
-    
   }
   
-  
+  /**
+   * Draws the top five scores on the screen.
+   * @param gImage The Graphics object to draw on.
+   */
   public void drawTopScores(Graphics gImage) {
     int x = TOP_SCORES_MARGIN_LEFT;
     int y = TOP_SCORES_MARGIN_TOP;
@@ -56,6 +71,10 @@ public class TopScoresUI extends GameObj {
     }
   }
   
+  /**
+   * Adds the local score to the top scores list.
+   * @param plane The PlaneObj object that contains the score to add.
+   */
   public void addLocalScore(PlaneObj plane) {
     String playerName = plane.getName();
     int playerScore = plane.getScore();
@@ -83,9 +102,5 @@ public class TopScoresUI extends GameObj {
       topScores.remove(TOP_FIVE_SCORES);
     }
   }
-
-  
-  
-  
 }
 

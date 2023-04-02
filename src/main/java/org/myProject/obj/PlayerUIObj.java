@@ -12,6 +12,10 @@ import java.awt.*;
  */
 public class PlayerUIObj extends GameObj {
   
+  
+  /**
+   * The PlaneObj object representing the player associated with this UI object.
+   */
   private final PlaneObj player;
   
   private static final int LIVES_VERTICAL_GAP = 20;
@@ -20,22 +24,36 @@ public class PlayerUIObj extends GameObj {
   private static final int HEALTH_BAR_HEIGHT = 15;
   private static final int HEALTH_BAR_MARGIN_LEFT = 10;
   private static final int HEALTH_BAR_MARGIN_BOTTOM = 10;
-  private static final int LIVES_MARGIN_TOP = LIVES_VERTICAL_GAP;
   private static final int PLAYER_SPRITE_GAP = 5;
   private static final int SCORE_FONT_SIZE = 30;
   private static final int SCORE_MARGIN_LEFT = 15;
   private static final int SCORE_MARGIN_TOP = 60;
   
+  /**
+   * Creates a new PlayerUIObj object associated with the specified PlaneObj player.
+   *
+   * @param player the PlaneObj object representing the player to track
+   */
   public PlayerUIObj(PlaneObj player) {
     this.player = player;
   }
   
+  /**
+   * Paints the UI components for the player.
+   *
+   * @param gImage the graphics context on which to paint the UI components
+   */
   @Override
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
     drawHealthUI(gImage);
   }
   
+  /**
+   * Draws the health UI component for the player.
+   *
+   * @param gImage the graphics context on which to draw the health UI component
+   */
   public void drawHealthUI(Graphics gImage) {
     int barX = HEALTH_BAR_MARGIN_LEFT;
     int barY = player.frame.getHeight() - HEALTH_BAR_HEIGHT - HEALTH_BAR_MARGIN_BOTTOM;
@@ -57,10 +75,21 @@ public class PlayerUIObj extends GameObj {
     drawName(gImage);
   }
   
+  /**
+   * Draws the score UI component for the player
+   *
+   * @param gImage the graphics context on which to draw the score UI component
+   */
   public void drawScore(Graphics gImage) {
     int score = player.getScore();
     GameUtils.drawWord(gImage, "Score: " + score, Color.green, SCORE_FONT_SIZE, SCORE_MARGIN_LEFT, SCORE_MARGIN_TOP);
   }
+  
+  /**
+   * Draws the name UI component for the player.
+   *
+   * @param gImage the graphics context on which to draw the name UI component
+   */
   public void drawName(Graphics gImage) {
     gImage.setColor(Color.WHITE);
     gImage.setFont(new Font("Arial", Font.BOLD, 12));
