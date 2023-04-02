@@ -162,9 +162,15 @@ public class PlaneObj extends GameObj {
         takeDamage(((BulletObj) obj).getDamage());
         GameUtils.removeobjList.add(obj);
       }
+
       if (obj instanceof EnemyObj && this.collidesWith(obj)){
         takeDamage(((EnemyObj) obj).getDamage());
+        GameUtils.removeobjList.add(obj);
+      }
 
+      if (obj instanceof BossObj && this.collidesWith(obj)){
+        takeDamage(((BossObj) obj).getDamage());
+        GameUtils.removeobjList.add(obj);
       }
 
       if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
@@ -279,29 +285,29 @@ public class PlaneObj extends GameObj {
    * @param bulletCount The number of bullets to fire.
    * @param bulletSpacing The spacing between the bullets.
    */
-  private void fireBullets(int bulletCount, int bulletSpacing) {
-    final int BULLET_WIDTH = 14;
-    final int BULLET_HEIGHT = 29;
-    final int BULLET_SPEED = 12;
-    final int BULLET_X_OFFSET = 4;
-    final int BULLET_Y_OFFSET = -20;
+    private void fireBullets(int bulletCount, int bulletSpacing) {
+      final int BULLET_WIDTH = 14;
+      final int BULLET_HEIGHT = 29;
+      final int BULLET_SPEED = 12;
+      final int BULLET_X_OFFSET = 4;
+      final int BULLET_Y_OFFSET = -20;
 
-    long currentTime = System.nanoTime();
+      long currentTime = System.nanoTime();
 
-    if (currentTime - lastShotTime >= SHOT_DELAY) {
-      int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
+      if (currentTime - lastShotTime >= SHOT_DELAY) {
+        int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
 
-      for (int i = 0; i < bulletCount; i++) {
-        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
-        bullet.setX(startX + i * bulletSpacing);
-        bullet.setY(this.getY() + BULLET_Y_OFFSET);
-        GameUtils.bulletObjList.add(bullet);
-        GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+        for (int i = 0; i < bulletCount; i++) {
+          BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED, this.frame, false);
+          bullet.setX(startX + i * bulletSpacing);
+          bullet.setY(this.getY() + BULLET_Y_OFFSET);
+          GameUtils.bulletObjList.add(bullet);
+          GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+        }
+
+        lastShotTime = currentTime;
       }
-
-      lastShotTime = currentTime;
     }
-  }
   
   /**
    * Fires a bullet in a straight line from the player's current position. Bullets originate from

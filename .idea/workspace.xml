@@ -4,12 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="added a health power up and made them spawn at enemy spot when destroyed at a fixed chance.">
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+    <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="modified powerup related.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/HealPowerUpsObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/HealPowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/HealPowerUpsObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/utils/GameUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/utils/GameUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/utils/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/utils/GameUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +45,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="JavaProj" type="f1a62948:ProjectNode" />
+                <item name="comp2522Project" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -37,13 +53,6 @@
         </projects_view>
       </state>
     </system>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -53,6 +62,19 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="25831a27-ee9b-4707-8c25-757ed5281f51" />
+        <option name="url" value="https://github.com/COMP2522/project-yumo-john-lucas-viet" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -61,19 +83,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sfroz/IdeaProjects/new 2522 11/project-yumo-john-lucas-viet&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/hyper/intellij_workspace/MidtermExamBonus",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="GameWin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.myProject.GameWin" />
@@ -90,6 +112,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GameWin" />
         <item itemvalue="Application.GameWin" />
       </list>
     </recent_temporary>
@@ -113,8 +136,6 @@
       <workItem from="1680199029198" duration="2784000" />
       <workItem from="1680204758158" duration="4526000" />
       <workItem from="1680212167261" duration="415000" />
-      <workItem from="1680282577466" duration="671000" />
-      <workItem from="1680291483179" duration="940000" />
     </task>
     <task id="LOCAL-00001" summary="combined viet's and john's code">
       <created>1680118567775</created>
@@ -151,14 +172,7 @@
       <option name="project" value="LOCAL" />
       <updated>1680204810437</updated>
     </task>
-    <task id="LOCAL-00006" summary="added a health power up and made them spawn at enemy spot when destroyed at a fixed chance.">
-      <created>1680283170639</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1680283170639</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,18 +208,6 @@
     <MESSAGE value="fixed more errors." />
     <MESSAGE value="Implemented power up" />
     <MESSAGE value="modified powerup related." />
-    <MESSAGE value="added a health power up and made them spawn at enemy spot when destroyed at a fixed chance." />
-    <option name="LAST_COMMIT_MESSAGE" value="added a health power up and made them spawn at enemy spot when destroyed at a fixed chance." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/myProject/obj/GameObj.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <option name="LAST_COMMIT_MESSAGE" value="modified powerup related." />
   </component>
 </project>

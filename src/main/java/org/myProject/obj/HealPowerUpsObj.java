@@ -51,8 +51,6 @@ public class HealPowerUpsObj extends GameObj {
     for (GameObj obj : gameObjList) {
       if (obj instanceof PlaneObj && this.collidesWith(obj)) {
         GameUtils.gameObjList.remove(this);
-
-
       }
     }
   }

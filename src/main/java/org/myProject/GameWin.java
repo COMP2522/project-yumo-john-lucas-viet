@@ -3,7 +3,6 @@ package org.myProject;
 import org.myProject.obj.*;
 import org.myProject.utils.GameUtils;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,26 +13,27 @@ import java.util.TimerTask;
 
 public class GameWin extends JFrame {
     //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
-    public static int state=0;//The default state of the game
-    Image offSreenimage=null;
-    int width=600;
-    int height=600;
+    public static int state = 0; //The default state of the game
+    Image offSreenimage = null;
+    int width = 600;
+    int height = 600;
     //The number of redraws of the game
-    int count=1;
+    int count = 1;
     //The number of enemy aircraft present
-    int enemyCount=0;
-
+    int enemyCount = 0;
+    int waveCount = 0;
+    boolean bossAppear = false;
     boolean hasPowerup = true;
 
     // Define a list to store power-up objects
-    private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
+    private ArrayList < PowerUpsObj > powerUps = new ArrayList < > ();
 
     public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
     //PlaneObj (Player)
-    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
+    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg, 290, 550, 20, 30, 0, this);
 
-    public static ArrayList<GameObj> gameObjects = new ArrayList<>();
+    public static ArrayList < GameObj > gameObjects = new ArrayList < > ();
 
     public void addGameObject(GameObj obj) {
         gameObjects.add(obj);
@@ -46,10 +46,18 @@ public class GameWin extends JFrame {
         gameObjects.remove(gameObject);
     }
 
-    public void setEnemyCount(int x){
-        this.enemyCount-=x;
+    public void setEnemyCount(int x) {
+        this.enemyCount -= x;
     }
-    public PlaneObj getPlaneobj(){return this.planeobj;}
+    public PlaneObj getPlaneobj() {
+        return this.planeobj;
+    }
+    public void resetWaveCount() {
+        this.waveCount = 0;
+    }
+    public void setBossAppear(boolean b){
+        this.bossAppear = b;
+    }
 
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
@@ -57,18 +65,18 @@ public class GameWin extends JFrame {
 
     //Movement of the background image
 
-    BgObj bgobj=new BgObj(GameUtils.bgimg,0,-400,2);
+    BgObj bgobj = new BgObj(GameUtils.bgimg, 0, -400, 2);
 
     //boss
     /**
      public BossObj bossobj =null;
      */
 
-    public void launch(){
+    public void launch() {
         //Set whether the window is visible
         this.setVisible(true);
         //set window size
-        this.setSize(width,height);
+        this.setSize(width, height);
         //set window position
         this.setLocationRelativeTo(null);
 
@@ -86,8 +94,8 @@ public class GameWin extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //Before starting and clicking the left mouse button
-                if(e.getButton()==1&&state==0){
-                    state=1;
+                if (e.getButton() == 1 && state == 0) {
+                    state = 1;
                     repaint();
                 }
             }
@@ -98,21 +106,21 @@ public class GameWin extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 //Press the space bar, the code of the space bar is 32
-                if(e.getKeyCode() == 32){
-                    switch (state){
+                if (e.getKeyCode() == 32) {
+                    switch (state) {
                         case 1:
-                            state=2;
+                            state = 2;
                             break;
                         case 2:
-                            state=1;
+                            state = 1;
                             break;
                         default:
                     }
                 }
             }
         });
-        while(true){
-            if(state==1){
+        while (true) {
+            if (state == 1) {
                 create();
                 repaint();
             }
@@ -128,64 +136,45 @@ public class GameWin extends JFrame {
     @Override
     public void paint(Graphics g) {
 
-        if(offSreenimage==null){
-            offSreenimage=createImage(width,height);
+        if (offSreenimage == null) {
+            offSreenimage = createImage(width, height);
         }
         //Get the brush object of offScrenimage
-        Graphics gimage=offSreenimage.getGraphics();
+        Graphics gimage = offSreenimage.getGraphics();
         //Fill a region with a width of 600 and a height of 600
-        gimage.fillRect(0,0,width,height);
+        gimage.fillRect(0, 0, width, height);
         //game not started
-        if(state==0){
-            gimage.drawImage(GameUtils.bgimg,0,0,null);
-            gimage.drawImage(GameUtils.bossimg,200,100,null);
-            gimage.drawImage(GameUtils.explodeimg,270,370,null);
-            GameUtils.drawWord(gimage,"press to start",Color.yellow,40,180,300);
+        if (state == 0) {
+            gimage.drawImage(GameUtils.bgimg, 0, 0, null);
+            gimage.drawImage(GameUtils.explodeimg, 270, 370, null);
+            GameUtils.drawWord(gimage, "press to start", Color.yellow, 40, 180, 300);
 
         }
         //Games start
-        if(state==1){
+        if (state == 1) {
             /**
              GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
             //PowerUpsObj.spawnPowerUp(this);
 
-            for(int i = 0; i< GameUtils.gameObjList.size(); i++){
+            for (int i = 0; i < GameUtils.gameObjList.size(); i++) {
                 GameUtils.gameObjList.get(i).paintself(gimage);
             }
 
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
         //game over
-        if(state ==3) {
+        if (state == 3) {
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
-            GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
-
-        }
-        //Game Win
-        if(state==4) {
-            /**
-             gimage.drawImage(GameUtils.explodeimg, bossobj.getX() + 35, bossobj.getY() + 50, null);
-             GameUtils.drawWord(gimage, " Game Win", Color.red, 40, 180, 300);
-             */
+            GameUtils.drawWord(gimage, "GAME OVER", Color.red, 40, 180, 300);
         }
         //Draw the new picture to the main window at once
-        g.drawImage(offSreenimage,0,0,null);
+        g.drawImage(offSreenimage, 0, 0, null);
         count++;
 
     }
     //The creation method is used to generate bullets and enemy planes in batches
-    void create(){
-          /*enemy fighter
-          The first if statement set each enemy to be 35 away from each other horizontally.
-          And add them into enemyObj list and then add them into gameObj list.
-          The total number of enemy on screen is 12. This could be change base
-          on the game progress.
-          The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
-          Intend to make a formation. There will be different formation in the future update.
-          */
-
-
+    void create() {
         if (hasPowerup) {
             hasPowerup = false;
             GameUtils.powerUpsObjList4.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
@@ -197,20 +186,31 @@ public class GameWin extends JFrame {
 
         }
 
-//        for(PowerUpsObj power : GameUtils.powerUpsObjList){
-//            power.checkCollision();
-//        }
+        //        for(PowerUpsObj power : GameUtils.powerUpsObjList){
+        //            power.checkCollision();
+        //        }
 
-
+    /**enemy fighter
+    The first if statement set each enemy to be 35 away from each other horizontally.
+    And add them into enemyObj list and then add them into gameObj list.
+    The total number of enemy on screen is 12. This could be change base
+    on the game progress.
+    The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
+    */
         if (enemyCount == 0) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
-                GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
+                GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this, x));
                 x += 45;
                 enemyCount++;
                 if (enemyCount == 12) {
+                    waveCount ++;
                     break;
                 }
+            }
+            //Keep track of number of enemy waves
+            if(waveCount == 4){
+                setBossAppear(true);
             }
             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
         }
@@ -222,37 +222,25 @@ public class GameWin extends JFrame {
         for (EnemyObj enemy: GameUtils.enemyObjList) {
             if (y < 2 || y >= 10) {
                 enemy.moveDown(200);
-            } else if(y < 4 || y >= 8) {
+            } else if (y < 4 || y >= 8) {
                 enemy.moveDown(150);
-            }else if(y < 5 || y == 7){
+            } else if (y < 5 || y == 7) {
                 enemy.moveDown(100);
-            }else{
+            } else {
                 enemy.moveDown(50);
             }
             y++;
         }
-
-        //enemy boss bullet
-        //Bullets are not spawned until the boss appears
-         /*
-         if(count%15==0 && bossobj !=null){
-             GameUtils.bulletObjList.add(new BulletObj(GameUtils.bulletimg,bossobj.getX()+75,bossobj.getY()+80,15,25,5,this));
-             GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-         }
-         if( enemyCount>30 && bossobj == null ){
-             bossobj=new BossObj(GameUtils.bossimg,250,20,155,100,5,this);
-             GameUtils.gameObjList.add(bossobj);
-         }
-          */
-
-
-
-
+        /**
+         * Spawn the enemy boss every 3 waves.
+         */
+        if(this.bossAppear){
+            GameUtils.gameObjList.add(new BossObj(GameUtils.bossimg, 280, -120, 50, 50, 1, this));
+        }
     }
 
     public static void main(String[] args) {
-
-        GameWin Gamewin=new GameWin();
+        GameWin Gamewin = new GameWin();
         Gamewin.launch();
 
     }
