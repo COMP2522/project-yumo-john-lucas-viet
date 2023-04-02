@@ -3,7 +3,7 @@ package org.myProject.obj;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -11,7 +11,7 @@ import org.bson.Document;
 import org.myProject.utils.DB;
 
 /**
- * This class represents the user interface resposible for
+ * This class represents the user interface responsible for
  * displaying the topScores
  *
  * @author John2T
@@ -23,7 +23,6 @@ public class TopScoresUI extends GameObj {
   private static final int TOP_SCORES_MARGIN_TOP = 75;
   private static final int TOP_SCORES_VERTICAL_GAP = 20;
   private static final int TOP_FIVE_SCORES = 5;
-  private final DB db;
   private List<Document> topScores;
   
   /**
@@ -31,7 +30,6 @@ public class TopScoresUI extends GameObj {
    * @param db The database instance used to retrieve the top 5 scores.
    */
   public TopScoresUI(DB db) {
-    this.db = db;
     try {
       // Retrieve the top 5 scores from the database and store them locally
       this.topScores = db.getTop5Scores();
@@ -97,7 +95,7 @@ public class TopScoresUI extends GameObj {
     }
     
     // sort the list and remove any excess scores
-    Collections.sort(topScores, (a, b) -> b.getInteger("Score") - a.getInteger("Score"));
+    topScores.sort((a, b) -> b.getInteger("Score") - a.getInteger("Score"));
     if (topScores.size() > TOP_FIVE_SCORES) {
       topScores.remove(TOP_FIVE_SCORES);
     }

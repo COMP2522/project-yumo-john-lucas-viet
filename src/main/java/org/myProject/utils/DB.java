@@ -25,7 +25,6 @@ import java.util.concurrent.Executors;
  * @author John2T
  */
 public class DB {
-  private final MongoDatabase database;
   private final MongoCollection<Document> usersCollection;
   private final ExecutorService executorService;
   
@@ -33,7 +32,8 @@ public class DB {
    * Initializes a new instance of the DB class.
    */
   public DB() {
-    ConnectionString connectionString = new ConnectionString("mongodb+srv://SleepyPanda:Mancool2@galaga.5q3f2jk.mongodb.net/?retryWrites=true&w=majority");
+    ConnectionString connectionString = new ConnectionString
+      ("mongodb+srv://SleepyPanda:Mancool2@galaga.5q3f2jk.mongodb.net/?retryWrites=true&w=majority");
     MongoClientSettings settings = MongoClientSettings.builder()
       .applyConnectionString(connectionString)
       .serverApi(ServerApi.builder()
@@ -41,7 +41,7 @@ public class DB {
         .build())
       .build();
     MongoClient mongoClient = MongoClients.create(settings);
-    this.database = mongoClient.getDatabase("Galaga");
+    MongoDatabase database = mongoClient.getDatabase("Galaga");
     this.usersCollection = database.getCollection("Users");
     this.executorService = Executors.newSingleThreadExecutor();
   }
@@ -91,23 +91,6 @@ public class DB {
    */
   public List<Document> getTop5Scores() throws InterruptedException, ExecutionException {
     CompletableFuture<List<Document>> future = new DB().getTop5ScoresAsync();
-    List<Document> result = future.get();
-    return result;
-  }
-  
-  
-  /**
-   * Gets the MongoDatabase instance associated with this DB instance.
-   * @return the MongoDatabase instance.
-   */
-  public MongoDatabase getDatabase() {
-    return this.database;
-  }
-  
-  /**
-   * Shuts down ExecutorService associated with the DB
-   */
-  public void close() {
-    executorService.shutdown();
+    return future.get();
   }
 }

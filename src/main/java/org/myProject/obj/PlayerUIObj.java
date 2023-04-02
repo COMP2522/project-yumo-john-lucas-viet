@@ -17,8 +17,6 @@ public class PlayerUIObj extends GameObj {
    * The PlaneObj object representing the player associated with this UI object.
    */
   private final PlaneObj player;
-  
-  private static final int LIVES_VERTICAL_GAP = 20;
   private static final int MAX_HEALTH = 100;
   private static final int HEALTH_BAR_WIDTH = 150;
   private static final int HEALTH_BAR_HEIGHT = 15;

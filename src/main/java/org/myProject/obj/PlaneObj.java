@@ -29,6 +29,8 @@ public class PlaneObj extends GameObj {
   public static final int MOUSE_OFFSET_Y = 16;
   public static final int SHOOT_DELAY_MS = 10;
   public static final int BULLET_SPACING = 20;
+  public static final int MAX_HEALTH = 100;
+  public static final int MAX_BULLETS = 4;
   
   private int health = 100;
   private boolean invincible = false;
@@ -37,15 +39,7 @@ public class PlaneObj extends GameObj {
   private int score = 0;
   
   private String name;
-
-  boolean pickUpPowerupBullet;
-  boolean pickUpPowerupHealth;
-
   
-  /**
-   * The game win object associated with the plane.
-   */
-  public GameWin gameWin;
   public TopScoresUI topScore;
   
   public String getName() {
@@ -132,7 +126,7 @@ public class PlaneObj extends GameObj {
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
       public void run() {
-        shoot(fireType);
+        shoot();
       }
     };
     timer.schedule(task, 0, SHOOT_DELAY_MS);
@@ -153,7 +147,6 @@ public class PlaneObj extends GameObj {
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
     checkCollision();
-    shoot(fireType);
     PlayerUIObj UI = new PlayerUIObj(this);
     UI.drawHealthUI(gImage);
   }
@@ -167,37 +160,30 @@ public class PlaneObj extends GameObj {
     List<GameObj> gameObjList = GameUtils.gameObjList;
     try{
     for (GameObj obj : gameObjList) {
+      //Check collision for enemy bullets
       if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
         takeDamage(((BulletObj) obj).getDamage());
         GameUtils.removeobjList.add(obj);
       }
+      //Check collision for crashing into enemies
       if (obj instanceof EnemyObj && this.collidesWith(obj)){
         takeDamage(((EnemyObj) obj).getDamage());
         GameUtils.removeobjList.add(obj);
 
       }
-
+      //Check collision for bullet upgrade power up
       if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
         GameUtils.gameObjList.remove(obj);
-        pickUpPowerupBullet = true;
+        upgradeBullets(this.getFireType());
 
       }
-
+      //Check collision for health power up
       if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
         GameUtils.gameObjList.remove(obj);
-        pickUpPowerupHealth = true;
-
-      }
-
-      if (pickUpPowerupHealth) {
-        if (health <= 95) {
-          health += 5;
+        this.healthPickUp(this.getHealth());
         }
-        pickUpPowerupHealth = false;
       }
-
-      }
-    }catch(ConcurrentModificationException e){}
+    }catch(ConcurrentModificationException ignored){}
   }
 
 
@@ -236,7 +222,7 @@ public class PlaneObj extends GameObj {
     }
     health -= dmg;
     if (health <= 0) {
-      gameWin.state = GAME_OVER;
+      GameWin.state = GAME_OVER;
     }
     invincible = true;
     //Player will become invincible for 0.5s after being hit
@@ -248,24 +234,31 @@ public class PlaneObj extends GameObj {
       }
     };
     timer.schedule(task, 500);
-    
+  }
+  
+  public void healthPickUp(int health){
+    final int HEALTH_INCREASE = 15;
+    this.setHealth(health + HEALTH_INCREASE);
+    if (this.getHealth() >= MAX_HEALTH){
+      this.setHealth(MAX_HEALTH);
+    }
+  }
+  
+  public void upgradeBullets(int fireType){
+    final int INCREMENT_BULLET = 1;
+    this.setFireType(fireType + INCREMENT_BULLET);
+    if (this.getFireType() >= 4){
+      this.setFireType(MAX_BULLETS);
+    }
   }
   
   /**
    * This method allows the player to shoot their weapon, depending on the type of power-up they have collected.
-   * @param fireType an integer representing the current type of bullet being used by the player's weapon
    * 1 = straight shot, 2 = double shot, 3 = triple shot, 4 = penta shot
    */
-  public void shoot(int fireType) {
+  public void shoot() {
     while (GameWin.state == 1) {
-      if (pickUpPowerupBullet) {
-        fireType += 1;
-        pickUpPowerupBullet = false;
-        if (fireType > 4) {
-          fireType = 4;
-        }
-      }
-      switch (fireType) {
+      switch (this.fireType) {
         case 1:
           straightShot();
           break;
