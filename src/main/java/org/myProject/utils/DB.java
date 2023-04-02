@@ -59,7 +59,6 @@ public class DB {
   
   public boolean validatePassword(String name, String password) {
     Document user = usersCollection.find(new Document("User", name)).first();
-    System.out.println("Checking password");
     if (user != null) {
       String Password = user.getString("Password"); // retrieve the hashed password from the user document
       return password.equals(Password); // compare the provided password with the hashed password

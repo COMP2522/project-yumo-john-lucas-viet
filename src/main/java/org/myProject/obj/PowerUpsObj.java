@@ -89,15 +89,13 @@ public class PowerUpsObj extends GameObj {
       for (GameObj obj : gameObjList) {
         if (obj instanceof PlaneObj && this.collidesWith(obj)) {
           GameUtils.removeobjList.add(this);
-
           GameUtils.gameObjList.remove(this);
         }
       }
     } catch (ConcurrentModificationException ignored) {
     }
   }
-
-}
+  
 
   /**
    * Spawns a power-up object at the specified position based on a random
@@ -123,5 +121,5 @@ public class PowerUpsObj extends GameObj {
 
     }
   }
-
+  
 }

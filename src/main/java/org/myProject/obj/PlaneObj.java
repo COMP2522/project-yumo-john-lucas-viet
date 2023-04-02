@@ -29,7 +29,7 @@ public class PlaneObj extends GameObj {
   public static final int MOUSE_OFFSET_Y = 16;
   public static final int SHOOT_DELAY_MS = 10;
   public static final int BULLET_SPACING = 20;
-  public static final int MAX_HEALTH = 100;
+  public static final int MAX_HEALTH = 4;
   public static final int MAX_BULLETS = 4;
 
   private int health = 4;
@@ -188,6 +188,7 @@ public class PlaneObj extends GameObj {
         if (obj instanceof EnemyObj && this.collidesWith(obj)) {
           takeDamage(((EnemyObj) obj).getDamage());
           GameUtils.removeobjList.add(obj);
+        }
 
           if (obj instanceof BossObj && this.collidesWith(obj)) {
             takeDamage(((BossObj) obj).getDamage());
@@ -195,16 +196,13 @@ public class PlaneObj extends GameObj {
           }
           // Check collision for bullet upgrade power up
           if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
-            GameUtils.gameObjList.remove(obj);
             upgradeBullets(this.getFireType());
 
           }
           // Check collision for health power up
           if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
-            GameUtils.gameObjList.remove(obj);
             this.healthPickUp(this.getHealth());
           }
-        }
       }
     } catch (ConcurrentModificationException ignored) {
     }
@@ -268,10 +266,12 @@ public class PlaneObj extends GameObj {
     if (this.getHealth() >= MAX_HEALTH) {
       this.setHealth(MAX_HEALTH);
     }
+    System.out.print(this.getHealth());
   }
 
   public void upgradeBullets(int fireType) {
     final int INCREMENT_BULLET = 1;
+    
     this.setFireType(fireType + INCREMENT_BULLET);
     if (this.getFireType() >= 4) {
       this.setFireType(MAX_BULLETS);
