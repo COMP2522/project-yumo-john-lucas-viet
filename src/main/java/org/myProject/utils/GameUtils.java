@@ -15,13 +15,15 @@ public class GameUtils {
     public static Image explodeimg = Toolkit.getDefaultToolkit().getImage("image/explode/e11.gif");
     // heroplane
     public static Image planeimg = Toolkit.getDefaultToolkit().getImage("image/plane.png");
-    // our bullets
+    // player bullets
     public static Image shellimg = Toolkit.getDefaultToolkit().getImage("image/shell.png");
 
     public static Image enemyshellimg = Toolkit.getDefaultToolkit().getImage("image/enemyshell.png");
 
     // boss bullets
     public static Image bulletimg = Toolkit.getDefaultToolkit().getImage("image/bossbullet.png");
+    // Enemy and boss bullet
+    public static Image reverseShell = Toolkit.getDefaultToolkit().getImage("image/shellReverse.png");
     // enemy
     public static Image enemyimg = Toolkit.getDefaultToolkit().getImage("image/enemy.png");
     // needs to be removed
@@ -43,8 +45,6 @@ public class GameUtils {
 
     public static List<HealPowerUpsObj> powerUpsObjList3 = new ArrayList<>();
     public static List<PowerUpsObj> powerUpsObjList4 = new ArrayList<>();
-
-
 
     public static Image powerups = Toolkit.getDefaultToolkit().getImage("image/powerup.jpg");
     public static Image powerups2 = Toolkit.getDefaultToolkit().getImage("image/shell.png");
