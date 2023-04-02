@@ -9,10 +9,8 @@ import org.myProject.utils.GameUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameWin extends JFrame {
     // Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
@@ -77,26 +75,31 @@ public class GameWin extends JFrame {
 
     // boss
     /**
-     * A class that validates a player's name and password and sets them to a PlaneObj object.
-     * The validation is done by checking if the name exists in the database, and if it does,
+     * A class that validates a player's name and password and sets them to a
+     * PlaneObj object.
+     * The validation is done by checking if the name exists in the database, and if
+     * it does,
      * the entered password is compared with the one stored in the database.
-     * If the name is not in the database, a new record with the name, password, and score is created.
+     * If the name is not in the database, a new record with the name, password, and
+     * score is created.
+     * 
      * @param planeobj The PlaneObj object to set the player name and password to.
-     * @param db The database instance to use for validation and record creation.
+     * @param db       The database instance to use for validation and record
+     *                 creation.
      */
-     public String validatePlayer(PlaneObj planeobj, DB db) {
+    public String validatePlayer(PlaneObj planeobj, DB db) {
         String playerName;
         while (true) {
             playerName = JOptionPane.showInputDialog(this, "Enter your name:");
-            if (playerName == null || playerName.isEmpty()){
+            if (playerName == null || playerName.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Name cannot be empty. Please try again.");
-            }
-            else if (db.validateName(playerName)) {
+            } else if (db.validateName(playerName)) {
                 planeobj.setName(playerName);
                 String password;
                 do {
                     password = JOptionPane.showInputDialog(this, "Create a password:");
-                } while (password == null || password.isEmpty()); // keep prompting for a non-null and non-empty password
+                } while (password == null || password.isEmpty()); // keep prompting for a non-null and non-empty
+                                                                  // password
                 planeobj.setPassword(password);
                 db.put(planeobj.getName(), planeobj.getScore(), planeobj.getPassword());
                 break; // exit the loop once a valid name and password are entered
@@ -112,8 +115,7 @@ public class GameWin extends JFrame {
         }
         return playerName;
     }
-    
-    
+
     public void launch() {
 
         planeobj.setName(validatePlayer(planeobj, db));
