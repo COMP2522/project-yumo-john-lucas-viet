@@ -12,32 +12,95 @@ import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
 
+
+/**
+ * The GameWin class extends JFrame and is responsible for painting the game
+ * window with its graphical components, including the player, the enemies,
+ * bullets, and game messages. It implements the KeyListener interface
+ * to receive keyboard input events from the user.
+ *
+ * @author: YumoZhou
+ */
 public class GameWin extends JFrame {
-    // Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
+
+    /**
+     * The current state of the game.
+     * 0 - not started
+     * 1 - in progress
+     * 2 - paused
+     * 3 - game passed
+     * 4 - game failed
+     */
     public static int state = 0; // The default state of the game
+
+    /**
+     * The off-screen image used for double buffering.
+     */
     Image offSreenimage = null;
     int width = 600;
     int height = 600;
-    // The number of redraws of the game
+
+    /**
+     * The number of redraws of the game.
+     */
     int count = 1;
-    // The number of enemy aircraft present
+
+    /**
+     * The number of enemy aircraft present.
+     */
     int enemyCount = 0;
+
+    /**
+     * The number of waves completed.
+     */
     int waveCount = 0;
+
+    /**
+     * Whether the boss enemy has appeared.
+     */
     boolean bossAppear = false;
+
+    /**
+     * Whether a power-up is available.
+     */
     boolean hasPowerup = true;
 
+    /**
+     * The database instance used to store player scores and passwords.
+     */
     DB db = new DB();
 
-    // Define a list to store power-up objects
+    /**
+     * The list of power-up objects in the game.
+     */
     private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
 
+    /**
+     * The power-up object that appears on the screen.
+     */
     public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
+    /**
+     * The top scores UI object that displays the highest scores.
+     */
     public TopScoresUI topScores = new TopScoresUI(db);
+
+    /**
+     * The player's plane object.
+     */
     public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg, 290, 550, 20, 30, 0, this, topScores);
 
+    /**
+     * The list of game objects in the game.
+     */
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
 
+    /**
+     * Adds a game object to the list of game objects.
+     * If the object is a power-up, it is also added to the list of power-ups.
+     *
+     * @param obj The game object to add.
+     */
     public void addGameObject(GameObj obj) {
         gameObjects.add(obj);
         if (obj instanceof PowerUpsObj) {
@@ -45,47 +108,70 @@ public class GameWin extends JFrame {
         }
     }
 
+    /**
+     * Removes a game object from the list of game objects.
+     *
+     * @param gameObject The game object to remove.
+     */
     public void removeGameObject(GameObj gameObject) {
         gameObjects.remove(gameObject);
     }
 
+    /**
+     * Decrements the number of enemy aircraft present by x.
+     *
+     * @param x The number of enemy aircraft to decrement by.
+     */
     public void setEnemyCount(int x) {
         this.enemyCount -= x;
     }
 
+    /**
+     * Returns the player's plane object.
+     *
+     * @return The player's plane object.
+     */
     public PlaneObj getPlaneobj() {
         return this.planeobj;
     }
 
+    /**
+     * Resets the wave count to 0.
+     */
     public void resetWaveCount() {
         this.waveCount = 0;
     }
 
+    /**
+     * Sets the appearance status of the boss enemy.
+     *
+     * @param b True if the boss enemy should appear, false otherwise.
+     */
     public void setBossAppear(boolean b) {
         this.bossAppear = b;
     }
 
+    /**
+     * Gets the image for a power-up item.
+     *
+     * @return The image for the power-up item.
+     */
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
-
     // Movement of the background image
-
     BgObj bgobj = new BgObj(GameUtils.bgimg, 0, -400, 2);
 
-    // boss
     /**
-     * A class that validates a player's name and password and sets them to a
-     * PlaneObj object.
+     * Validates a player's name and password and sets them to a PlaneObj object.
      * The validation is done by checking if the name exists in the database, and if
-     * it does,
-     * the entered password is compared with the one stored in the database.
+     * it does, the entered password is compared with the one stored in the database.
      * If the name is not in the database, a new record with the name, password, and
      * score is created.
-     * 
+     *
      * @param planeobj The PlaneObj object to set the player name and password to.
-     * @param db       The database instance to use for validation and record
-     *                 creation.
+     * @param db       The database instance to use for validation and record creation.
+     * @return The validated player's name.
      */
     public String validatePlayer(PlaneObj planeobj, DB db) {
         String playerName;
@@ -116,8 +202,10 @@ public class GameWin extends JFrame {
         return playerName;
     }
 
+    /**
+     * Launches the game and handles game loop.
+     */
     public void launch() {
-
         planeobj.setName(validatePlayer(planeobj, db));
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -189,6 +277,13 @@ public class GameWin extends JFrame {
         }
     }
 
+    /**
+     *This method overrides the paint() method of the Graphics class.
+     *It paints the game elements onto the screen. It creates an off-screen image
+     *to avoid flicker, fills it with a solid color, and then draws the game elements onto it.
+     *The image is then drawn onto the main window at once.
+     *@param g the Graphics object to draw on
+     */
     @Override
     public void paint(Graphics g) {
 
@@ -233,7 +328,10 @@ public class GameWin extends JFrame {
 
     }
 
-    // The creation method is used to generate bullets and enemy planes in batches
+    /**
+     *This method is used to generate bullets and enemy planes in batches.
+     *It creates power-ups, enemy planes, and bosses depending on the state of the game.
+     */
     void create() {
         if (hasPowerup) {
             hasPowerup = false;
@@ -245,10 +343,6 @@ public class GameWin extends JFrame {
             GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList3);
 
         }
-
-        // for(PowerUpsObj power : GameUtils.powerUpsObjList){
-        // power.checkCollision();
-        // }
 
         /**
          * enemy fighter
@@ -302,6 +396,11 @@ public class GameWin extends JFrame {
         }
     }
 
+    /**
+     * This method is the entry point for the Java application.
+     * It creates a new instance of the GameWin class and calls its launch() method, which starts the game.
+     * The args parameter is not used in this method.
+     */
     public static void main(String[] args) {
         GameWin Gamewin = new GameWin();
         Gamewin.launch();
