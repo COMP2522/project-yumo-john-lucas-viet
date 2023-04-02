@@ -39,6 +39,7 @@ public class PlaneObj extends GameObj {
   private int score = 0;
 
   private String name;
+  private String password;
 
   public TopScoresUI topScore;
 
@@ -49,6 +50,11 @@ public class PlaneObj extends GameObj {
   public void setName(String name) {
     this.name = name;
   }
+  
+  public String getPassword(){return password;
+  }
+  
+  public void setPassword(String password){this.password = password;}
 
   /**
    * Gets the current health of the plane.

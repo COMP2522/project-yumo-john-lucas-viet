@@ -77,32 +77,48 @@ public class GameWin extends JFrame {
 
     // boss
     /**
-     * public BossObj bossobj =null;
+     * A class that validates a player's name and password and sets them to a PlaneObj object.
+     * The validation is done by checking if the name exists in the database, and if it does,
+     * the entered password is compared with the one stored in the database.
+     * If the name is not in the database, a new record with the name, password, and score is created.
+     * @param planeobj The PlaneObj object to set the player name and password to.
+     * @param db The database instance to use for validation and record creation.
      */
-
-    public String getValidPlayerName(PlaneObj planeobj, DB db) {
+     public String validatePlayer(PlaneObj planeobj, DB db) {
         String playerName;
         while (true) {
             playerName = JOptionPane.showInputDialog(this, "Enter your name:");
             if (db.validateName(playerName)) {
                 planeobj.setName(playerName);
-                db.put(planeobj.getName(), planeobj.getScore());
-                break; // exit the loop once a valid name is entered
+                String password;
+                do {
+                    password = JOptionPane.showInputDialog(this, "Create a password:");
+                } while (password == null || password.isEmpty()); // keep prompting for a non-null and non-empty password
+                planeobj.setPassword(password);
+                db.put(planeobj.getName(), planeobj.getScore(), planeobj.getPassword());
+                break; // exit the loop once a valid name and password are entered
             } else {
-                JOptionPane.showMessageDialog(this, "Name already taken. Please choose a different name.");
+                String password = JOptionPane.showInputDialog(this, "Enter your password:");
+                if (db.validatePassword(playerName, password)) {
+                    planeobj.setPassword(password);
+                    break; // exit the loop if the password is correct
+                } else {
+                    JOptionPane.showMessageDialog(this, "Incorrect password. Please try again.");
+                }
             }
         }
         return playerName;
     }
-
+    
+    
     public void launch() {
 
-        planeobj.setName(getValidPlayerName(planeobj, db));
+        planeobj.setName(validatePlayer(planeobj, db));
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                db.put(planeobj.getName(), planeobj.getScore());
+                db.put(planeobj.getName(), planeobj.getScore(), planeobj.getPassword());
             }
         }, 0, 5000); // execute the task every 5 seconds
 
@@ -202,7 +218,7 @@ public class GameWin extends JFrame {
         // game over
         if (state == 3) {
             // Final player data written when the game is over
-            db.put(planeobj.getName(), planeobj.getScore());
+            db.put(planeobj.getName(), planeobj.getScore(), planeobj.getPassword());
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
             GameUtils.drawWord(gimage, "GAME OVER", Color.red, 40, 180, 300);
         }

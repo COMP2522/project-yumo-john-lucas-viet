@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 /**
  * This is a utility class that provides methods to interact with
  * our Galaga MongoDB database
@@ -56,19 +57,38 @@ public class DB {
     return user == null;
   }
   
+  public boolean validatePassword(String name, String password) {
+    Document user = usersCollection.find(new Document("User", name)).first();
+    System.out.println("Checking password");
+    if (user != null) {
+      String Password = user.getString("Password"); // retrieve the hashed password from the user document
+      return password.equals(Password); // compare the provided password with the hashed password
+    } else {
+      return false; // the user does not exist in the database
+    }
+  }
+
+  
   /**
    * Adds or updates a key-value pair in the database for a user.
    * @param key the key to add or update.
    * @param value the value to add or update.
+   * @param password the password for the user.
    */
-  public void put(String key, Object value) {
+  public void put(String key, Object value, String password) {
     CompletableFuture.runAsync(() -> {
       Document filter = new Document("User", key);
-      Document update = new Document("$set", new Document("Score", value));
+      Document user = usersCollection.find(filter).first();
+      if (user != null && user.getInteger("Score") >= (Integer) value) {
+        // do not update the score if the existing score in the database is higher
+        return;
+      }
+      Document update = new Document("$set", new Document("Score", value).append("Password", password));
       UpdateOptions options = new UpdateOptions().upsert(true);
       usersCollection.updateOne(filter, update, options);
     }, executorService);
   }
+  
   
   /**
    * Asynchronously retrieves the top 5 scores from the database.
