@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.Timer;
 
-import static org.myProject.utils.GameUtils.bulletimg;
+import static org.myProject.utils.GameUtils.*;
 
 /**
  EnemyObj class - this class represent the enemy object in the game.
@@ -64,7 +64,7 @@ public class EnemyObj extends GameObj implements ActionListener {
      * @param gImage representing the image of the plan
      */
     public void paintself(Graphics gImage) {
-        super.paintself(gImage);
+        gImage.drawImage(enemyimg, this.x-15, this.y, window);
         checkCollision(window.getPlaneobj(), gImage);
         removeEnemy();
     }
@@ -90,7 +90,7 @@ public class EnemyObj extends GameObj implements ActionListener {
 
             //Decrement enemy's hit-points by one everytime it get hit by player's bullet
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-                this.hitpoints--;
+                this.hitpoints --;
                 if(this.hitpoints == 0){
                     planeobj.setScore(planeobj.getScore() + 1);
                     this.isActive = false;
@@ -145,7 +145,7 @@ public class EnemyObj extends GameObj implements ActionListener {
         long timeSinceLastShot = currentTime - lastShotTime;
 
         if (timeSinceLastShot >= 900000000) {
-            BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 10, this.frame, true);
+            BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 1, this.frame, true);
             bullet.setY(this.y);
             bullet.setX(this.x);
             GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg, this.getX() + 4, this.getY() - 16, 14, 29, 12, frame, true));

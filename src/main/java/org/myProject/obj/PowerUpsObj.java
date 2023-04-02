@@ -1,6 +1,7 @@
 package org.myProject.obj;
 
 import java.awt.*;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Random;
 
@@ -56,12 +57,15 @@ public class PowerUpsObj extends GameObj {
 
   public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
+    try {
     for (GameObj obj : gameObjList) {
       if (obj instanceof PlaneObj && this.collidesWith(obj)) {
         GameUtils.removeobjList.add(this);
-        GameUtils.gameObjList.remove(this);
+
+          GameUtils.gameObjList.remove(this);
       }
     }
+    }catch (ConcurrentModificationException ignored){}
   }
 
   public void spawnPowerUp(int x, int y) {
