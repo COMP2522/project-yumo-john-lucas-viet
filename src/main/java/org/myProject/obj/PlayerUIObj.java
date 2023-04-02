@@ -8,7 +8,7 @@ import java.awt.*;
  * PlayerUIObj is used with the PlaneObj class to track player,health,lives, and
  * score and displays it on screen as the UI
  *
- * @author John Tu
+ * @author: John Tu
  */
 public class PlayerUIObj extends GameObj {
   
@@ -17,7 +17,7 @@ public class PlayerUIObj extends GameObj {
    * The PlaneObj object representing the player associated with this UI object.
    */
   private final PlaneObj player;
-  private static final int MAX_HEALTH = 100;
+  private static final int MAX_HEALTH = 4;
   private static final int HEALTH_BAR_WIDTH = 150;
   private static final int HEALTH_BAR_HEIGHT = 15;
   private static final int HEALTH_BAR_MARGIN_LEFT = 10;

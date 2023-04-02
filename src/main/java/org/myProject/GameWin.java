@@ -86,8 +86,7 @@ public class GameWin extends JFrame {
             playerName = JOptionPane.showInputDialog(this, "Enter your name:");
             if (db.validateName(playerName)) {
                 planeobj.setName(playerName);
-                // insert the new user into the database
-                // db.put(planeobj.getName(), planeobj.getScore());
+                db.put(planeobj.getName(), planeobj.getScore());
                 break; // exit the loop once a valid name is entered
             } else {
                 JOptionPane.showMessageDialog(this, "Name already taken. Please choose a different name.");

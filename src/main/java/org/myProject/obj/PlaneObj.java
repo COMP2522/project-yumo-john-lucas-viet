@@ -18,7 +18,7 @@ import static org.myProject.utils.GameUtils.*;
  * for handling player functions such as shooting, checking collision,
  * updating player info (Health, score).
  *
- * @author John Tu
+ * @author: John Tu
  */
 public class PlaneObj extends GameObj {
 
@@ -32,7 +32,7 @@ public class PlaneObj extends GameObj {
   public static final int MAX_HEALTH = 100;
   public static final int MAX_BULLETS = 4;
 
-  private int health = 100;
+  private int health = 4;
   private boolean invincible = false;
 
   private int fireType = 1;
@@ -165,34 +165,35 @@ public class PlaneObj extends GameObj {
    * Checks for collisions between the current GameObj and all GameObjs in the gameObjList.
    * If a collision is detected, the current GameObj takes damage based on the damage inflicted by the other GameObj.
    */
-  public void checkCollision(){
+  public void checkCollision() {
     List<GameObj> gameObjList = GameUtils.gameObjList;
-    try{
-    for (GameObj obj : gameObjList) {
-      //Check collision for enemy bullets
-      if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)){
-        takeDamage(((BulletObj) obj).getDamage());
-        GameUtils.removeobjList.add(obj);
-      }
-      //Check collision for crashing into enemies
-      if (obj instanceof EnemyObj && this.collidesWith(obj)){
-        takeDamage(((EnemyObj) obj).getDamage());
-        GameUtils.removeobjList.add(obj);
-
-      if (obj instanceof BossObj && this.collidesWith(obj)){
-        takeDamage(((BossObj) obj).getDamage());
-        GameUtils.removeobjList.add(obj);
-      }
-      //Check collision for bullet upgrade power up
-      if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
-        GameUtils.gameObjList.remove(obj);
-        upgradeBullets(this.getFireType());
-
-      }
-      //Check collision for health power up
-      if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
-        GameUtils.gameObjList.remove(obj);
-        this.healthPickUp(this.getHealth());
+    try {
+      for (GameObj obj : gameObjList) {
+        //Check collision for enemy bullets
+        if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
+          takeDamage(((BulletObj) obj).getDamage());
+          GameUtils.removeobjList.add(obj);
+        }
+        //Check collision for crashing into enemies
+        if (obj instanceof EnemyObj && this.collidesWith(obj)) {
+          takeDamage(((EnemyObj) obj).getDamage());
+          GameUtils.removeobjList.add(obj);
+      
+          if (obj instanceof BossObj && this.collidesWith(obj)) {
+            takeDamage(((BossObj) obj).getDamage());
+            GameUtils.removeobjList.add(obj);
+          }
+          //Check collision for bullet upgrade power up
+          if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
+            GameUtils.gameObjList.remove(obj);
+            upgradeBullets(this.getFireType());
+        
+          }
+          //Check collision for health power up
+          if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
+            GameUtils.gameObjList.remove(obj);
+            this.healthPickUp(this.getHealth());
+          }
         }
       }
     }catch(ConcurrentModificationException ignored){}
@@ -251,7 +252,7 @@ public class PlaneObj extends GameObj {
   }
 
   public void healthPickUp(int health) {
-    final int HEALTH_INCREASE = 15;
+    final int HEALTH_INCREASE = 1;
     this.setHealth(health + HEALTH_INCREASE);
     if (this.getHealth() >= MAX_HEALTH) {
       this.setHealth(MAX_HEALTH);
