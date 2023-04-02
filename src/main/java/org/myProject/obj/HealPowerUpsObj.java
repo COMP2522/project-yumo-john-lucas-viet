@@ -1,6 +1,7 @@
 package org.myProject.obj;
 
 import java.awt.*;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import org.myProject.GameWin;
@@ -48,10 +49,12 @@ public class HealPowerUpsObj extends GameObj {
 
   public void checkCollision(){
     List<GameObj> gameObjList = GameUtils.gameObjList;
-    for (GameObj obj : gameObjList) {
-      if (obj instanceof PlaneObj && this.collidesWith(obj)) {
-        GameUtils.gameObjList.remove(this);
+    try {
+      for (GameObj obj : gameObjList) {
+        if (obj instanceof PlaneObj && this.collidesWith(obj)) {
+          GameUtils.gameObjList.remove(this);
+        }
       }
-    }
+    }catch (ConcurrentModificationException ignored){}
   }
 }

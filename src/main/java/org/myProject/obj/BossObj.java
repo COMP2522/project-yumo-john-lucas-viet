@@ -25,7 +25,7 @@ public class BossObj extends GameObj implements ActionListener{
     private int damage = 100;
     private long lastShotTime = 0;
     public GameWin window;
-    private double hitpoints = 10;
+    private double hitpoints = 90;
     private int direction = 1;
 
     /**

@@ -25,7 +25,7 @@ public class EnemyObj extends GameObj implements ActionListener {
     int distance;
     private long lastShotTime = 0;
     public GameWin window;
-    private int hitpoints = 3;
+    private int hitpoints = 10;
 
     /**
      * If player collides with an enemy ship, player will take this amount of damage
@@ -90,7 +90,7 @@ public class EnemyObj extends GameObj implements ActionListener {
 
             //Decrement enemy's hit-points by one everytime it get hit by player's bullet
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-                this.hitpoints -= ((BulletObj) obj).getDamage();
+                this.hitpoints --;
                 if(this.hitpoints == 0){
                     planeobj.setScore(planeobj.getScore() + 1);
                     this.isActive = false;
