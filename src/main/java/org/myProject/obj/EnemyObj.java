@@ -145,10 +145,10 @@ public class EnemyObj extends GameObj implements ActionListener {
         long timeSinceLastShot = currentTime - lastShotTime;
 
         if (timeSinceLastShot >= 900000000) {
-            BulletObj bullet = new BulletObj(bulletimg, this.x, this.y, 5, 10, 1, this.frame, true);
+            BulletObj bullet = new BulletObj(reverseShell, this.x, this.y, 5, 10, 12, this.frame, true);
             bullet.setY(this.y);
             bullet.setX(this.x);
-            GameUtils.bulletObjList.add(new BulletObj(GameUtils.shellimg, this.getX() + 4, this.getY() - 16, 14, 29, 12, frame, true));
+            GameUtils.bulletObjList.add(bullet);
             GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
             lastShotTime = currentTime;
         }

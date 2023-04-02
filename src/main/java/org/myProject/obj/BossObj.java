@@ -160,7 +160,7 @@ public class BossObj extends GameObj implements ActionListener{
 
         if (timeSinceLastShot >= 900000000) {
             for(int i = 0; i < 2; i++) {
-                BulletObj bullet = new BulletObj(shellimg, this.x, this.y, 5, 10, 10, this.frame, true);
+                BulletObj bullet = new BulletObj(reverseShell, this.x, this.y, 5, 10, 14, this.frame, true);
                 bullet.setY(this.y);
                 bullet.setX(this.x + i * 40);
                 GameUtils.bulletObjList.add(bullet);
