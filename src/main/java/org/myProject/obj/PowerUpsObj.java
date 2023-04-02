@@ -58,9 +58,8 @@ public class PowerUpsObj extends GameObj {
     List<GameObj> gameObjList = GameUtils.gameObjList;
     for (GameObj obj : gameObjList) {
       if (obj instanceof PlaneObj && this.collidesWith(obj)) {
+        GameUtils.removeobjList.add(this);
         GameUtils.gameObjList.remove(this);
-
-
       }
     }
   }
