@@ -73,6 +73,10 @@ public class TopScoresUI extends GameObj {
    * Adds the local score to the top scores list.
    * @param plane The PlaneObj object that contains the score to add.
    */
+  /**
+   * Adds the local score to the top scores list.
+   * @param plane The PlaneObj object that contains the score to add.
+   */
   public void addLocalScore(PlaneObj plane) {
     String playerName = plane.getName();
     int playerScore = plane.getScore();
@@ -81,8 +85,11 @@ public class TopScoresUI extends GameObj {
     // check if player already exists in topScores list
     for (Document score : topScores) {
       if (score.getString("User").equals(playerName)) {
-        // player exists, update their score
-        score.put("Score", playerScore);
+        // player exists, update their score if current score is higher
+        int existingScore = score.getInteger("Score");
+        if (playerScore > existingScore) {
+          score.put("Score", playerScore);
+        }
         playerExists = true;
         break;
       }
@@ -100,5 +107,6 @@ public class TopScoresUI extends GameObj {
       topScores.remove(TOP_FIVE_SCORES);
     }
   }
+  
 }
 
