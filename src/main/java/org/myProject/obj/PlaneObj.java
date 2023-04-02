@@ -132,10 +132,9 @@ public class PlaneObj extends GameObj {
    * @param speed  The speed of the plane object.
    * @param frame  The GameWin object associated with the plane.
    */
-  public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame, String name,
+  public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame,
       TopScoresUI topScore) {
     super(img, x, y, width, height, speed, frame);
-    this.name = name;
     this.topScore = topScore;
 
     Timer timer = new Timer();
