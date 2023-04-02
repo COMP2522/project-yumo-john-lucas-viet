@@ -25,7 +25,7 @@ public class BossObj extends GameObj implements ActionListener{
     private int damage = 100;
     private long lastShotTime = 0;
     public GameWin window;
-    private double hitpoints = 150;
+    private double hitpoints = 10;
     private int direction = 1;
 
     /**
@@ -87,7 +87,7 @@ public class BossObj extends GameObj implements ActionListener{
         for (GameObj obj : gameObjList) {
             //Decrement boss's hit-points by one everytime it get hit by player's bullet
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-                this.hitpoints -= 1;
+                this.hitpoints -= ((BulletObj) obj).getDamage();
                 if(this.hitpoints == 0){
                     planeobj.setScore(planeobj.getScore() + 30);
                     this.isActive = false;
