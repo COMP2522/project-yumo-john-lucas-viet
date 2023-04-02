@@ -36,7 +36,7 @@ public class GameWin extends JFrame {
     public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
     public TopScoresUI topScores = new TopScoresUI(db);
-    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg, 290, 550, 20, 30, 0, this, "", topScores);
+    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg, 290, 550, 20, 30, 0, this, topScores);
 
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
 
@@ -88,7 +88,10 @@ public class GameWin extends JFrame {
         String playerName;
         while (true) {
             playerName = JOptionPane.showInputDialog(this, "Enter your name:");
-            if (db.validateName(playerName)) {
+            if (playerName == null || playerName.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Name cannot be empty. Please try again.");
+            }
+            else if (db.validateName(playerName)) {
                 planeobj.setName(playerName);
                 String password;
                 do {
