@@ -293,7 +293,7 @@ public class GameWin extends JFrame {
         if (state == 0) {
             gimage.drawImage(GameUtils.bgimg, 0, 0, null);
             gimage.drawImage(GameUtils.explodeimg, 270, 370, null);
-            GameUtils.drawWord(gimage, "press to start", Color.yellow, 40, 180, 300);
+            GameUtils.drawWord(gimage, "Click to start", Color.yellow, 40, 170, 300);
 
         }
         // Games start
@@ -303,10 +303,6 @@ public class GameWin extends JFrame {
             }
 
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
-        }
-        //game pause
-        if(state == 2){
-            GameUtils.drawWord(gimage, "Pause", Color.red, 40, 180, 300);
         }
         // game over
         if (state == 3) {
