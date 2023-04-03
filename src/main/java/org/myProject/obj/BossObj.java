@@ -19,15 +19,55 @@ import static org.myProject.utils.GameUtils.*;
  */
 
 public class BossObj extends GameObj implements ActionListener{
-    private Timer timer;
-    private boolean isActive;
-    private int distance;
-    private int damage = 100;
-    private long lastShotTime = 0;
-    public GameWin window;
-    private double hitpoints = 90;
-    private int direction = 1;
+    /**
 
+     A Timer object that controls the timing of the game object's actions.
+     */
+    private Timer timer;
+    /**
+
+     A boolean value that indicates whether the game object is currently active or not.
+     */
+    private boolean isActive;
+    /**
+
+     The distance that the game object has traveled from its starting position.
+     */
+    private int distance;
+    /**
+
+     The amount of damage that the game object can deal to other objects.
+     */
+    private int damage = 100;
+    /**
+
+     The time at which the game object last shot a projectile.
+     */
+    private long lastShotTime = 0;
+    /**
+
+     The GameWin object that represents the game window in which the game object is spawned.
+     */
+    public GameWin window;
+    /**
+
+     The number of hitpoints that the game object has.
+     */
+    private double hitpoints = 90;
+    /**
+
+     The direction that the game object is facing, represented as an integer value (-1 for left, 1 for right).
+     */
+    private int direction = 1;
+    /**
+
+     The score that the player receives for destroying this game object.
+     */
+    private int score = 30;
+    /**
+
+     The image that represents the power-up that has spawned near the game object.
+     */
     Image powerUpImage;
 
     /**
@@ -91,7 +131,7 @@ public class BossObj extends GameObj implements ActionListener{
             if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
                 this.hitpoints -= ((BulletObj) obj).getDamage();
                 if(this.hitpoints == 0){
-                    planeobj.setScore(planeobj.getScore() + 30);
+                    planeobj.setScore(planeobj.getScore() + this.score);
                     this.isActive = false;
                     gImage.drawImage(GameUtils.explodeimg, this.x, this.y, null);
                     GameUtils.removeobjList.add(this);
@@ -163,12 +203,14 @@ public class BossObj extends GameObj implements ActionListener{
     private void fire() {
         long currentTime = System.nanoTime();
         long timeSinceLastShot = currentTime - lastShotTime;
+        long beam = 4;
+        int bullet_offset = 30;
 
         if (timeSinceLastShot >= 900000000) {
-            for(int i = 0; i < 2; i++) {
+            for(int i = 0; i < beam; i++) {
                 BulletObj bullet = new BulletObj(reverseShell, this.x, this.y, 5, 10, 14, this.frame, true);
                 bullet.setY(this.y);
-                bullet.setX(this.x + i * 40);
+                bullet.setX(this.x + i * bullet_offset);
                 GameUtils.bulletObjList.add(bullet);
                 GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
             }
