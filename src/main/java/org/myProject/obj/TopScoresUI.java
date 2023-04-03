@@ -14,7 +14,7 @@ import org.myProject.utils.DB;
  * This class represents the user interface responsible for
  * displaying the topScores
  *
- * @author: John2T
+ * @author John2T
  */
 public class TopScoresUI extends GameObj {
   

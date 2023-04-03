@@ -18,7 +18,7 @@ import static org.myProject.utils.GameUtils.*;
  * for handling player functions such as shooting, checking collision,
  * updating player info (Health, score).
  *
- * @author: John Tu
+ * @author John Tu
  */
 public class PlaneObj extends GameObj {
 
@@ -42,19 +42,39 @@ public class PlaneObj extends GameObj {
   private String password;
 
   public TopScoresUI topScore;
-
+  
+  /**
+   * Gets current name of plane.
+   *
+   * @return The name of the plane.
+   */
   public String getName() {
     return name;
   }
-
+  
+  /**
+   * Sets the name of the plane.
+   *
+   * @param name The name that will be set to the plane.
+   */
   public void setName(String name) {
     this.name = name;
   }
-
+  
+  /**
+   * Gets the password for the plane instance
+   *
+   * @return The password of the plane.
+   */
   public String getPassword() {
     return password;
   }
-
+  
+  /**
+   * Sets the password of the plane.
+   *
+   * @param password The password that will be set to the plane.
+   */
   public void setPassword(String password) {
     this.password = password;
   }
@@ -71,7 +91,7 @@ public class PlaneObj extends GameObj {
   /**
    * Sets the health of the plane.
    * 
-   * @param health The current health of the plane.
+   * @param health The health that will be set to the plane.
    */
   public void setHealth(int health) {
     this.health = health;
@@ -191,22 +211,19 @@ public class PlaneObj extends GameObj {
           takeDamage(((EnemyObj) obj).getDamage());
           GameUtils.removeobjList.add(obj);
         }
-
-          if (obj instanceof BossObj && this.collidesWith(obj)) {
+        // Check collision for crashing into boss
+        if (obj instanceof BossObj && this.collidesWith(obj)) {
             takeDamage(((BossObj) obj).getDamage());
             GameUtils.removeobjList.add(obj);
             deUpgradeBullets(this.getFireType());
           }
-
-
-
           // Check collision for bullet upgrade power up
-          if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
+        if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
             upgradeBullets(this.getFireType());
 
           }
           // Check collision for health power up
-          if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
+        if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
             this.healthPickUp(this.getHealth());
           }
       }
@@ -265,7 +282,12 @@ public class PlaneObj extends GameObj {
     };
     timer.schedule(task, 500);
   }
-
+  
+  /**
+   * Increases health.
+   *
+   * @param health The current player health.
+   */
   public void healthPickUp(int health) {
     final int HEALTH_INCREASE = 1;
     this.setHealth(health + HEALTH_INCREASE);
@@ -273,7 +295,12 @@ public class PlaneObj extends GameObj {
       this.setHealth(MAX_HEALTH);
     }
   }
-
+  
+  /**
+   * Increases bullet level.
+   *
+   * @param fireType The current player bullet level.
+   */
   public void upgradeBullets(int fireType) {
     final int INCREMENT_BULLET = 1;
     
@@ -282,7 +309,12 @@ public class PlaneObj extends GameObj {
       this.setFireType(MAX_BULLETS);
     }
   }
-
+  
+  /**
+   * Decreases bullet level.
+   *
+   * @param fireType The current player bullet level
+   */
   public void deUpgradeBullets(int fireType) {
     final int INCREMENT_BULLET = 1;
 
