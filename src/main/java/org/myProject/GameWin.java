@@ -1,8 +1,10 @@
 package org.myProject;
 
+import com.jogamp.opengl.math.geom.Frustum;
+import org.bson.Document;
 import org.myProject.obj.*;
+import org.myProject.utils.DB;
 import org.myProject.utils.GameUtils;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,31 +12,95 @@ import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
 
+
+/**
+ * The GameWin class extends JFrame and is responsible for painting the game
+ * window with its graphical components, including the player, the enemies,
+ * bullets, and game messages. It implements the KeyListener interface
+ * to receive keyboard input events from the user.
+ *
+ * @author: YumoZhou
+ */
 public class GameWin extends JFrame {
-    //Game status 0 not started 1 in progress 2 paused 3 game passed 4 game failed
-    public static int state=0;//The default state of the game
-    Image offSreenimage=null;
-    int width=600;
-    int height=600;
-    //The number of redraws of the game
-    int count=1;
-    //The number of enemy aircraft present
-    int enemyCount=0;
 
+    /**
+     * The current state of the game.
+     * 0 - not started
+     * 1 - in progress
+     * 2 - paused
+     * 3 - game passed
+     * 4 - game failed
+     */
+    public static int state = 0; // The default state of the game
 
+    /**
+     * The off-screen image used for double buffering.
+     */
+    Image offSreenimage = null;
+    int width = 600;
+    int height = 600;
 
+    /**
+     * The number of redraws of the game.
+     */
+    int count = 1;
+
+    /**
+     * The number of enemy aircraft present.
+     */
+    int enemyCount = 0;
+
+    /**
+     * The number of waves completed.
+     */
+    int waveCount = 0;
+
+    /**
+     * Whether the boss enemy has appeared.
+     */
+    boolean bossAppear = false;
+
+    /**
+     * Whether a power-up is available.
+     */
     boolean hasPowerup = true;
 
-    // Define a list to store power-up objects
+    /**
+     * The database instance used to store player scores and passwords.
+     */
+    DB db = new DB();
+
+    /**
+     * The list of power-up objects in the game.
+     */
     private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
 
+    /**
+     * The power-up object that appears on the screen.
+     */
     public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
 
-    //PlaneObj (Player)
-    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg,290,550,20,30,0,this);
+    /**
+     * The top scores UI object that displays the highest scores.
+     */
+    public TopScoresUI topScores = new TopScoresUI(db);
 
+    /**
+     * The player's plane object.
+     */
+    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg, 290, 550, 20, 30, 0, this, topScores);
+
+    /**
+     * The list of game objects in the game.
+     */
     public static ArrayList<GameObj> gameObjects = new ArrayList<>();
 
+    /**
+     * Adds a game object to the list of game objects.
+     * If the object is a power-up, it is also added to the list of power-ups.
+     *
+     * @param obj The game object to add.
+     */
     public void addGameObject(GameObj obj) {
         gameObjects.add(obj);
         if (obj instanceof PowerUpsObj) {
@@ -42,79 +108,163 @@ public class GameWin extends JFrame {
         }
     }
 
+    /**
+     * Removes a game object from the list of game objects.
+     *
+     * @param gameObject The game object to remove.
+     */
     public void removeGameObject(GameObj gameObject) {
         gameObjects.remove(gameObject);
     }
 
-    public void setEnemyCount(int x){
-        this.enemyCount-=x;
+    /**
+     * Decrements the number of enemy aircraft present by x.
+     *
+     * @param x The number of enemy aircraft to decrement by.
+     */
+    public void setEnemyCount(int x) {
+        this.enemyCount -= x;
     }
 
+    /**
+     * Returns the player's plane object.
+     *
+     * @return The player's plane object.
+     */
+    public PlaneObj getPlaneobj() {
+        return this.planeobj;
+    }
 
-    public PlaneObj getPlaneobj(){return this.planeobj;}
+    /**
+     * Resets the wave count to 0.
+     */
+    public void resetWaveCount() {
+        this.waveCount = 0;
+    }
 
+    /**
+     * Sets the appearance status of the boss enemy.
+     *
+     * @param b True if the boss enemy should appear, false otherwise.
+     */
+    public void setBossAppear(boolean b) {
+        this.bossAppear = b;
+    }
+
+    /**
+     * Gets the image for a power-up item.
+     *
+     * @return The image for the power-up item.
+     */
     public Image getPowerUpImage() {
         return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
     }
+    // Movement of the background image
+    BgObj bgobj = new BgObj(GameUtils.bgimg, 0, -400, 2);
 
-    //Movement of the background image
-
-    BgObj bgobj=new BgObj(GameUtils.bgimg,0,-400,2);
-
-    //boss
     /**
-     public BossObj bossobj =null;
+     * Validates a player's name and password and sets them to a PlaneObj object.
+     * The validation is done by checking if the name exists in the database, and if
+     * it does, the entered password is compared with the one stored in the database.
+     * If the name is not in the database, a new record with the name, password, and
+     * score is created.
+     *
+     * @param planeobj The PlaneObj object to set the player name and password to.
+     * @param db       The database instance to use for validation and record creation.
+     * @return The validated player's name.
      */
+    public String validatePlayer(PlaneObj planeobj, DB db) {
+        String playerName;
+        while (true) {
+            playerName = JOptionPane.showInputDialog(this, "Enter your name:");
+            if (playerName == null || playerName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Name cannot be empty. Please try again.");
+            } else if (db.validateName(playerName)) {
+                planeobj.setName(playerName);
+                String password;
+                do {
+                    password = JOptionPane.showInputDialog(this, "Create a password:");
+                } while (password == null || password.isEmpty()); // keep prompting for a non-null and non-empty
+                                                                  // password
+                planeobj.setPassword(password);
+                db.put(planeobj.getName(), planeobj.getScore(), planeobj.getPassword());
+                break; // exit the loop once a valid name and password are entered
+            } else {
+                String password = JOptionPane.showInputDialog(this, "Enter your password:");
+                if (db.validatePassword(playerName, password)) {
+                    planeobj.setPassword(password);
+                    break; // exit the loop if the password is correct
+                } else {
+                    JOptionPane.showMessageDialog(this, "Incorrect password. Please try again.");
+                }
+            }
+        }
+        return playerName;
+    }
 
-    public void launch(){
-        //Set whether the window is visible
+    /**
+     * Launches the game and handles game loop.
+     */
+    public void launch() {
+        planeobj.setName(validatePlayer(planeobj, db));
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                db.put(planeobj.getName(), planeobj.getScore(), planeobj.getPassword());
+            }
+        }, 0, 5000); // execute the task every 5 seconds
+
+        // Set whether the window is visible
         this.setVisible(true);
-        //set window size
-        this.setSize(width,height);
-        //set window position
+        // set window size
+        this.setSize(width, height);
+        // set window position
         this.setLocationRelativeTo(null);
 
-        //set window title
+        // set window title
         this.setTitle("comp2522-Project");
 
         GameUtils.gameObjList.add(bgobj);
 
         GameUtils.gameObjList.add(planeobj);
 
-        //GameUtils.gameObjList.add(powerobj);
+        GameUtils.gameObjList.add(topScores);
 
-        //Mouse click
+        // GameUtils.gameObjList.add(powerobj);
+
+        // Mouse click
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //Before starting and clicking the left mouse button
-                if(e.getButton()==1&&state==0){
-                    state=1;
+                // Before starting and clicking the left mouse button
+                if (e.getButton() == 1 && state == 0) {
+                    state = 1;
                     repaint();
                 }
             }
         });
 
-        //game pause function
+        // game pause function
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                //Press the space bar, the code of the space bar is 32
-                if(e.getKeyCode() == 32){
-                    switch (state){
+                // Press the space bar, the code of the space bar is 32
+                if (e.getKeyCode() == 32) {
+                    switch (state) {
                         case 1:
-                            state=2;
+                            state = 2;
                             break;
                         case 2:
-                            state=1;
+                            state = 1;
                             break;
                         default:
                     }
                 }
             }
         });
-        while(true){
-            if(state==1){
+        while (true) {
+            if (state == 1) {
                 create();
                 repaint();
             }
@@ -127,68 +277,62 @@ public class GameWin extends JFrame {
         }
     }
 
+    /**
+     *This method overrides the paint() method of the Graphics class.
+     *It paints the game elements onto the screen. It creates an off-screen image
+     *to avoid flicker, fills it with a solid color, and then draws the game elements onto it.
+     *The image is then drawn onto the main window at once.
+     *@param g the Graphics object to draw on
+     */
     @Override
     public void paint(Graphics g) {
 
-        if(offSreenimage==null){
-            offSreenimage=createImage(width,height);
+        if (offSreenimage == null) {
+            offSreenimage = createImage(width, height);
         }
-        //Get the brush object of offScrenimage
-        Graphics gimage=offSreenimage.getGraphics();
-        //Fill a region with a width of 600 and a height of 600
-        gimage.fillRect(0,0,width,height);
-        //game not started
-        if(state==0){
-            gimage.drawImage(GameUtils.bgimg,0,0,null);
-            gimage.drawImage(GameUtils.bossimg,200,100,null);
-            gimage.drawImage(GameUtils.explodeimg,270,370,null);
-            GameUtils.drawWord(gimage,"press to start",Color.yellow,40,180,300);
+        // Get the brush object of offScrenimage
+        Graphics gimage = offSreenimage.getGraphics();
+        // Fill a region with a width of 600 and a height of 600
+        gimage.fillRect(0, 0, width, height);
+        // game not started
+        if (state == 0) {
+            gimage.drawImage(GameUtils.bgimg, 0, 0, null);
+            gimage.drawImage(GameUtils.explodeimg, 270, 370, null);
+            GameUtils.drawWord(gimage, "press to start", Color.yellow, 40, 180, 300);
 
         }
-        //Games start
-        if(state==1){
+        // Games start
+        if (state == 1) {
             /**
-             GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
+             * GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
              */
-            //PowerUpsObj.spawnPowerUp(this);
-            try {
-                for (int i = 0; i < GameUtils.gameObjList.size(); i++) {
-                    GameUtils.gameObjList.get(i).paintself(gimage);
+            // PowerUpsObj.spawnPowerUp(this);
+            // db.put(planeobj.getName(), planeobj.getScore());
 
-                }
-            } catch(ConcurrentModificationException e){}
+            for (int i = 0; i < GameUtils.gameObjList.size(); i++) {
+                GameUtils.gameObjList.get(i).paintself(gimage);
+            }
+
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
         }
-        //game over
-        if(state ==3) {
+        // game over
+        if (state == 3) {
+            // Final player data written when the game is over
+            db.put(planeobj.getName(), planeobj.getScore(), planeobj.getPassword());
             gimage.drawImage(GameUtils.explodeimg, planeobj.getX() - 35, planeobj.getY() - 50, null);
-            GameUtils.drawWord(gimage,"GAME OVER",Color.red,40,180,300);
-
+            GameUtils.drawWord(gimage, "GAME OVER", Color.red, 40, 180, 300);
         }
-        //Game Win
-        if(state==4) {
-            /**
-             gimage.drawImage(GameUtils.explodeimg, bossobj.getX() + 35, bossobj.getY() + 50, null);
-             GameUtils.drawWord(gimage, " Game Win", Color.red, 40, 180, 300);
-             */
-        }
-        //Draw the new picture to the main window at once
-        g.drawImage(offSreenimage,0,0,null);
+        // Draw the new picture to the main window at once
+        g.drawImage(offSreenimage, 0, 0, null);
         count++;
 
     }
-    //The creation method is used to generate bullets and enemy planes in batches
-    void create(){
-          /*enemy fighter
-          The first if statement set each enemy to be 35 away from each other horizontally.
-          And add them into enemyObj list and then add them into gameObj list.
-          The total number of enemy on screen is 12. This could be change base
-          on the game progress.
-          The for loop, loop through the enemy in the enemyObj list and determine how far they move down the window.
-          Intend to make a formation. There will be different formation in the future update.
-          */
 
-
+    /**
+     *This method is used to generate bullets and enemy planes in batches.
+     *It creates power-ups, enemy planes, and bosses depending on the state of the game.
+     */
+    void create() {
         if (hasPowerup) {
             hasPowerup = false;
             GameUtils.powerUpsObjList4.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
@@ -200,20 +344,30 @@ public class GameWin extends JFrame {
 
         }
 
-//        for(PowerUpsObj power : GameUtils.powerUpsObjList){
-//            power.checkCollision();
-//        }
-
-
+        /**
+         * enemy fighter
+         * The first if statement set each enemy to be 35 away from each other
+         * horizontally.
+         * And add them into enemyObj list and then add them into gameObj list.
+         * The total number of enemy on screen is 12. This could be change base
+         * on the game progress.
+         * The for loop, loop through the enemy in the enemyObj list and determine how
+         * far they move down the window.
+         */
         if (enemyCount == 0) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
-                GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this));
+                GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this, x));
                 x += 45;
                 enemyCount++;
                 if (enemyCount == 12) {
+                    waveCount++;
                     break;
                 }
+            }
+            // Keep track of number of enemy waves
+            if (waveCount == 4) {
+                setBossAppear(true);
             }
             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
         }
@@ -222,40 +376,33 @@ public class GameWin extends JFrame {
          * Make the enemy plane fly in reversed V formation
          */
         int y = 0;
-        for (EnemyObj enemy: GameUtils.enemyObjList) {
+        for (EnemyObj enemy : GameUtils.enemyObjList) {
             if (y < 2 || y >= 10) {
                 enemy.moveDown(200);
-            } else if(y < 4 || y >= 8) {
+            } else if (y < 4 || y >= 8) {
                 enemy.moveDown(150);
-            }else if(y < 5 || y == 7){
+            } else if (y < 5 || y == 7) {
                 enemy.moveDown(100);
-            }else{
+            } else {
                 enemy.moveDown(50);
             }
             y++;
         }
-
-        //enemy boss bullet
-        //Bullets are not spawned until the boss appears
-         /*
-         if(count%15==0 && bossobj !=null){
-             GameUtils.bulletObjList.add(new BulletObj(GameUtils.bulletimg,bossobj.getX()+75,bossobj.getY()+80,15,25,5,this));
-             GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size()-1));
-         }
-         if( enemyCount>30 && bossobj == null ){
-             bossobj=new BossObj(GameUtils.bossimg,250,20,155,100,5,this);
-             GameUtils.gameObjList.add(bossobj);
-         }
-          */
-
-
-
-
+        /**
+         * Spawn the enemy boss every 3 waves.
+         */
+        if (this.bossAppear) {
+            GameUtils.gameObjList.add(new BossObj(GameUtils.bossimg, 280, -120, 50, 50, 1, this));
+        }
     }
 
+    /**
+     * This method is the entry point for the Java application.
+     * It creates a new instance of the GameWin class and calls its launch() method, which starts the game.
+     * The args parameter is not used in this method.
+     */
     public static void main(String[] args) {
-
-        GameWin Gamewin=new GameWin();
+        GameWin Gamewin = new GameWin();
         Gamewin.launch();
 
     }
