@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
  * This is a utility class that provides methods to interact with
  * our Galaga MongoDB database
  *
- * @author: John2T
+ * @author John2T
  */
 public class DB {
   private final MongoCollection<Document> usersCollection;
