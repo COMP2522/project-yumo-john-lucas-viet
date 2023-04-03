@@ -122,14 +122,15 @@ public class PowerUpsObj extends GameObj {
   }
 
   /**
-   *Adds a new HealPowerUpsObj object to the powerUpsObjListHeal list and to the gameObjList.
+   *Adds a new PowerUpsObj object to the powerUpsObjListBulletUpgrade list and to the gameObjList.
+   * 100% add two bullet upgrades.
    *@param x the x coordinate of the HealPowerUpsObj object
    *@param y the y coordinate of the HealPowerUpsObj object
    */
   public void bossPowerUp(int x, int y) {
-    GameUtils.powerUpsObjListHeal.clear();
-    GameUtils.powerUpsObjListHeal.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, frame));
-    GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListHeal);
+    GameUtils.powerUpsObjListBulletUpgrade.clear();
+    GameUtils.powerUpsObjListBulletUpgrade.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, frame));
+    GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListBulletUpgrade);
 
   }
 

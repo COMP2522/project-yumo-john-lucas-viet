@@ -98,6 +98,7 @@ public class BossObj extends GameObj implements ActionListener{
 
                     PowerUpsObj power = new PowerUpsObj(powerUpImage, x, y, 20, 30, 2, frame);
                     power.bossPowerUp(x, y + 100);
+                    power.bossPowerUp(x+40, y + 100);
                     break;
                 }
             }
