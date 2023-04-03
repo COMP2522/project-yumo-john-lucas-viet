@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  *A class that represents a game object with a position, size, image, and moving speed.
  *
- * @author: YumoZhou
+ * @author YumoZhou
  */
 public class GameObj {
     Image img;
