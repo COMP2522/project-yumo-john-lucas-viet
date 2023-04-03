@@ -34,10 +34,10 @@ public class HealPowerUpsObj extends GameObj {
    * @param powerUpWidth The width of the power-up object
    * @param powerUpHeight The height of the power-up object
    * @param speed The speed of the power-up object
-   * @param gameWin The GameWin object that the power-up object belongs to
+   * @param frame The GameWin object that the power-up object belongs to
    */
-  public HealPowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin gameWin) {
-    super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, gameWin);
+  public HealPowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin frame) {
+    super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, frame);
     this.powerUpWidth = powerUpWidth;
     this.powerUpHeight = powerUpHeight;
   }
@@ -53,6 +53,7 @@ public class HealPowerUpsObj extends GameObj {
     super.paintself(gImage);
     checkCollision();
   }
+
 
 
 

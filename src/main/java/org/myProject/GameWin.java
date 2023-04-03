@@ -154,6 +154,7 @@ public class GameWin extends JFrame {
             try {
                 for (int i = 0; i < GameUtils.gameObjList.size(); i++) {
                     GameUtils.gameObjList.get(i).paintself(gimage);
+
                 }
             } catch(ConcurrentModificationException e){}
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);

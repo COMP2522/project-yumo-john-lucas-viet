@@ -28,11 +28,6 @@ public class PowerUpsObj extends GameObj {
    */
   private int powerUpHeight;
 
-  /**
-   * The GameWin instance that the power-up object is associated with.
-   */
-  GameWin gameWin;
-
 
   /**
    * Constructs a new PowerUpsObj with the specified image, position, size, speed, and GameWin instance.
@@ -43,10 +38,10 @@ public class PowerUpsObj extends GameObj {
    * @param powerUpWidth The width of the power-up object.
    * @param powerUpHeight The height of the power-up object.
    * @param speed The speed of the power-up object.
-   * @param gameWin The GameWin instance that the power-up object is associated with.
+   * @param frame The GameWin instance that the power-up object is associated with.
    */
-  public PowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin gameWin) {
-    super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, gameWin);
+  public PowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin frame) {
+    super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, frame);
     this.powerUpWidth = powerUpWidth;
     this.powerUpHeight = powerUpHeight;
   }
@@ -107,19 +102,22 @@ public class PowerUpsObj extends GameObj {
    */
   public void spawnPowerUp(int x, int y) {
     double probability = Math.random();
-    int number = (int) (Math.random() * 2) + 1;
+    int number = (int) (Math.random() * 4) + 1;
 
 
-    if (probability <= 0.1) {
-      if (number == 1 && GameUtils.powerUpsObjList.size() < 3) {
-        GameUtils.gameObjList.remove(GameUtils.powerUpsObjList);
-        GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, gameWin));
+    if (probability <= 0.2) {
+      GameUtils.powerUpsObjList.clear();
+      GameUtils.powerUpsObjList2.clear();
+      if (number == 1) {
+        GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, frame));
       } else {
-        GameUtils.gameObjList.remove(GameUtils.powerUpsObjList2);
-        GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, gameWin));
+        GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, frame));
       }
+
+
       GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
       GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList2);
+
 
 
 
