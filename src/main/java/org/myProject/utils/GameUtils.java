@@ -45,14 +45,15 @@ public class GameUtils {
 
     public static List<ExplodeObj> explodeObjList = new ArrayList<>();
 
-    public static List<PowerUpsObj> powerUpsObjList = new ArrayList<>();
-    public static List<HealPowerUpsObj> powerUpsObjList2 = new ArrayList<>();
+    public static List<PowerUpsObj> powerUpsObjListBulletUpgrade = new ArrayList<>();
+    public static List<HealPowerUpsObj> powerUpsObjListHeal = new ArrayList<>();
 
-    public static List<HealPowerUpsObj> powerUpsObjList3 = new ArrayList<>();
-    public static List<PowerUpsObj> powerUpsObjList4 = new ArrayList<>();
+    public static List<HealPowerUpsObj> powerUpsObjListStart = new ArrayList<>();
+    public static List<PowerUpsObj> powerUpsObjListStart2 = new ArrayList<>();
 
     public static Image powerups = Toolkit.getDefaultToolkit().getImage("image/powerup.jpg");
     public static Image powerups2 = Toolkit.getDefaultToolkit().getImage("image/shell.png");
+
 
     /**
      * Draws a string on the specified graphics object using the specified color, size, and position.

@@ -28,6 +28,8 @@ public class BossObj extends GameObj implements ActionListener{
     private double hitpoints = 90;
     private int direction = 1;
 
+    Image powerUpImage;
+
     /**
      * Creates a new boss object with the given image, position, size, speed, and game window.
      *
@@ -93,6 +95,9 @@ public class BossObj extends GameObj implements ActionListener{
                     this.isActive = false;
                     gImage.drawImage(GameUtils.explodeimg, this.x, this.y, null);
                     GameUtils.removeobjList.add(this);
+
+                    PowerUpsObj power = new PowerUpsObj(powerUpImage, x, y, 20, 30, 2, frame);
+                    power.bossPowerUp(x, y + 100);
                     break;
                 }
             }

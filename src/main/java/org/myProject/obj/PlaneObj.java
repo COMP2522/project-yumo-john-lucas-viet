@@ -155,6 +155,7 @@ public class PlaneObj extends GameObj {
         PlaneObj.super.y = e.getY() - MOUSE_OFFSET_Y;
       }
     });
+
   }
 
   /**
@@ -183,6 +184,7 @@ public class PlaneObj extends GameObj {
         if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
           takeDamage(((BulletObj) obj).getDamage());
           GameUtils.removeobjList.add(obj);
+          deUpgradeBullets(fireType);
         }
         // Check collision for crashing into enemies
         if (obj instanceof EnemyObj && this.collidesWith(obj)) {
@@ -193,7 +195,11 @@ public class PlaneObj extends GameObj {
           if (obj instanceof BossObj && this.collidesWith(obj)) {
             takeDamage(((BossObj) obj).getDamage());
             GameUtils.removeobjList.add(obj);
+            deUpgradeBullets(fireType);
           }
+
+
+
           // Check collision for bullet upgrade power up
           if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
             upgradeBullets(this.getFireType());
@@ -277,6 +283,16 @@ public class PlaneObj extends GameObj {
       this.setFireType(MAX_BULLETS);
     }
   }
+
+  public void deUpgradeBullets(int fireType) {
+    final int INCREMENT_BULLET = 1;
+
+    if (this.getFireType() > 1 ) {
+      this.setFireType(fireType - INCREMENT_BULLET);
+    }
+  }
+
+
 
   /**
    * This method allows the player to shoot their weapon, depending on the type of
