@@ -1,7 +1,5 @@
 package org.myProject;
 
-import com.jogamp.opengl.math.geom.Frustum;
-import org.bson.Document;
 import org.myProject.obj.*;
 import org.myProject.utils.DB;
 import org.myProject.utils.GameUtils;
@@ -19,7 +17,7 @@ import java.util.Timer;
  * bullets, and game messages. It implements the KeyListener interface
  * to receive keyboard input events from the user.
  *
- * @author: YumoZhou
+ * @author YumoZhou
  */
 public class GameWin extends JFrame {
 
@@ -286,11 +284,10 @@ public class GameWin extends JFrame {
      */
     @Override
     public void paint(Graphics g) {
-
         if (offSreenimage == null) {
             offSreenimage = createImage(width, height);
         }
-        // Get the brush object of offScrenimage
+        // Get the brush object of offScreen image
         Graphics gimage = offSreenimage.getGraphics();
         // Fill a region with a width of 600 and a height of 600
         gimage.fillRect(0, 0, width, height);
@@ -303,17 +300,15 @@ public class GameWin extends JFrame {
         }
         // Games start
         if (state == 1) {
-            /**
-             * GameUtils.gameObjList.addAll(GameUtils.explodeObjList);
-             */
-            // PowerUpsObj.spawnPowerUp(this);
-            // db.put(planeobj.getName(), planeobj.getScore());
-
             for (int i = 0; i < GameUtils.gameObjList.size(); i++) {
                 GameUtils.gameObjList.get(i).paintself(gimage);
             }
 
             GameUtils.gameObjList.removeAll(GameUtils.removeobjList);
+        }
+        //game pause
+        if(state == 2){
+            GameUtils.drawWord(gimage, "Pause", Color.red, 40, 180, 300);
         }
         // game over
         if (state == 3) {
@@ -325,7 +320,6 @@ public class GameWin extends JFrame {
         // Draw the new picture to the main window at once
         g.drawImage(offSreenimage, 0, 0, null);
         count++;
-
     }
 
     /**
@@ -344,16 +338,6 @@ public class GameWin extends JFrame {
 
         }
 
-        /**
-         * enemy fighter
-         * The first if statement set each enemy to be 35 away from each other
-         * horizontally.
-         * And add them into enemyObj list and then add them into gameObj list.
-         * The total number of enemy on screen is 12. This could be change base
-         * on the game progress.
-         * The for loop, loop through the enemy in the enemyObj list and determine how
-         * far they move down the window.
-         */
         if (enemyCount == 0) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
@@ -372,9 +356,6 @@ public class GameWin extends JFrame {
             GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
         }
 
-        /**
-         * Make the enemy plane fly in reversed V formation
-         */
         int y = 0;
         for (EnemyObj enemy : GameUtils.enemyObjList) {
             if (y < 2 || y >= 10) {
@@ -388,9 +369,7 @@ public class GameWin extends JFrame {
             }
             y++;
         }
-        /**
-         * Spawn the enemy boss every 3 waves.
-         */
+
         if (this.bossAppear) {
             GameUtils.gameObjList.add(new BossObj(GameUtils.bossimg, 280, -120, 50, 50, 1, this));
         }
@@ -404,7 +383,5 @@ public class GameWin extends JFrame {
     public static void main(String[] args) {
         GameWin Gamewin = new GameWin();
         Gamewin.launch();
-
     }
-
 }

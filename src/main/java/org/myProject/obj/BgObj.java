@@ -6,13 +6,17 @@ import java.awt.*;
  *The BgObj class represents a background object in the game.
  * It inherits from the GameObj class.
  *
- * @author: YumoZhou
+ * @author YumoZhou
  */
 public class BgObj extends GameObj {
     //Rewrite constructor and paintself method
     public BgObj() {
         super();
     }
+    //the height of the background image is 1024,
+    // the height of the window is 600,
+    // use -400 to keep resetting the position of the image.
+    private static final int a = -400;
 
     /**
      *Constructs a new BgObj instance with the specified image, x coordinate, y coordinate, and speed.
@@ -34,7 +38,7 @@ public class BgObj extends GameObj {
         super.paintself(gImage);
         y+=speed;
         if(y>=0){
-            y = -400;
+            y = a;
         }
     }
 }

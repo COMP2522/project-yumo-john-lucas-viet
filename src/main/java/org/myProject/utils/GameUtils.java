@@ -9,7 +9,7 @@ import java.util.List;
 /**
  *A utility class containing various game-related images and lists of game objects.
  *
- * @author: YumoZhou
+ * @author YumoZhou
  */
 public class GameUtils {
     // Background picture
@@ -52,7 +52,7 @@ public class GameUtils {
     public static List<PowerUpsObj> powerUpsObjList4 = new ArrayList<>();
 
     public static Image powerups = Toolkit.getDefaultToolkit().getImage("image/powerup.jpg");
-    public static Image powerups2 = Toolkit.getDefaultToolkit().getImage("image/shell.png");
+    public static Image powerups2 = Toolkit.getDefaultToolkit().getImage("image/powerup2.png");
 
     /**
      * Draws a string on the specified graphics object using the specified color, size, and position.
