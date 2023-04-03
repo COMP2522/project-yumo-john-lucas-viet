@@ -102,10 +102,10 @@ public class PowerUpsObj extends GameObj {
    */
   public void spawnPowerUp(int x, int y) {
     double probability = Math.random();
-    int number = (int) (Math.random() * 4) + 1;
+    int number = (int) (Math.random() * 3) + 1;
 
 
-    if (probability <= 1) {
+    if (probability <= 0.2) {
       GameUtils.powerUpsObjListBulletUpgrade.clear();
       GameUtils.powerUpsObjListHeal.clear();
       if (number == 1) {
@@ -121,10 +121,16 @@ public class PowerUpsObj extends GameObj {
     }
   }
 
+  /**
+   *Adds a new PowerUpsObj object to the powerUpsObjListBulletUpgrade list and to the gameObjList.
+   * 100% add two bullet upgrades.
+   *@param x the x coordinate of the HealPowerUpsObj object
+   *@param y the y coordinate of the HealPowerUpsObj object
+   */
   public void bossPowerUp(int x, int y) {
-    GameUtils.powerUpsObjListHeal.clear();
-    GameUtils.powerUpsObjListHeal.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, frame));
-    GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListHeal);
+    GameUtils.powerUpsObjListBulletUpgrade.clear();
+    GameUtils.powerUpsObjListBulletUpgrade.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, frame));
+    GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListBulletUpgrade);
 
   }
 

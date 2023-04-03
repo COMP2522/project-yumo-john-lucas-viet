@@ -229,8 +229,6 @@ public class GameWin extends JFrame {
 
         GameUtils.gameObjList.add(topScores);
 
-        // GameUtils.gameObjList.add(powerobj);
-
         // Mouse click
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -328,17 +326,6 @@ public class GameWin extends JFrame {
      */
     void create() {
 
-        /**
-         * Checks if the player has a powerup and adds two PowerUp objects to the gameObjList.
-         * If the hasPowerup flag is true, it sets the flag to false and adds a PowerUpsObj and HealPowerUpsObj to the
-         * GameUtils.powerUpsObjListStart2 and GameUtils.powerUpsObjListStart respectively.
-         * The PowerUpsObj is initialized with GameUtils.powerups image, location (100, 400), width 20, height 30,
-         * speed 2, and this object as a parameter.
-         * The HealPowerUpsObj is initialized with GameUtils.powerups2 image, location (400, 400), width 20, height 30,
-         * speed 2, and this object as a parameter.
-         * Finally, it adds all the PowerUp objects from GameUtils.powerUpsObjListStart2 and GameUtils.powerUpsObjListStart
-         * to the GameUtils.gameObjList.
-         */
         if (hasPowerup) {
             hasPowerup = false;
             GameUtils.powerUpsObjListStart2.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
@@ -347,7 +334,6 @@ public class GameWin extends JFrame {
                     2, this));
             GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListStart2);
             GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListStart);
-
         }
 
         if (enemyCount == 0) {
