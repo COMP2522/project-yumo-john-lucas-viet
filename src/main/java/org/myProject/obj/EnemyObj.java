@@ -19,19 +19,61 @@ import static org.myProject.utils.GameUtils.*;
  * @version : 1.0
  */
 public class EnemyObj extends GameObj implements ActionListener {
+    /**
 
+     A Timer object that controls the timing of the game object's actions.
+     */
     private Timer timer;
+    /**
+
+     A boolean value that indicates whether the game object is currently active or not.
+     */
     private boolean isActive;
+    /**
+
+     The distance that the game object has traveled from its starting position.
+     */
     int distance;
+    /**
+
+     The time at which the game object last shot a projectile.
+     */
     private long lastShotTime = 0;
+    /**
+
+     The GameWin object that represents the game window in which the game object is spawned.
+     */
     public GameWin window;
+    /**
 
+     A boolean value that indicates whether a power-up has spawned near the game object.
+     */
     public boolean powerupSpawned = false;
+    /**
 
+     The image that represents the power-up that has spawned near the game object.
+     */
     Image powerUpImage;
+    /**
 
+     The number of hitpoints that the game object has.
+     */
     private int hitpoints = 1;
+    /**
 
+     The offset of the game object's image from its actual position on the Y-axis.
+     */
+    private int immageOffSet = 15;
+    /**
+
+     The offset of the game object's image from its actual position on the Y-axis.
+     */
+    private int offSetY = 50;
+    /**
+
+     The offset of the game object's image from its actual position on the X-axis.
+     */
+    private int offsetX = 35;
 
     /**
      * If player collides with an enemy ship, player will take this amount of damage
@@ -72,7 +114,7 @@ public class EnemyObj extends GameObj implements ActionListener {
      * @param gImage representing the image of the plan
      */
     public void paintself(Graphics gImage) {
-        gImage.drawImage(enemyimg, this.x - 15, this.y, window);
+        gImage.drawImage(enemyimg, this.x - immageOffSet, this.y, window);
         checkCollision(window.getPlaneobj(), gImage);
         removeEnemy();
     }
@@ -102,17 +144,15 @@ public class EnemyObj extends GameObj implements ActionListener {
                     planeobj.setScore(planeobj.getScore() + 1);
 
                     PowerUpsObj power = new PowerUpsObj(powerUpImage, x, y, 20, 30, 2, frame);
-                    power.spawnPowerUp(x, y + 50);
+                    power.spawnPowerUp(x, y + offSetY);
 
-    
-    
                     //Decrement enemy's hit-points by one everytime it get hit by player's bullet
                     if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
                         this.hitpoints--;
                         if (this.hitpoints == 0) {
                             planeobj.setScore(planeobj.getScore() + 1);
                             this.isActive = false;
-                            gImage.drawImage(GameUtils.explodeimg, this.getX() - 35, this.getY() - 50, null);
+                            gImage.drawImage(GameUtils.explodeimg, this.getX() - offsetX, this.getY() - offSetY, null);
                             GameUtils.removeobjList.add(this);
                             break;
                         }
