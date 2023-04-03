@@ -49,9 +49,10 @@ public class HealPowerUpsObj extends GameObj {
    * @param gImage The Graphics object to use for painting
    */
   public void paintself(Graphics gImage) {
-    //g.drawImage(powerUpImg, getX(), getY(), null);
-    super.paintself(gImage);
-    checkCollision();
+    try {
+      super.paintself(gImage);
+      checkCollision();
+    } catch(ConcurrentModificationException e){}
   }
 
 

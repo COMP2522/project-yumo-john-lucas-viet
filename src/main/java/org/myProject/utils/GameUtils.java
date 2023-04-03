@@ -23,10 +23,6 @@ public class GameUtils {
     // player bullets
     public static Image shellimg = Toolkit.getDefaultToolkit().getImage("image/shell.png");
 
-    public static Image enemyshellimg = Toolkit.getDefaultToolkit().getImage("image/enemyshell.png");
-
-    // boss bullets
-    public static Image bulletimg = Toolkit.getDefaultToolkit().getImage("image/bossbullet.png");
     // Enemy and boss bullet
     public static Image reverseShell = Toolkit.getDefaultToolkit().getImage("image/shellReverse.png");
     // enemy
@@ -42,8 +38,6 @@ public class GameUtils {
     // enemies
 
     public static List<EnemyObj> enemyObjList = new ArrayList<>();
-
-    public static List<ExplodeObj> explodeObjList = new ArrayList<>();
 
     public static List<PowerUpsObj> powerUpsObjListBulletUpgrade = new ArrayList<>();
     public static List<HealPowerUpsObj> powerUpsObjListHeal = new ArrayList<>();

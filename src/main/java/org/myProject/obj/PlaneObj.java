@@ -184,7 +184,7 @@ public class PlaneObj extends GameObj {
         if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
           takeDamage(((BulletObj) obj).getDamage());
           GameUtils.removeobjList.add(obj);
-          deUpgradeBullets(fireType);
+          deUpgradeBullets(this.getFireType());
         }
         // Check collision for crashing into enemies
         if (obj instanceof EnemyObj && this.collidesWith(obj)) {
@@ -195,7 +195,7 @@ public class PlaneObj extends GameObj {
           if (obj instanceof BossObj && this.collidesWith(obj)) {
             takeDamage(((BossObj) obj).getDamage());
             GameUtils.removeobjList.add(obj);
-            deUpgradeBullets(fireType);
+            deUpgradeBullets(this.getFireType());
           }
 
 
@@ -272,7 +272,6 @@ public class PlaneObj extends GameObj {
     if (this.getHealth() >= MAX_HEALTH) {
       this.setHealth(MAX_HEALTH);
     }
-    System.out.print(this.getHealth());
   }
 
   public void upgradeBullets(int fireType) {

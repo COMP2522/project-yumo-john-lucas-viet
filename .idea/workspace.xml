@@ -4,27 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="modified powerup related.">
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+    <list default="true" id="2db1c320-471b-4cda-8e4b-bc780eaa8127" name="Changes" comment="if player gets hit, level of bullets decrease, and debugged more.">
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/GameWin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/BgObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/BgObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/BulletObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/BulletObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/ExplodeObj.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/HealPowerUpsObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/HealPowerUpsObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PlaneObj.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/obj/PowerUpsObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/myProject/utils/GameUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/myProject/utils/GameUtils.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/GameWin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/BossObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/BossObj.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/EnemyObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/EnemyObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/BulletObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/BulletObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/ExplodeObj.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/HealPowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/HealPowerUpsObj.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PlaneObj.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/myProject/obj/PowerUpsObj.java" afterDir="false" />
@@ -150,7 +151,7 @@
       <workItem from="1680458623137" duration="1062000" />
       <workItem from="1680491579029" duration="863000" />
       <workItem from="1680492462054" duration="3325000" />
-      <workItem from="1680496978009" duration="1024000" />
+      <workItem from="1680496978009" duration="3337000" />
     </task>
     <task id="LOCAL-00001" summary="combined viet's and john's code">
       <created>1680118567775</created>
@@ -187,7 +188,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680204810437</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="if player gets hit, level of bullets decrease, and debugged more.">
+      <created>1680498052025</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680498052025</updated>
+    </task>
+    <task id="LOCAL-00007" summary="if player gets hit, level of bullets decrease, and debugged more.">
+      <created>1680498087560</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1680498087560</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,6 +238,7 @@
     <MESSAGE value="fixed more errors." />
     <MESSAGE value="Implemented power up" />
     <MESSAGE value="modified powerup related." />
-    <option name="LAST_COMMIT_MESSAGE" value="modified powerup related." />
+    <MESSAGE value="if player gets hit, level of bullets decrease, and debugged more." />
+    <option name="LAST_COMMIT_MESSAGE" value="if player gets hit, level of bullets decrease, and debugged more." />
   </component>
 </project>
