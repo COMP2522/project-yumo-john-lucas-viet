@@ -83,7 +83,7 @@ public class PowerUpsObj extends GameObj {
       for (GameObj obj : gameObjList) {
         if (obj instanceof PlaneObj && this.collidesWith(obj)) {
           GameUtils.gameObjList.remove(this);
-          GameUtils.gameObjList.remove(GameUtils.powerUpsObjList);
+          GameUtils.gameObjList.remove(GameUtils.powerUpsObjListBulletUpgrade);
 
 
 
@@ -105,24 +105,29 @@ public class PowerUpsObj extends GameObj {
     int number = (int) (Math.random() * 4) + 1;
 
 
-    if (probability <= 0.2) {
-      GameUtils.powerUpsObjList.clear();
-      GameUtils.powerUpsObjList2.clear();
+    if (probability <= 1) {
+      GameUtils.powerUpsObjListBulletUpgrade.clear();
+      GameUtils.powerUpsObjListHeal.clear();
       if (number == 1) {
-        GameUtils.powerUpsObjList.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, frame));
+        GameUtils.powerUpsObjListBulletUpgrade.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, frame));
       } else {
-        GameUtils.powerUpsObjList2.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, frame));
+        GameUtils.powerUpsObjListHeal.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, frame));
       }
 
 
-      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList);
-      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList2);
-
-
-
+      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListBulletUpgrade);
+      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListHeal);
 
     }
   }
+
+  public void bossPowerUp(int x, int y) {
+    GameUtils.powerUpsObjListHeal.clear();
+    GameUtils.powerUpsObjListHeal.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, frame));
+    GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListHeal);
+
+  }
+
 
 
 

@@ -327,14 +327,26 @@ public class GameWin extends JFrame {
      *It creates power-ups, enemy planes, and bosses depending on the state of the game.
      */
     void create() {
+
+        /**
+         * Checks if the player has a powerup and adds two PowerUp objects to the gameObjList.
+         * If the hasPowerup flag is true, it sets the flag to false and adds a PowerUpsObj and HealPowerUpsObj to the
+         * GameUtils.powerUpsObjListStart2 and GameUtils.powerUpsObjListStart respectively.
+         * The PowerUpsObj is initialized with GameUtils.powerups image, location (100, 400), width 20, height 30,
+         * speed 2, and this object as a parameter.
+         * The HealPowerUpsObj is initialized with GameUtils.powerups2 image, location (400, 400), width 20, height 30,
+         * speed 2, and this object as a parameter.
+         * Finally, it adds all the PowerUp objects from GameUtils.powerUpsObjListStart2 and GameUtils.powerUpsObjListStart
+         * to the GameUtils.gameObjList.
+         */
         if (hasPowerup) {
             hasPowerup = false;
-            GameUtils.powerUpsObjList4.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
+            GameUtils.powerUpsObjListStart2.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
                     2, this));
-            GameUtils.powerUpsObjList3.add(new HealPowerUpsObj(GameUtils.powerups2, 400, 400, 20, 30,
+            GameUtils.powerUpsObjListStart.add(new HealPowerUpsObj(GameUtils.powerups2, 400, 400, 20, 30,
                     2, this));
-            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList4);
-            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjList3);
+            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListStart2);
+            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListStart);
 
         }
 

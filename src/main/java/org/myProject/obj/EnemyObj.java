@@ -28,10 +28,10 @@ public class EnemyObj extends GameObj implements ActionListener {
 
     public boolean powerupSpawned = false;
 
-    GameWin gameWin;
     Image powerUpImage;
 
     private int hitpoints = 1;
+
 
     /**
      * If player collides with an enemy ship, player will take this amount of damage
@@ -100,8 +100,10 @@ public class EnemyObj extends GameObj implements ActionListener {
                 if (this.isActive) {
                     this.isActive = false;
                     planeobj.setScore(planeobj.getScore() + 1);
-                    PowerUpsObj power = new PowerUpsObj(powerUpImage, x, y, 20, 30, 2, gameWin);
+
+                    PowerUpsObj power = new PowerUpsObj(powerUpImage, x, y, 20, 30, 2, frame);
                     power.spawnPowerUp(x, y + 50);
+
     
     
                     //Decrement enemy's hit-points by one everytime it get hit by player's bullet
