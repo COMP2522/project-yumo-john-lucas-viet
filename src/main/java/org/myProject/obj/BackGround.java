@@ -3,14 +3,14 @@ package org.myProject.obj;
 import java.awt.*;
 
 /**
- *The Background class represents a background object in the game.
+ *The BackGround class represents a background object in the game.
  * It inherits from the GameObj class.
  *
  * @author YumoZhou
  */
-public class Background extends GameObj {
+public class BackGround extends GameObj {
     //Rewrite constructor and paintself method
-    public Background() {
+    public BackGround() {
         super();
     }
     //the height of the background image is 1024,
@@ -19,13 +19,13 @@ public class Background extends GameObj {
     private static final int a = -400;
 
     /**
-     *Constructs a new Background instance with the specified image, x coordinate, y coordinate, and speed.
+     *Constructs a new BackGround instance with the specified image, x coordinate, y coordinate, and speed.
      *@param img the image of the background object
      *@param x the x coordinate of the background object
      *@param y the y coordinate of the background object
      *@param speed the speed at which the background object moves
      */
-    public Background(Image img, int x, int y, double speed) {
+    public BackGround(Image img, int x, int y, double speed) {
         super(img, x, y, speed);
     }
 

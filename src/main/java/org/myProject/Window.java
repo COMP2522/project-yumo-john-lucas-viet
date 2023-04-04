@@ -73,11 +73,6 @@ public class Window extends JFrame {
     private ArrayList<PowerUps> powerUps = new ArrayList<>();
 
     /**
-     * The power-up object that appears on the screen.
-     */
-    public PowerUps powerobj = new PowerUps(GameUtils.powerups, 100, 400, 0, 0, 0, this);
-
-    /**
      * The top scores UI object that displays the highest scores.
      */
     public TopScoresUI topScores = new TopScoresUI(db);
@@ -86,33 +81,6 @@ public class Window extends JFrame {
      * The player's plane object.
      */
     public Player planeobj = new Player(GameUtils.planeimg, 290, 550, 20, 30, 0, this, topScores);
-
-    /**
-     * The list of game objects in the game.
-     */
-    public static ArrayList<GameObj> gameObjects = new ArrayList<>();
-
-    /**
-     * Adds a game object to the list of game objects.
-     * If the object is a power-up, it is also added to the list of power-ups.
-     *
-     * @param obj The game object to add.
-     */
-    public void addGameObject(GameObj obj) {
-        gameObjects.add(obj);
-        if (obj instanceof PowerUps) {
-            powerUps.add((PowerUps) obj);
-        }
-    }
-
-    /**
-     * Removes a game object from the list of game objects.
-     *
-     * @param gameObject The game object to remove.
-     */
-    public void removeGameObject(GameObj gameObject) {
-        gameObjects.remove(gameObject);
-    }
 
     /**
      * Decrements the number of enemy aircraft present by x.
@@ -148,16 +116,8 @@ public class Window extends JFrame {
         this.bossAppear = b;
     }
 
-    /**
-     * Gets the image for a power-up item.
-     *
-     * @return The image for the power-up item.
-     */
-    public Image getPowerUpImage() {
-        return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
-    }
     // Movement of the background image
-    Background bgobj = new Background(GameUtils.bgimg, 0, -400, 2);
+    BackGround bgobj = new BackGround(GameUtils.bgimg, 0, -400, 2);
 
     /**
      * Validates a player's name and password and sets them to a Player object.

@@ -12,7 +12,7 @@ import java.util.List;
  * @author YumoZhou
  */
 public class GameUtils {
-    // Background picture
+    // BackGround picture
     public static Image bgimg = Toolkit.getDefaultToolkit().getImage("image/bg.jpeg");
     // boss
     public static Image bossimg = Toolkit.getDefaultToolkit().getImage("image/boss.png");
