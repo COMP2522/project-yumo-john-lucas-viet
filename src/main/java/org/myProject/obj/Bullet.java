@@ -1,6 +1,6 @@
 package org.myProject.obj;
 
-import org.myProject.GameWin;
+import org.myProject.Window;
 import org.myProject.utils.GameUtils;
 
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.awt.*;
  *
  * @author Lucas Ying
  */
-public class BulletObj extends GameObj {
+public class Bullet extends GameObj {
   private final int DAMAGE = 1;
   public boolean isEnemyBullet;
 
@@ -26,13 +26,13 @@ public class BulletObj extends GameObj {
    * @param frame the game window that the bullet is in
    * @param isEnemyBullet true if the bullet was fired by an enemy, false if it was fired by the player
    */
-  public BulletObj(Image img, int x, int y, int width, int height, double speed, GameWin frame, boolean isEnemyBullet) {
+  public Bullet(Image img, int x, int y, int width, int height, double speed, Window frame, boolean isEnemyBullet) {
     super(img, x, y, width, height, speed, frame);
     this.isEnemyBullet = isEnemyBullet;
   }
 
   /**
-   *Overrides the paintself method in GameObj class to paint the BulletObj on the screen,
+   *Overrides the paintself method in GameObj class to paint the Bullet on the screen,
    *moves the bullet, and removes it if it goes off-screen.
    *@param gImage the Graphics object used to draw the bullet on the screen
    */
@@ -73,7 +73,7 @@ public class BulletObj extends GameObj {
    */
   public void removeBullet(){
     if (isOffScreen()){
-      GameUtils.bulletObjList.remove(this);
+      GameUtils.bulletList.remove(this);
       GameUtils.gameObjList.remove(this);
     }
   }

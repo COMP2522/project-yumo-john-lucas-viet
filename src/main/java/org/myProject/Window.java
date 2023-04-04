@@ -12,22 +12,21 @@ import java.util.Timer;
 
 
 /**
- * The GameWin class extends JFrame and is responsible for painting the game
+ * The Window class extends JFrame and is responsible for painting the game
  * window with its graphical components, including the player, the enemies,
  * bullets, and game messages. It implements the KeyListener interface
  * to receive keyboard input events from the user.
  *
  * @author YumoZhou
  */
-public class GameWin extends JFrame {
+public class Window extends JFrame {
 
     /**
      * The current state of the game.
      * 0 - not started
      * 1 - in progress
      * 2 - paused
-     * 3 - game passed
-     * 4 - game failed
+     * 3 - game failed
      */
     public static int state = 0; // The default state of the game
 
@@ -71,12 +70,7 @@ public class GameWin extends JFrame {
     /**
      * The list of power-up objects in the game.
      */
-    private ArrayList<PowerUpsObj> powerUps = new ArrayList<>();
-
-    /**
-     * The power-up object that appears on the screen.
-     */
-    public PowerUpsObj powerobj = new PowerUpsObj(GameUtils.powerups, 100, 400, 0, 0, 0, this);
+    private ArrayList<PowerUps> powerUps = new ArrayList<>();
 
     /**
      * The top scores UI object that displays the highest scores.
@@ -86,34 +80,7 @@ public class GameWin extends JFrame {
     /**
      * The player's plane object.
      */
-    public PlaneObj planeobj = new PlaneObj(GameUtils.planeimg, 290, 550, 20, 30, 0, this, topScores);
-
-    /**
-     * The list of game objects in the game.
-     */
-    public static ArrayList<GameObj> gameObjects = new ArrayList<>();
-
-    /**
-     * Adds a game object to the list of game objects.
-     * If the object is a power-up, it is also added to the list of power-ups.
-     *
-     * @param obj The game object to add.
-     */
-    public void addGameObject(GameObj obj) {
-        gameObjects.add(obj);
-        if (obj instanceof PowerUpsObj) {
-            powerUps.add((PowerUpsObj) obj);
-        }
-    }
-
-    /**
-     * Removes a game object from the list of game objects.
-     *
-     * @param gameObject The game object to remove.
-     */
-    public void removeGameObject(GameObj gameObject) {
-        gameObjects.remove(gameObject);
-    }
+    public Player planeobj = new Player(GameUtils.planeimg, 290, 550, 20, 30, 0, this, topScores);
 
     /**
      * Decrements the number of enemy aircraft present by x.
@@ -129,7 +96,7 @@ public class GameWin extends JFrame {
      *
      * @return The player's plane object.
      */
-    public PlaneObj getPlaneobj() {
+    public Player getPlaneobj() {
         return this.planeobj;
     }
 
@@ -149,29 +116,21 @@ public class GameWin extends JFrame {
         this.bossAppear = b;
     }
 
-    /**
-     * Gets the image for a power-up item.
-     *
-     * @return The image for the power-up item.
-     */
-    public Image getPowerUpImage() {
-        return Toolkit.getDefaultToolkit().getImage("image/powerup.png");
-    }
     // Movement of the background image
-    BgObj bgobj = new BgObj(GameUtils.bgimg, 0, -400, 2);
+    BackGround bgobj = new BackGround(GameUtils.bgimg, 0, -400, 2);
 
     /**
-     * Validates a player's name and password and sets them to a PlaneObj object.
+     * Validates a player's name and password and sets them to a Player object.
      * The validation is done by checking if the name exists in the database, and if
      * it does, the entered password is compared with the one stored in the database.
      * If the name is not in the database, a new record with the name, password, and
      * score is created.
      *
-     * @param planeobj The PlaneObj object to set the player name and password to.
+     * @param planeobj The Player object to set the player name and password to.
      * @param db       The database instance to use for validation and record creation.
      * @return The validated player's name.
      */
-    public String validatePlayer(PlaneObj planeobj, DB db) {
+    public String validatePlayer(Player planeobj, DB db) {
         String playerName;
         while (true) {
             playerName = JOptionPane.showInputDialog(this, "Enter your name:");
@@ -324,18 +283,18 @@ public class GameWin extends JFrame {
 
         if (hasPowerup) {
             hasPowerup = false;
-            GameUtils.powerUpsObjListStart2.add(new PowerUpsObj(GameUtils.powerups, 100, 400, 20, 30,
+            GameUtils.powerUpsListStart2.add(new PowerUps(GameUtils.powerups, 100, 400, 20, 30,
                     2, this));
-            GameUtils.powerUpsObjListStart.add(new HealPowerUpsObj(GameUtils.powerups2, 400, 400, 20, 30,
+            GameUtils.powerUpsObjListStart.add(new HealPowerUps(GameUtils.powerups2, 400, 400, 20, 30,
                     2, this));
-            GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListStart2);
+            GameUtils.gameObjList.addAll(GameUtils.powerUpsListStart2);
             GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListStart);
         }
 
         if (enemyCount == 0) {
             int x = 32;
             for (int i = 0; i < 12; i++) {
-                GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemyimg, x, 0, 20, 30, 1, this, x));
+                GameUtils.enemyList.add(new Enemy(GameUtils.enemyimg, x, 0, 20, 30, 1, this, x));
                 x += 45;
                 enemyCount++;
                 if (enemyCount == 12) {
@@ -347,11 +306,11 @@ public class GameWin extends JFrame {
             if (waveCount == 4) {
                 setBossAppear(true);
             }
-            GameUtils.gameObjList.addAll(GameUtils.enemyObjList);
+            GameUtils.gameObjList.addAll(GameUtils.enemyList);
         }
 
         int y = 0;
-        for (EnemyObj enemy : GameUtils.enemyObjList) {
+        for (Enemy enemy : GameUtils.enemyList) {
             if (y < 2 || y >= 10) {
                 enemy.moveDown(200);
             } else if (y < 4 || y >= 8) {
@@ -365,17 +324,17 @@ public class GameWin extends JFrame {
         }
 
         if (this.bossAppear) {
-            GameUtils.gameObjList.add(new BossObj(GameUtils.bossimg, 280, -120, 50, 50, 1, this));
+            GameUtils.gameObjList.add(new Boss(GameUtils.bossimg, 280, -120, 50, 50, 1, this));
         }
     }
 
     /**
      * This method is the entry point for the Java application.
-     * It creates a new instance of the GameWin class and calls its launch() method, which starts the game.
+     * It creates a new instance of the Window class and calls its launch() method, which starts the game.
      * The args parameter is not used in this method.
      */
     public static void main(String[] args) {
-        GameWin Gamewin = new GameWin();
-        Gamewin.launch();
+        Window gamewin = new Window();
+        gamewin.launch();
     }
 }

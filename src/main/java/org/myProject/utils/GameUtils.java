@@ -12,7 +12,7 @@ import java.util.List;
  * @author YumoZhou
  */
 public class GameUtils {
-    // Background picture
+    // BackGround picture
     public static Image bgimg = Toolkit.getDefaultToolkit().getImage("image/bg.jpeg");
     // boss
     public static Image bossimg = Toolkit.getDefaultToolkit().getImage("image/boss.png");
@@ -34,16 +34,16 @@ public class GameUtils {
     public static List<GameObj> gameObjList = new ArrayList<>();
 
     // our bullets
-    public static List<BulletObj> bulletObjList = new ArrayList<>();
+    public static List<Bullet> bulletList = new ArrayList<>();
     // enemies
 
-    public static List<EnemyObj> enemyObjList = new ArrayList<>();
+    public static List<Enemy> enemyList = new ArrayList<>();
 
-    public static List<PowerUpsObj> powerUpsObjListBulletUpgrade = new ArrayList<>();
-    public static List<HealPowerUpsObj> powerUpsObjListHeal = new ArrayList<>();
+    public static List<PowerUps> powerUpsListBulletUpgrade = new ArrayList<>();
+    public static List<HealPowerUps> powerUpsObjListHeal = new ArrayList<>();
 
-    public static List<HealPowerUpsObj> powerUpsObjListStart = new ArrayList<>();
-    public static List<PowerUpsObj> powerUpsObjListStart2 = new ArrayList<>();
+    public static List<HealPowerUps> powerUpsObjListStart = new ArrayList<>();
+    public static List<PowerUps> powerUpsListStart2 = new ArrayList<>();
 
     public static Image powerups = Toolkit.getDefaultToolkit().getImage("image/powerup.jpg");
     public static Image powerups2 = Toolkit.getDefaultToolkit().getImage("image/powerup2.png");

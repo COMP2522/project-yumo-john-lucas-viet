@@ -1,6 +1,6 @@
 package org.myProject.obj;
 
-import org.myProject.GameWin;
+import org.myProject.Window;
 import org.myProject.utils.GameUtils;
 
 import java.awt.*;
@@ -14,13 +14,13 @@ import java.util.TimerTask;
 import static org.myProject.utils.GameUtils.*;
 
 /**
- * PlaneObj is class representing the player. This class is responsible
+ * Player is class representing the player. This class is responsible
  * for handling player functions such as shooting, checking collision,
  * updating player info (Health, score).
  *
  * @author John Tu
  */
-public class PlaneObj extends GameObj {
+public class Player extends GameObj {
 
   public long lastShotTime = 0;
   public static final long SHOT_DELAY = 250000000; // 0.25 seconds in nanoseconds
@@ -145,7 +145,7 @@ public class PlaneObj extends GameObj {
   }
 
   /**
-   * Creates a PlaneObj object with the given parameters.
+   * Creates a Player object with the given parameters.
    * 
    * @param img    The image of the plane object.
    * @param x      The x-coordinate of the plane object.
@@ -153,10 +153,10 @@ public class PlaneObj extends GameObj {
    * @param width  The width of the plane object.
    * @param height The height of the plane object.
    * @param speed  The speed of the plane object.
-   * @param frame  The GameWin object associated with the plane.
+   * @param frame  The Window object associated with the plane.
    */
-  public PlaneObj(Image img, int x, int y, int width, int height, double speed, GameWin frame,
-      TopScoresUI topScore) {
+  public Player(Image img, int x, int y, int width, int height, double speed, Window frame,
+                TopScoresUI topScore) {
     super(img, x, y, width, height, speed, frame);
     this.topScore = topScore;
 
@@ -171,8 +171,8 @@ public class PlaneObj extends GameObj {
     this.frame.addMouseMotionListener(new MouseAdapter() {
       @Override
       public void mouseMoved(MouseEvent e) {
-        PlaneObj.super.x = e.getX() - MOUSE_OFFSET_X;
-        PlaneObj.super.y = e.getY() - MOUSE_OFFSET_Y;
+        Player.super.x = e.getX() - MOUSE_OFFSET_X;
+        Player.super.y = e.getY() - MOUSE_OFFSET_Y;
       }
     });
 
@@ -186,7 +186,7 @@ public class PlaneObj extends GameObj {
   public void paintself(Graphics gImage) {
     super.paintself(gImage);
     checkCollision();
-    PlayerUIObj UI = new PlayerUIObj(this);
+    PlayerUI UI = new PlayerUI(this);
     UI.drawHealthUI(gImage);
   }
 
@@ -201,29 +201,29 @@ public class PlaneObj extends GameObj {
     try {
       for (GameObj obj : gameObjList) {
         // Check collision for enemy bullets
-        if (obj instanceof BulletObj && ((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-          takeDamage(((BulletObj) obj).getDamage());
+        if (obj instanceof Bullet && ((Bullet) obj).isEnemyBullet && this.collidesWith(obj)) {
+          takeDamage(((Bullet) obj).getDamage());
           GameUtils.removeobjList.add(obj);
           deUpgradeBullets(this.getFireType());
         }
         // Check collision for crashing into enemies
-        if (obj instanceof EnemyObj && this.collidesWith(obj)) {
-          takeDamage(((EnemyObj) obj).getDamage());
+        if (obj instanceof Enemy && this.collidesWith(obj)) {
+          takeDamage(((Enemy) obj).getDamage());
           GameUtils.removeobjList.add(obj);
         }
         // Check collision for crashing into boss
-        if (obj instanceof BossObj && this.collidesWith(obj)) {
-            takeDamage(((BossObj) obj).getDamage());
+        if (obj instanceof Boss && this.collidesWith(obj)) {
+            takeDamage(((Boss) obj).getDamage());
             GameUtils.removeobjList.add(obj);
             deUpgradeBullets(this.getFireType());
           }
           // Check collision for bullet upgrade power up
-        if (obj instanceof PowerUpsObj && this.collidesWith(obj)) {
+        if (obj instanceof PowerUps && this.collidesWith(obj)) {
             upgradeBullets(this.getFireType());
 
           }
           // Check collision for health power up
-        if (obj instanceof HealPowerUpsObj && this.collidesWith(obj)) {
+        if (obj instanceof HealPowerUps && this.collidesWith(obj)) {
             this.healthPickUp(this.getHealth());
           }
       }
@@ -269,7 +269,7 @@ public class PlaneObj extends GameObj {
     }
     health -= dmg;
     if (health <= 0) {
-      GameWin.state = GAME_OVER;
+      Window.state = GAME_OVER;
     }
     invincible = true;
     // Player will become invincible for 0.5s after being hit
@@ -331,7 +331,7 @@ public class PlaneObj extends GameObj {
    * 1 = straight shot, 2 = double shot, 3 = triple shot, 4 = penta shot
    */
   public void shoot() {
-    while (GameWin.state == 1) {
+    while (Window.state == 1) {
       switch (this.fireType) {
         case 1:
           straightShot();
@@ -372,12 +372,12 @@ public class PlaneObj extends GameObj {
       int startX = this.getX() + BULLET_X_OFFSET - ((bulletCount - 1) * bulletSpacing) / 2;
 
       for (int i = 0; i < bulletCount; i++) {
-        BulletObj bullet = new BulletObj(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED,
+        Bullet bullet = new Bullet(shellimg, this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT, BULLET_SPEED,
             this.frame, false);
         bullet.setX(startX + i * bulletSpacing);
         bullet.setY(this.getY() + BULLET_Y_OFFSET);
-        GameUtils.bulletObjList.add(bullet);
-        GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+        GameUtils.bulletList.add(bullet);
+        GameUtils.gameObjList.add(GameUtils.bulletList.get(GameUtils.bulletList.size() - 1));
       }
 
       lastShotTime = currentTime;

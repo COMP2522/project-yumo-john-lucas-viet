@@ -5,18 +5,18 @@ import org.myProject.utils.GameUtils;
 import java.awt.*;
 
 /**
- * PlayerUIObj is used with the PlaneObj class to track player,health,lives, and
+ * PlayerUI is used with the Player class to track player,health,lives, and
  * score and displays it on screen as the UI
  *
  * @author John Tu
  */
-public class PlayerUIObj extends GameObj {
+public class PlayerUI extends GameObj {
   
   
   /**
-   * The PlaneObj object representing the player associated with this UI object.
+   * The Player object representing the player associated with this UI object.
    */
-  private final PlaneObj player;
+  private final Player player;
   private static final int MAX_HEALTH = 4;
   private static final int HEALTH_BAR_WIDTH = 150;
   private static final int HEALTH_BAR_HEIGHT = 15;
@@ -28,11 +28,11 @@ public class PlayerUIObj extends GameObj {
   private static final int SCORE_MARGIN_TOP = 60;
   
   /**
-   * Creates a new PlayerUIObj object associated with the specified PlaneObj player.
+   * Creates a new PlayerUI object associated with the specified Player player.
    *
-   * @param player the PlaneObj object representing the player to track
+   * @param player the Player object representing the player to track
    */
-  public PlayerUIObj(PlaneObj player) {
+  public PlayerUI(Player player) {
     this.player = player;
   }
   
@@ -91,7 +91,7 @@ public class PlayerUIObj extends GameObj {
   public void drawName(Graphics gImage) {
     gImage.setColor(Color.WHITE);
     gImage.setFont(new Font("Arial", Font.BOLD, 12));
-    String playerName = player.getName(); // assuming there's a getName() method in PlaneObj
+    String playerName = player.getName(); // assuming there's a getName() method in Player
     int playerNameX = player.getX() + player.getWidth() / 2 - gImage.getFontMetrics().stringWidth(playerName) / 2;
     int playerNameY = player.getY() + player.getHeight() + PLAYER_SPRITE_GAP + 12; // 12 is the font size
     gImage.drawString(playerName, playerNameX, playerNameY);
