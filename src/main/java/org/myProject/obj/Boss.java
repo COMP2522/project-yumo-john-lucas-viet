@@ -1,6 +1,6 @@
 package org.myProject.obj;
 
-import org.myProject.GameWin;
+import org.myProject.Window;
 import org.myProject.utils.GameUtils;
 
 import java.awt.*;
@@ -12,13 +12,13 @@ import javax.swing.Timer;
 import static org.myProject.utils.GameUtils.*;
 
 /**
- BossObj class - this class represent the Boss object in the game.
+ Boss class - this class represent the Boss object in the game.
  This class contain boss's basic functions.
  @author : Viet Nguyen
  @version : 1.0
  */
 
-public class BossObj extends GameObj implements ActionListener{
+public class Boss extends GameObj implements ActionListener{
     /**
 
      A Timer object that controls the timing of the game object's actions.
@@ -46,9 +46,9 @@ public class BossObj extends GameObj implements ActionListener{
     private long lastShotTime = 0;
     /**
 
-     The GameWin object that represents the game window in which the game object is spawned.
+     The Window object that represents the game window in which the game object is spawned.
      */
-    public GameWin window;
+    public Window window;
     /**
 
      The number of hitpoints that the game object has.
@@ -81,7 +81,7 @@ public class BossObj extends GameObj implements ActionListener{
      * @param speed the speed of the boss object
      * @param frame the game window that contains the boss object
      */
-    public BossObj(Image img, int x, int y, int width, int height, double speed, GameWin frame) {
+    public Boss(Image img, int x, int y, int width, int height, double speed, Window frame) {
         super(img, x, y, width, height, speed, frame);
         this.timer = new Timer(10, this);
         timer.start();
@@ -124,19 +124,19 @@ public class BossObj extends GameObj implements ActionListener{
     /**
      * Checks collision between the enemy object and other game objects.
      */
-    private void checkCollision(PlaneObj planeobj, Graphics gImage){
+    private void checkCollision(Player planeobj, Graphics gImage){
         List<GameObj> gameObjList = GameUtils.gameObjList;
         for (GameObj obj : gameObjList) {
             //Decrement boss's hit-points by one everytime it get hit by player's bullet
-            if (obj instanceof BulletObj && !((BulletObj) obj).isEnemyBullet && this.collidesWith(obj)) {
-                this.hitpoints -= ((BulletObj) obj).getDamage();
+            if (obj instanceof Bullet && !((Bullet) obj).isEnemyBullet && this.collidesWith(obj)) {
+                this.hitpoints -= ((Bullet) obj).getDamage();
                 if(this.hitpoints == 0){
                     planeobj.setScore(planeobj.getScore() + this.score);
                     this.isActive = false;
                     gImage.drawImage(GameUtils.explodeimg, this.x, this.y, null);
                     GameUtils.removeobjList.add(this);
 
-                    PowerUpsObj power = new PowerUpsObj(powerUpImage, x, y, 20, 30, 2, frame);
+                    PowerUps power = new PowerUps(powerUpImage, x, y, 20, 30, 2, frame);
                     power.bossPowerUp(x, y + 100);
                     power.bossPowerUp(x+40, y + 100);
                     break;
@@ -144,7 +144,7 @@ public class BossObj extends GameObj implements ActionListener{
             }
 
             //If boss plane collide directly with player's plane it will be deleted.
-            if (obj instanceof PlaneObj && this.collidesWith(obj)){
+            if (obj instanceof Player && this.collidesWith(obj)){
                 this.isActive = false;
                 gImage.drawImage(GameUtils.explodeimg, this.x, this.y, null);
                 GameUtils.removeobjList.add(this);
@@ -208,11 +208,11 @@ public class BossObj extends GameObj implements ActionListener{
 
         if (timeSinceLastShot >= 900000000) {
             for(int i = 0; i < beam; i++) {
-                BulletObj bullet = new BulletObj(reverseShell, this.x, this.y, 5, 10, 14, this.frame, true);
+                Bullet bullet = new Bullet(reverseShell, this.x, this.y, 5, 10, 14, this.frame, true);
                 bullet.setY(this.y);
                 bullet.setX(this.x + i * bullet_offset);
-                GameUtils.bulletObjList.add(bullet);
-                GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
+                GameUtils.bulletList.add(bullet);
+                GameUtils.gameObjList.add(GameUtils.bulletList.get(GameUtils.bulletList.size() - 1));
             }
             lastShotTime = currentTime;
         }

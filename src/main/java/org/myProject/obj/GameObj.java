@@ -1,6 +1,6 @@
 package org.myProject.obj;
 
-import org.myProject.GameWin;
+import org.myProject.Window;
 
 import java.awt.*;
 /**
@@ -15,7 +15,7 @@ public class GameObj {
     int width;
     int height;
     double speed;//Moving speed
-    GameWin frame;//window reference
+    Window frame;//window reference
 
     /**
      * Get the image of the object
@@ -127,7 +127,7 @@ public class GameObj {
      * Get the window reference of the object
      * @return the window reference of the object
      */
-    public GameWin getFrame() {
+    public Window getFrame() {
         return frame;
     }
 
@@ -135,7 +135,7 @@ public class GameObj {
      * Set the window reference of the object
      * @param frame the new window reference of the object
      */
-    public void setFrame(GameWin frame) {
+    public void setFrame(Window frame) {
         this.frame = frame;
     }
 
@@ -158,7 +158,7 @@ public class GameObj {
     /**
      * Create a new GameObj with 7 arguments
      */
-    public GameObj(Image img, int x, int y, int width, int height, double speed, GameWin frame) {
+    public GameObj(Image img, int x, int y, int width, int height, double speed, Window frame) {
         this.img = img;
         this.x = x;
         this.y = y;

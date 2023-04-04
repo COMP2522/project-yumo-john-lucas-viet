@@ -71,13 +71,13 @@ public class TopScoresUI extends GameObj {
   
   /**
    * Adds the local score to the top scores list.
-   * @param plane The PlaneObj object that contains the score to add.
+   * @param plane The Player object that contains the score to add.
    */
   /**
    * Adds the local score to the top scores list.
-   * @param plane The PlaneObj object that contains the score to add.
+   * @param plane The Player object that contains the score to add.
    */
-  public void addLocalScore(PlaneObj plane) {
+  public void addLocalScore(Player plane) {
     String playerName = plane.getName();
     int playerScore = plane.getScore();
     boolean playerExists = false;

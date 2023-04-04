@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-import org.myProject.GameWin;
+import org.myProject.Window;
 import org.myProject.utils.GameUtils;
 
 
@@ -14,7 +14,7 @@ import org.myProject.utils.GameUtils;
  *
  * @author Lucas Ying
  */
-public class HealPowerUpsObj extends GameObj {
+public class HealPowerUps extends GameObj {
 
   /**
    * The width of the power-up object.
@@ -27,16 +27,16 @@ public class HealPowerUpsObj extends GameObj {
 
 
   /**
-   * Constructs a new HealPowerUpsObj with the given parameters.
+   * Constructs a new HealPowerUps with the given parameters.
    * @param powerUpImg The image of the power-up object
    * @param x The x coordinate of the power-up object
    * @param y The y coordinate of the power-up object
    * @param powerUpWidth The width of the power-up object
    * @param powerUpHeight The height of the power-up object
    * @param speed The speed of the power-up object
-   * @param frame The GameWin object that the power-up object belongs to
+   * @param frame The Window object that the power-up object belongs to
    */
-  public HealPowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin frame) {
+  public HealPowerUps(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, Window frame) {
     super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, frame);
     this.powerUpWidth = powerUpWidth;
     this.powerUpHeight = powerUpHeight;
@@ -76,7 +76,7 @@ public class HealPowerUpsObj extends GameObj {
     List<GameObj> gameObjList = GameUtils.gameObjList;
     try {
       for (GameObj obj : gameObjList) {
-        if (obj instanceof PlaneObj && this.collidesWith(obj)) {
+        if (obj instanceof Player && this.collidesWith(obj)) {
           GameUtils.gameObjList.remove(this);
           GameUtils.gameObjList.remove(GameUtils.powerUpsObjListHeal);
 

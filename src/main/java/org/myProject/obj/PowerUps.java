@@ -5,7 +5,7 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 
-import org.myProject.GameWin;
+import org.myProject.Window;
 import org.myProject.utils.GameUtils;
 
 
@@ -16,7 +16,7 @@ import org.myProject.utils.GameUtils;
  *
  * @author Lucas Ying
  */
-public class PowerUpsObj extends GameObj {
+public class PowerUps extends GameObj {
 
   /**
    * The width of the power-up object.
@@ -30,7 +30,7 @@ public class PowerUpsObj extends GameObj {
 
 
   /**
-   * Constructs a new PowerUpsObj with the specified image, position, size, speed, and GameWin instance.
+   * Constructs a new PowerUps with the specified image, position, size, speed, and Window instance.
    *
    * @param powerUpImg The image to use for the power-up object.
    * @param x The x-coordinate of the power-up object's position.
@@ -38,9 +38,9 @@ public class PowerUpsObj extends GameObj {
    * @param powerUpWidth The width of the power-up object.
    * @param powerUpHeight The height of the power-up object.
    * @param speed The speed of the power-up object.
-   * @param frame The GameWin instance that the power-up object is associated with.
+   * @param frame The Window instance that the power-up object is associated with.
    */
-  public PowerUpsObj(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, GameWin frame) {
+  public PowerUps(Image powerUpImg, int x, int y, int powerUpWidth, int powerUpHeight, int speed, Window frame) {
     super(powerUpImg, x, y, powerUpWidth, powerUpHeight, speed, frame);
     this.powerUpWidth = powerUpWidth;
     this.powerUpHeight = powerUpHeight;
@@ -81,9 +81,9 @@ public class PowerUpsObj extends GameObj {
     List<GameObj> gameObjList = GameUtils.gameObjList;
     try {
       for (GameObj obj : gameObjList) {
-        if (obj instanceof PlaneObj && this.collidesWith(obj)) {
+        if (obj instanceof Player && this.collidesWith(obj)) {
           GameUtils.gameObjList.remove(this);
-          GameUtils.gameObjList.remove(GameUtils.powerUpsObjListBulletUpgrade);
+          GameUtils.gameObjList.remove(GameUtils.powerUpsListBulletUpgrade);
 
 
 
@@ -106,31 +106,31 @@ public class PowerUpsObj extends GameObj {
 
 
     if (probability <= 0.2) {
-      GameUtils.powerUpsObjListBulletUpgrade.clear();
+      GameUtils.powerUpsListBulletUpgrade.clear();
       GameUtils.powerUpsObjListHeal.clear();
       if (number == 1) {
-        GameUtils.powerUpsObjListBulletUpgrade.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, frame));
+        GameUtils.powerUpsListBulletUpgrade.add(new PowerUps(GameUtils.powerups, x, y, 20, 30, 0, frame));
       } else {
-        GameUtils.powerUpsObjListHeal.add(new HealPowerUpsObj(GameUtils.powerups2, x, y, 20, 30, 0, frame));
+        GameUtils.powerUpsObjListHeal.add(new HealPowerUps(GameUtils.powerups2, x, y, 20, 30, 0, frame));
       }
 
 
-      GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListBulletUpgrade);
+      GameUtils.gameObjList.addAll(GameUtils.powerUpsListBulletUpgrade);
       GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListHeal);
 
     }
   }
 
   /**
-   *Adds a new PowerUpsObj object to the powerUpsObjListBulletUpgrade list and to the gameObjList.
+   *Adds a new PowerUps object to the powerUpsListBulletUpgrade list and to the gameObjList.
    * 100% add two bullet upgrades.
-   *@param x the x coordinate of the HealPowerUpsObj object
-   *@param y the y coordinate of the HealPowerUpsObj object
+   *@param x the x coordinate of the HealPowerUps object
+   *@param y the y coordinate of the HealPowerUps object
    */
   public void bossPowerUp(int x, int y) {
-    GameUtils.powerUpsObjListBulletUpgrade.clear();
-    GameUtils.powerUpsObjListBulletUpgrade.add(new PowerUpsObj(GameUtils.powerups, x, y, 20, 30, 0, frame));
-    GameUtils.gameObjList.addAll(GameUtils.powerUpsObjListBulletUpgrade);
+    GameUtils.powerUpsListBulletUpgrade.clear();
+    GameUtils.powerUpsListBulletUpgrade.add(new PowerUps(GameUtils.powerups, x, y, 20, 30, 0, frame));
+    GameUtils.gameObjList.addAll(GameUtils.powerUpsListBulletUpgrade);
 
   }
 
