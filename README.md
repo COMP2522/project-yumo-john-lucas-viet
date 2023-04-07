@@ -2,7 +2,8 @@
 
 This game is our COMP2522 project, hope you will enjoy it.
 ## Introduction
- "Space War" is a desktop-based game with a graphical user interface, implemented using the Java programming language and the Swing and AWT libraries.
+
+"Space War" is a desktop-based game with a graphical user interface, implemented using the Java programming language and the Swing and AWT libraries.
 -------
 ![img_1.png](https://github.com/COMP2522/project-yumo-john-lucas-viet/blob/main/image/img_2.png)
 
