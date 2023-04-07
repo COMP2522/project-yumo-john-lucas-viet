@@ -1,6 +1,6 @@
 # Welcome to Space War! <img src="http://i.imgur.com/Cj4rMrS.gif" height="40" alt="Swimming Octocat" title="Games on GitHub">
 "Space War" is a desktop-based game with a graphical user interface, implemented using the Java programming language and Swing and AWT libraties.
-This game is our comp2522 project, hope you will wnjoy it.
+This game is our comp2522 project, hope you will enjoy it.
 
 -------
 ![img_1.png](https://github.com/COMP2522/project-yumo-john-lucas-viet/blob/main/image/img_2.png)
