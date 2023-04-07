@@ -3,9 +3,9 @@
 This game is our COMP2522 project, hope you will enjoy it.
 
 -------
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
+![img_1.png](https://github.com/COMP2522/project-yumo-john-lucas-viet/blob/main/image/img_2.png)
+
+![img_3.png](https://github.com/COMP2522/project-yumo-john-lucas-viet/blob/main/image/img_3.png)
 
 ## How to play it
 - Run`Window.java`
