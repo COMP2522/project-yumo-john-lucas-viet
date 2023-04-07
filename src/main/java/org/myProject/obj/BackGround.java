@@ -9,13 +9,10 @@ import java.awt.*;
  * @author YumoZhou
  */
 public class BackGround extends GameObj {
-    //Rewrite constructor and paintself method
     public BackGround() {
         super();
     }
-    //the height of the background image is 1024,
-    // the height of the window is 600,
-    // use -400 to keep resetting the position of the image.
+    // the height of the background image is 1024,the height of the window is 600,use -400 to keep resetting the position of the image.
     private static final int a = -400;
 
     /**
