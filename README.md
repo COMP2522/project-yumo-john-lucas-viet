@@ -23,7 +23,7 @@ This game is our COMP2522 project, hope you will enjoy it.
   - BackGround.java
   - GameUtils.java
   
-- JohnTu
+- John Tu
   - Debugging
   - Player.java
   - PlayerUI.java
