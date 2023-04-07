@@ -22,16 +22,19 @@ This game is our COMP2522 project, hope you will enjoy it.
   - GameObj.java
   - BackGround.java
   - GameUtils.java
+  
 - JohnTu
   - Debugging
   - Player.java
   - PlayerUI.java
   - TopScoreUI.java
   - DataBase
+  
 - Haochen Ying
   - Bullet.java
   - HealPowerUps.java
   - PowerUps.java
+  
 - Viet Hai
   - Enemy.java
   - Boss.java
